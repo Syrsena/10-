@@ -11,10 +11,10 @@ namespace ConsoleApp8
         static void Main(string[] args)
         {
             int pictureInRow = 3;
-            int howManyPicturesHaveUser = 52;
-            int howManyFullRow = howManyPicturesHaveUser / pictureInRow;
-            int howManyExcessPictures = howManyPicturesHaveUser % pictureInRow;
-            Console.WriteLine(howManyFullRow +" кол-во заполненных рядов. " + howManyExcessPictures + " - кол-во оставшихся картинок.");
+            int amountPicturesHaveUser = 52;
+            int amountFullRow = amountPicturesHaveUser / pictureInRow;
+            int amountExcessPictures = amountPicturesHaveUser % pictureInRow;
+            Console.WriteLine(amountFullRow +" кол-во заполненных рядов. " + amountExcessPictures + " - кол-во оставшихся картинок.");
         }
     }
 }
