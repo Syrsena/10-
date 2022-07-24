@@ -1,1 +1,1 @@
-# 10 variables
+// 10 variables
