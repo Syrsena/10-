@@ -10,12 +10,12 @@ namespace _10
     {
         static void Main(string[] args)
         {
-            int number;
+            int numberOfRound;
             string round;
             float howMuchHp;
             char yourPlaceInFinal;
             bool areYouWin;
-            float damage;
+            float characterDamage;
             int yourHealth;
             long ageOfUniverse;
             int yourGainings;
