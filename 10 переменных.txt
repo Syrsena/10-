@@ -12,8 +12,8 @@ namespace _10
         {
             int numberOfRound;
             string round;
-            float howMuchHp;
-            char yourPlaceInFinal;
+            float heroHp;
+            char placeHeroInFinal;
             bool areYouWin;
             float characterDamage;
             int yourHealth;
