@@ -13,8 +13,8 @@ namespace ConsoleApp9
             string name = "Skobnikov";
             string surname = "Andrey";
             Console.WriteLine($"{name} {surname}");
-            string newname = "Andrey";
-            string newsurname = "Skobnikov";
+            string newName = "Andrey";
+            string newSurname = "Skobnikov";
             Console.WriteLine($"{newname} {newsurname}");
 
         }
