@@ -10,16 +10,16 @@ namespace _10
     {
         static void Main(string[] args)
         {
-            int numberOfRound;
+            byte numberOfRound;
             string round;
-            float heroHp;
+            ushort heroHp;
             char placeHeroInFinal;
-            bool areYouWin;
+            bool doesHeroWin;
             float characterDamage;
-            int yourHealth;
+            int healthHero;
             long ageOfUniverse;
-            int yourGainings;
-            string rubles;
+            double gainingsHero;
+            short popularityHero;
         }
     }
 }
