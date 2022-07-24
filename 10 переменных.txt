@@ -10,15 +10,15 @@ namespace _10
     {
         static void Main(string[] args)
         {
-            int iq;
-            string slovo;
-            float p;
-            char z;
-            string slovoNeVorobey;
-            sbyte temperatura;
-            int population;
+            int number;
+            string round;
+            float howMuchHp;
+            char yourPlaceInFinal;
+            bool areYouWin;
+            float damage;
+            int yourHealth;
             long ageOfUniverse;
-            int zarplata;
+            int yourGainings;
             string rubles;
         }
     }
