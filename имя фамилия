@@ -10,13 +10,14 @@ namespace ConsoleApp9
     {
         static void Main(string[] args)
         {
-            string name = "Skobnikov";
-            string surname = "Andrey";
+            string name;
+            string surname;
+            name ="Skobnikov";
+            surname ="Andrey";
             Console.WriteLine($"{name} {surname}");
-            string newName = "Andrey";
-            string newSurname = "Skobnikov";
-            Console.WriteLine($"{newname} {newsurname}");
-
+            name = "Andrey";
+            surname = "Skobnikov";
+            Console.WriteLine($"{name} {surname}");
         }
     }
 }
