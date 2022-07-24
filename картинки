@@ -1,0 +1,20 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp8
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int pictureInRow = 3;
+            int howManyPicturesHaveUser = 52;
+            int howManyFullRow = howManyPicturesHaveUser / pictureInRow;
+            int howManyExcessPictures = howManyPicturesHaveUser % pictureInRow;
+            Console.WriteLine(howManyFullRow +" кол-во заполненных рядов. " + howManyExcessPictures + " - кол-во оставшихся картинок.");
+        }
+    }
+}
