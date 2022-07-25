@@ -4,20 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp9
+namespace ConsoleApp5
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            string name;
-            string surname;
-            name ="Skobnikov";
-            surname ="Andrey";
-            Console.WriteLine($"{name} {surname}");
-            name = "Andrey";
-            surname = "Skobnikov";
-            Console.WriteLine($"{name} {surname}");
+            string surname = "Andrey";
+            string name = "Skobnikov";
+            string bufferSurname;
+            string buffername;
+            Console.WriteLine($"Фамилия {surname} Имя {name}");
+
+            buffername = surname;
+            bufferSurname = name;
+
+            name = buffername;
+            surname = bufferSurname;
+
+            Console.WriteLine($"Фамилия {surname} Имя {name}");
         }
     }
 }
