@@ -16,7 +16,7 @@ namespace ConsoleApp5
             string bufferName;
             Console.WriteLine($"Фамилия {surname} Имя {name}");
 
-            buffername = surname;
+            bufferName = surname;
             bufferSurname = name;
 
             name = bufferName;
