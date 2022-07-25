@@ -13,13 +13,13 @@ namespace ConsoleApp5
             string surname = "Andrey";
             string name = "Skobnikov";
             string bufferSurname;
-            string buffername;
+            string bufferName;
             Console.WriteLine($"Фамилия {surname} Имя {name}");
 
             buffername = surname;
             bufferSurname = name;
 
-            name = buffername;
+            name = bufferName;
             surname = bufferSurname;
 
             Console.WriteLine($"Фамилия {surname} Имя {name}");
