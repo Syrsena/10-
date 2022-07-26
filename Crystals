@@ -10,19 +10,19 @@ namespace ConsoleApp6
     {
         static void Main(string[] args)
         {
-            float moneyHero;
-            float priceCrystals = 70.35f;
+            float money;
+            float priceCrystalsPerOne = 70.35f;
             bool enoughMoney;
             Console.WriteLine("Добро пожаловать в магазин кристалов! Сколько деньжат ты готов нам отдать?");
-            moneyHero = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine($"Кристалы сегодня по {priceCrystals} рублей");
+            money = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine($"Кристалы сегодня по {priceCrystalsPerOne} рублей");
             Console.WriteLine("Сколько кристалов ты купишь?");
             int crystalsCount = Convert.ToInt32(Console.ReadLine());
-            enoughMoney = moneyHero >= priceCrystals * crystalsCount;
+            enoughMoney = money >= priceCrystalsPerOne * crystalsCount;
             crystalsCount *= Convert.ToInt32(enoughMoney);
-            moneyHero -= Convert.ToSingle(crystalsCount * priceCrystals);
+            moneyH -= Convert.ToSingle(crystalsCount * priceCrystalsPerOne);
 
-            Console.WriteLine($"Вы купили - {crystalsCount}, у вас осталось - {moneyHero} рублей. Поздравляю!");
+            Console.WriteLine($"Вы купили - {crystalsCount}, у вас осталось - {money} рублей. Поздравляю!");
         }
     }
 }
