@@ -1,0 +1,21 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp10
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int babulyaCount;
+            int fixTime = 10;
+            Console.WriteLine("Введите количество старушек");
+            babulyaCount = Convert.ToInt32(Console.ReadLine());
+            int timeInLine = fixTime * babulyaCount;
+            Console.WriteLine($"Вам ждать еще {timeInLine} минут......")
+        }
+    }
+}
