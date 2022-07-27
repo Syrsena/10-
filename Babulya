@@ -10,12 +10,21 @@ namespace ConsoleApp10
     {
         static void Main(string[] args)
         {
-            int babulyaCount;
+            int grandmaCount;
+            int timeInLine;
+            int hourInLine;
+            int minutesInLine;
             int fixTime = 10;
+            int minutesPerHour = 60;
+
             Console.WriteLine("Введите количество старушек");
-            babulyaCount = Convert.ToInt32(Console.ReadLine());
-            int timeInLine = fixTime * babulyaCount;
-            Console.WriteLine($"Вам ждать еще {timeInLine} минут......")
+
+            grandmaCount = Convert.ToInt32(Console.ReadLine());
+            timeInLine = fixTime * grandmaCount;
+            hourInLine = timeInLine / minutesPerHour;
+            minutesInLine = timeInLine % minutesPerHour;
+
+            Console.WriteLine($"Вам ждать еще {hourInLine} часов, {minutesInLine} минут.");
         }
     }
 }
