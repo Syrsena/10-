@@ -14,14 +14,13 @@ namespace ConsoleApp7
             Console.WriteLine("Введите сообщение:");
             userInput = (Console.ReadLine());
 
-            int count;
+            int repeatsCount;
             Console.WriteLine("Введите количество повторов:");
-            count = Convert.ToInt32(Console.ReadLine());
+            repeatsCount = Convert.ToInt32(Console.ReadLine());
 
-            while (count > 0)
+            for (int i = 0; i < repeatsCount ; i++)
             {
                 Console.WriteLine(userInput);
-                count --;
             }
         }
     }
