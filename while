@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp7
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string userInput;
+            Console.WriteLine("Введите сообщение:");
+            userInput = (Console.ReadLine());
+
+            int count;
+            Console.WriteLine("Введите количество повторов:");
+            count = Convert.ToInt32(Console.ReadLine());
+
+            while (count > 0)
+            {
+                Console.WriteLine(userInput);
+                count --;
+            }
+        }
+    }
+}
