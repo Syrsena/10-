@@ -10,17 +10,16 @@ namespace ConsoleApp7
     {
         static void Main(string[] args)
         {
-            bool isActive = true;
             string userInput;
-            string exit = "exit";
-            while (isActive)
+            string commandExit = "exit";
+            while (true)
             
             {
                 Console.WriteLine("Прграмма будет выполняться пока вы не введете exit\nВведите слово: ");
                 userInput = Console.ReadLine();
-                if (userInput == exit)
+                if (userInput == commandExit)
                 {
-                    isActive = false;
+                    break;
                 }
             }
         }
