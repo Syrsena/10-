@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,15 +13,11 @@ namespace ConsoleApp7
         {
             string userInput;
             string commandExit = "exit";
-            while (true)
-            
+
+            while (userInput != commandExit)
             {
-                Console.WriteLine("Прграмма будет выполняться пока вы не введете exit\nВведите слово: ");
+                Console.WriteLine("Прграмма будет выполняться пока вы не введете " + (commandExit)+"\nВведите слово: ");
                 userInput = Console.ReadLine();
-                if (userInput == commandExit)
-                {
-                    break;
-                }
             }
         }
     }
