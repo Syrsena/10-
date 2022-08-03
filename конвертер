@@ -1,0 +1,65 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp17
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            float rubRate = 1;
+            float dollarRate = 60.95f;
+            float euroRate = 71.56f;
+
+            float countRublesBuy = 0;
+            float countDollarsBuy = 0;
+            float countEuroBuy = 0;
+
+            float ballanceInRubles = 15000.15f;
+            float ballanceInDollars = 755.66f;
+            float ballanceInEuro = 543.13f;
+
+            int rublesForDollars = 1;
+            int rublesForEuro = 2;
+            int dollarsForRubles = 3;
+            int dollarsForEuro = 4;
+            int euroForRubles = 5;
+            int euroForDollars = 6;
+
+            int userInput;
+            int commandExit = 7;
+
+            Console.WriteLine($"Ваш баланс: \n{ballanceInRubles} рублей. \n{ballanceInDollars} долларов. \n{ballanceInEuro} евро.\n");
+            Console.WriteLine($"" +
+                $"Купить рубли за доллары - введите {rublesForDollars} \nКупить рубли за евро - введите {rublesForEuro} \n \n" +
+                $"Купить доллары за рубли - введите {dollarsForRubles} \nКупить доллары за евро - введите {dollarsForEuro}\n \n" +
+                $"Купить евро за рубли - введите {euroForRubles} \nКупить евро за доллары - введите {euroForDollars} \n \n" +
+                $"Для выхода - введите {commandExit} \n");
+            userInput = Convert.ToInt32(Console.ReadLine());
+
+            while (userInput != commandExit)
+            {
+                if (userInput == rublesForDollars)
+                {
+                    Console.WriteLine("\nПокупка рублей за доллары:\nКурс рублей за доллары составляет: " + dollarRate +". Ваш баланс - "+ ballanceInDollars +" долларов" +
+                        "\nСколько рублей вы хотите купить ?\n" +
+                        "\nДля выхода - введите " +(commandExit));
+                    countRublesBuy = Convert.ToInt32(Console.ReadLine());
+                    if (countRublesBuy == commandExit)
+                    {
+                        break;
+                    }
+                    if (countRublesBuy > ballanceInDollars)
+                    {
+                        Console.WriteLine("\nНа вашем счете недостаточно средств");
+                        continue;
+                    }
+
+                }
+            }
+        }
+    }
+}
