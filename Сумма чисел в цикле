@@ -10,18 +10,18 @@ namespace ConsoleApp16
     {
         static void Main(string[] args)
         {
-            int multiple3 = 3;
-            int multiple5 = 5;
+            int multipleFird = 3;
+            int multipleFith = 5;
             int minValue = 0;
             int maxValue = 101;
             int sum = 0;
-            Random rand = new Random();
-            int number = rand.Next(minValue, maxValue);
+            Random random = new Random();
+            int number = random.Next(minValue, maxValue);
             Console.WriteLine("Случайное число - " + number + ". Ниже проверка чисел на соответствие условию кратности 3 или 5:");
 
             for (int i = 1; i <= number; i++)
             {
-                if (i % multiple3 == 0 || i % multiple5 == 0)
+                if (i % multipleFird == 0 || i % multipleFith == 0)
                 {
                     sum += i;
                     Console.WriteLine("Число - "+ i +" подходит по условию. Сумма в этой итерации - " + sum);
