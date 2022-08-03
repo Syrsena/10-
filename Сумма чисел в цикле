@@ -10,8 +10,8 @@ namespace ConsoleApp16
     {
         static void Main(string[] args)
         {
-            int multipleFird = 3;
-            int multipleFith = 5;
+            int multipleThird = 3;
+            int multipleFifth = 5;
             int minValue = 0;
             int maxValue = 101;
             int sum = 0;
@@ -21,7 +21,7 @@ namespace ConsoleApp16
 
             for (int i = 1; i <= number; i++)
             {
-                if (i % multipleFird == 0 || i % multipleFith == 0)
+                if (i % multipleThird == 0 || i % multipleFifth == 0)
                 {
                     sum += i;
                     Console.WriteLine("Число - "+ i +" подходит по условию. Сумма в этой итерации - " + sum);
