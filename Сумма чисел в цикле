@@ -1,0 +1,37 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp16
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int multiple3 = 3;
+            int multiple5 = 5;
+            int minValue = 0;
+            int maxValue = 101;
+            int sum = 0;
+            Random rand = new Random();
+            int number = rand.Next(minValue, maxValue);
+            Console.WriteLine("Случайное число - " + number + ". Ниже проверка чисел на соответствие условию кратности 3 или 5:");
+
+            for (int i = 1; i <= number; i++)
+            {
+                if (i % multiple3 == 0 || i % multiple5 == 0)
+                {
+                    sum += i;
+                    Console.WriteLine("Число - "+ i +" подходит по условию. Сумма в этой итерации - " + sum);
+                }
+                else
+                {
+                    Console.WriteLine("Число - "+ i +" не подходит по условию.");
+                }
+            }
+            Console.WriteLine("Сумма всех подходящих чисел = " + sum);
+        }
+    }
+}
