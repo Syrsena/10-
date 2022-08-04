@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +15,8 @@ namespace ConsoleApp17
             float dollarRate = 60.95f;
             float euroRate = 71.56f;
 
-            float countRublesBuy ;
-            float countDollarsBuy ;
+            float countRublesBuy;
+            float countDollarsBuy;
             float countEuroBuy0;
 
             float ballanceInRubles = 15000.15f;
@@ -41,14 +42,15 @@ namespace ConsoleApp17
                 $"Для выхода - введите {commandExit} \n");
             userInput = Convert.ToInt32(Console.ReadLine());
 
-            while (userInput != commandExit)
+            while (userInput != commandExit || userInput == rublesForDollars || userInput == rublesForEuro || userInput == dollarsForRubles || userInput == dollarsForEuro ||
+                userInput == euroForRubles || userInput == euroForDollars)
             {
                 if (userInput == rublesForDollars)
                 {
                     Console.WriteLine("\nПокупка рублей за доллары:\nКурс рублей за доллары составляет: " + dollarRate + ". Ваш баланс - " + ballanceInDollars + " долларов" +
                         "\nСколько рублей вы хотите купить ?\n" +
-                        "\nДля выхода - введите " + (commandExit)+"\n" +
-                        "\nЧтобы вернуться в главное меню - введите " +(commandBack)+"\n");
+                        "\nДля выхода - введите " + (commandExit) + "\n" +
+                        "\nЧтобы вернуться в главное меню - введите " + (commandBack) + "\n");
                     countRublesBuy = Convert.ToInt32(Console.ReadLine());
                     if (countRublesBuy == commandBack)
                     {
@@ -64,15 +66,15 @@ namespace ConsoleApp17
                     {
                         break;
                     }
-                    if (countRublesBuy > ballanceInDollars*dollarRate)
+                    if (countRublesBuy > ballanceInDollars * dollarRate)
                     {
                         Console.WriteLine("\nНа вашем счете недостаточно средств");
                         continue;
                     }
-                    if (countRublesBuy <= ballanceInDollars*dollarRate)
+                    if (countRublesBuy <= ballanceInDollars * dollarRate)
                     {
                         ballanceInRubles += countRublesBuy * rubRate;
-                        ballanceInDollars -= countRublesBuy/dollarRate;
+                        ballanceInDollars -= countRublesBuy / dollarRate;
 
                         Console.WriteLine($"Ваш баланс: \n{ballanceInRubles} рублей. \n{ballanceInDollars} долларов. \n{ballanceInEuro} евро.\n");
                         Console.WriteLine($"" +
@@ -82,6 +84,11 @@ namespace ConsoleApp17
                             $"Для выхода - введите {commandExit} \n");
                         userInput = Convert.ToInt32(Console.ReadLine());
                     }
+                }
+                else
+                {
+                    Console.WriteLine("\nНеравильная команда.\nПовторите ввод.\n");
+                    userInput = Convert.ToInt32(Console.ReadLine()); 
                 }
             }
         }
