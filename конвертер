@@ -1,19 +1,21 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp17
+namespace ConsoleApp18
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            float rubRate = 1;
-            float dollarRate = 60.95f;
-            float euroRate = 71.56f;
+            float rubToDollarRate = 0.017f;
+            float rubToEuroRate = 0.016f;
+            float dollarToRubRate = 60.53f;
+            float dollarToEuroRate = 0.98f;
+            float euroToRubRate = 61.62f;
+            float euroToDollarRate = 1.02f;
 
             float countRublesBuy;
             float countDollarsBuy;
@@ -30,156 +32,127 @@ namespace ConsoleApp17
             int euroForRubles = 5;
             int euroForDollars = 6;
 
-            int userInput;
-            int commandExit = 7;
-            int commandBack = 8;
+            string userInput = "00";
+            string commandExit = "0";
 
-            Console.WriteLine($"Ваш баланс: \n{ballanceInRubles} рублей. \n{ballanceInDollars} долларов. \n{ballanceInEuro} евро.\n");
-            Console.WriteLine($"" +
-                $"Купить рубли за доллары - введите {rublesForDollars} \nКупить рубли за евро - введите {rublesForEuro} \n \n" +
-                $"Купить доллары за рубли - введите {dollarsForRubles} \nКупить доллары за евро - введите {dollarsForEuro}\n \n" +
-                $"Купить евро за рубли - введите {euroForRubles} \nКупить евро за доллары - введите {euroForDollars} \n \n" +
-                $"Для выхода - введите {commandExit} \n");
-            userInput = Convert.ToInt32(Console.ReadLine());
-
-            while (userInput != commandExit || userInput == rublesForDollars || userInput == rublesForEuro || userInput == dollarsForRubles || userInput == dollarsForEuro ||
-                userInput == euroForRubles || userInput == euroForDollars)
+            while (userInput != commandExit)
             {
-                // РУБЛИ ЗА ДОЛЛАРЫ
-                if (userInput == rublesForDollars)
+                Console.WriteLine($"\nВаш баланс: \n{ballanceInRubles} рублей. \n{ballanceInDollars} долларов. \n{ballanceInEuro} евро.\n");
+                Console.WriteLine($"" +
+                    $"Купить рубли за доллары - введите {rublesForDollars} \nКупить рубли за евро - введите {rublesForEuro} \n \n" +
+                    $"Купить доллары за рубли - введите {dollarsForRubles} \nКупить доллары за евро - введите {dollarsForEuro}\n \n" +
+                    $"Купить евро за рубли - введите {euroForRubles} \nКупить евро за доллары - введите {euroForDollars} \n \n" +
+                    $"Для выхода - введите {commandExit} \n");
+                userInput = (Console.ReadLine());
+
+                switch (userInput)
                 {
-                    Console.WriteLine("\nПокупка рублей за доллары:\nКурс рублей за доллары составляет: " + dollarRate + ". Ваш баланс - " + ballanceInDollars + " долларов" +
-                        "\nСколько рублей вы хотите купить ?\n" +
-                        "\nДля выхода - введите " + (commandExit) + "\n" +
-                        "\nЧтобы вернуться в главное меню - введите " + (commandBack) + "\n");
-                    countRublesBuy = Convert.ToInt32(Console.ReadLine());
-                    if (countRublesBuy == commandBack)
-                    {
-                        Console.WriteLine($"\nВаш баланс: \n{ballanceInRubles} рублей. \n{ballanceInDollars} долларов. \n{ballanceInEuro} евро.\n");
-                        Console.WriteLine($"" +
-                            $"Купить рубли за доллары - введите {rublesForDollars} \nКупить рубли за евро - введите {rublesForEuro} \n \n" +
-                            $"Купить доллары за рубли - введите {dollarsForRubles} \nКупить доллары за евро - введите {dollarsForEuro}\n \n" +
-                            $"Купить евро за рубли - введите {euroForRubles} \nКупить евро за доллары - введите {euroForDollars} \n \n" +
-                            $"Для выхода - введите {commandExit} \n");
-                        userInput = Convert.ToInt32(Console.ReadLine());
-                        continue;
-                    }
-                    if (countRublesBuy == commandExit)
-                    {
+                    case "1":
+                        {
+                            Console.WriteLine("\nПокупка рублей за доллары:\nКурс составляет: " + rubToDollarRate + ". Ваш баланс - " + ballanceInDollars + " долларов" +
+                             "\nСколько рублей вы хотите купить ?\n");
+                            countRublesBuy = Convert.ToSingle(Console.ReadLine());
+                            if (ballanceInDollars >= countRublesBuy * rubToDollarRate)
+                            {
+                                ballanceInRubles += countRublesBuy;
+                                ballanceInDollars -= countRublesBuy * rubToDollarRate;
+                                Console.WriteLine($"\nУспешная покупка.\n");
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nНа вашем счете недостаточно средств.\n");
+                            }
+                        }
                         break;
-                    }
-                    if (countRublesBuy > ballanceInDollars * dollarRate)
-                    {
-                        Console.WriteLine("\nНа вашем счете недостаточно средств");
-                        continue;
-                    }
-                    if (countRublesBuy <= ballanceInDollars * dollarRate)
-                    {
-                        ballanceInRubles += countRublesBuy ;
-                        ballanceInDollars -= countRublesBuy / dollarRate;
-
-                        Console.WriteLine($"Ваш баланс: \n{ballanceInRubles} рублей. \n{ballanceInDollars} долларов. \n{ballanceInEuro} евро.\n");
-                        Console.WriteLine($"" +
-                            $"Купить рубли за доллары - введите {rublesForDollars} \nКупить рубли за евро - введите {rublesForEuro} \n \n" +
-                            $"Купить доллары за рубли - введите {dollarsForRubles} \nКупить доллары за евро - введите {dollarsForEuro}\n \n" +
-                            $"Купить евро за рубли - введите {euroForRubles} \nКупить евро за доллары - введите {euroForDollars} \n \n" +
-                            $"Для выхода - введите {commandExit} \n");
-                        userInput = Convert.ToInt32(Console.ReadLine());
-                        continue;
-                    }
-                }
-                // РУБЛИ ЗА ЕВРО
-                if (userInput == rublesForEuro)
-                {
-                    Console.WriteLine("\nПокупка рублей за евро:\nКурс рублей за евро составляет: " + euroRate + ". Ваш баланс - " + ballanceInEuro + " евро" +
-                        "\nСколько рублей вы хотите купить ?\n" +
-                        "\nДля выхода - введите " + (commandExit) + "\n" +
-                        "\nЧтобы вернуться в главное меню - введите " + (commandBack) + "\n");
-                    countRublesBuy = Convert.ToInt32(Console.ReadLine());
-                    if (countRublesBuy == commandBack)
-                    {
-                        Console.WriteLine($"\nВаш баланс: \n{ballanceInRubles} рублей. \n{ballanceInDollars} долларов. \n{ballanceInEuro} евро.\n");
-                        Console.WriteLine($"" +
-                            $"Купить рубли за доллары - введите {rublesForDollars} \nКупить рубли за евро - введите {rublesForEuro} \n \n" +
-                            $"Купить доллары за рубли - введите {dollarsForRubles} \nКупить доллары за евро - введите {dollarsForEuro}\n \n" +
-                            $"Купить евро за рубли - введите {euroForRubles} \nКупить евро за доллары - введите {euroForDollars} \n \n" +
-                            $"Для выхода - введите {commandExit} \n");
-                        userInput = Convert.ToInt32(Console.ReadLine());
-                        continue;
-                    }
-                    if (countRublesBuy == commandExit)
-                    {
+                    case "2":
+                        {
+                            Console.WriteLine("\nПокупка рублей за евро:\nКурс составляет: " + rubToEuroRate + ". Ваш баланс - " + ballanceInEuro + " евро" +
+                        "\nСколько рублей вы хотите купить ?\n");
+                            countRublesBuy = Convert.ToInt32(Console.ReadLine());
+                            if(ballanceInEuro >= countRublesBuy * rubToEuroRate)
+                            {
+                                ballanceInRubles += countRublesBuy;
+                                ballanceInEuro -= countRublesBuy * rubToEuroRate;
+                                Console.WriteLine($"\nУспешная покупка.\n");
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nНа вашем счете недостаточно средств.\n");
+                            }
+                        }
                         break;
-                    }
-                    if (countRublesBuy > ballanceInEuro * euroRate)
-                    {
-                        Console.WriteLine("\nНа вашем счете недостаточно средств");
-                        continue;
-                    }
-                    if (countRublesBuy <= ballanceInEuro * euroRate)
-                    {
-                        ballanceInRubles += countRublesBuy ;
-                        ballanceInEuro -= countRublesBuy / euroRate;
-
-                        Console.WriteLine($"Ваш баланс: \n{ballanceInRubles} рублей. \n{ballanceInDollars} долларов. \n{ballanceInEuro} евро.\n");
-                        Console.WriteLine($"" +
-                            $"Купить рубли за доллары - введите {rublesForDollars} \nКупить рубли за евро - введите {rublesForEuro} \n \n" +
-                            $"Купить доллары за рубли - введите {dollarsForRubles} \nКупить доллары за евро - введите {dollarsForEuro}\n \n" +
-                            $"Купить евро за рубли - введите {euroForRubles} \nКупить евро за доллары - введите {euroForDollars} \n \n" +
-                            $"Для выхода - введите {commandExit} \n");
-                        userInput = Convert.ToInt32(Console.ReadLine());
-                        continue;
-                    }
-                }
-                // ДОЛЛАРЫ ЗА РУБЛИ
-                if (userInput == dollarsForRubles)
-                {
-                    Console.WriteLine("\nПокупка долларов за рубли:\nКурс долларов за рубли составляет: " + dollarRate + ". Ваш баланс - " + ballanceInRubles + " рублей" +
-                        "\nСколько долларов вы хотите купить ?\n" +
-                        "\nДля выхода - введите " + (commandExit) + "\n" +
-                        "\nЧтобы вернуться в главное меню - введите " + (commandBack) + "\n");
-                    countDollarsBuy = Convert.ToInt32(Console.ReadLine());
-                    if (countDollarsBuy == commandBack)
-                    {
-                        Console.WriteLine($"\nВаш баланс: \n{ballanceInRubles} рублей. \n{ballanceInDollars} долларов. \n{ballanceInEuro} евро.\n");
-                        Console.WriteLine($"" +
-                            $"Купить рубли за доллары - введите {rublesForDollars} \nКупить рубли за евро - введите {rublesForEuro} \n \n" +
-                            $"Купить доллары за рубли - введите {dollarsForRubles} \nКупить доллары за евро - введите {dollarsForEuro}\n \n" +
-                            $"Купить евро за рубли - введите {euroForRubles} \nКупить евро за доллары - введите {euroForDollars} \n \n" +
-                            $"Для выхода - введите {commandExit} \n");
-                        userInput = Convert.ToInt32(Console.ReadLine());
-                        continue;
-                    }
-                    if (countDollarsBuy == commandExit)
-                    {
+                    case "3":
+                        {
+                            Console.WriteLine("\nПокупка долларов за рубли:\nКурс составляет: " + dollarToRubRate + ". Ваш баланс - " + ballanceInRubles + " рублей" +
+                        "\nСколько долларов вы хотите купить ?\n");
+                            countDollarsBuy = Convert.ToInt32(Console.ReadLine());
+                            if (ballanceInRubles >= countDollarsBuy * dollarToRubRate)
+                            {
+                                ballanceInDollars += countDollarsBuy;
+                                ballanceInRubles -= countDollarsBuy * dollarToRubRate;
+                                Console.WriteLine($"\nУспешная покупка.\n");
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nНа вашем счете недостаточно средств.\n");
+                            }
+                        }
                         break;
-                    }
-                    if (countDollarsBuy > ballanceInRubles / dollarRate)
-                    {
-                        Console.WriteLine("\nНа вашем счете недостаточно средств");
-                        continue;
-                    }
-                    if (countDollarsBuy <= ballanceInRubles * dollarRate)
-                    {
-                        ballanceInDollars += countDollarsBuy;
-                        ballanceInRubles -= countDollarsBuy * dollarRate;
-
-                        Console.WriteLine($"Ваш баланс: \n{ballanceInRubles} рублей. \n{ballanceInDollars} долларов. \n{ballanceInEuro} евро.\n");
-                        Console.WriteLine($"" +
-                            $"Купить рубли за доллары - введите {rublesForDollars} \nКупить рубли за евро - введите {rublesForEuro} \n \n" +
-                            $"Купить доллары за рубли - введите {dollarsForRubles} \nКупить доллары за евро - введите {dollarsForEuro}\n \n" +
-                            $"Купить евро за рубли - введите {euroForRubles} \nКупить евро за доллары - введите {euroForDollars} \n \n" +
-                            $"Для выхода - введите {commandExit} \n");
-                        userInput = Convert.ToInt32(Console.ReadLine());
-                        continue;
-                    }
+                    case "4":
+                        {
+                            Console.WriteLine("\nПокупка долларов за евро:\nКурс составляет: " + dollarToEuroRate + ". Ваш баланс - " + ballanceInEuro + " евро" +
+                        "\nСколько долларов вы хотите купить ?\n");
+                            countDollarsBuy = Convert.ToInt32(Console.ReadLine());
+                            if (ballanceInEuro >= countDollarsBuy * dollarToEuroRate)
+                            {
+                                ballanceInDollars += countDollarsBuy;
+                                ballanceInEuro -= countDollarsBuy * dollarToEuroRate;
+                                Console.WriteLine($"\nУспешная покупка.\n");
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nНа вашем счете недостаточно средств.\n");
+                            }
+                        }
+                        break;
+                    case "5":
+                        {
+                            Console.WriteLine("\nПокупка евро за рубли:\nКурс составляет: " + euroToRubRate + ". Ваш баланс - " + ballanceInRubles + " рублей" +
+                        "\nСколько евро вы хотите купить ?\n");
+                            countEuroBuy = Convert.ToInt32(Console.ReadLine());
+                            if (ballanceInRubles >= countEuroBuy * euroToRubRate)
+                            {
+                                ballanceInEuro += countEuroBuy;
+                                ballanceInRubles -= countEuroBuy * euroToRubRate;
+                                Console.WriteLine($"\nУспешная покупка.\n");
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nНа вашем счете недостаточно средств.\n");
+                            }
+                        }
+                        break;
+                    case "6":
+                        {
+                            Console.WriteLine("\nПокупка евро за доллары:\nКурс составляет: " + euroToDollarRate + ". Ваш баланс - " + ballanceInDollars + " долларов" +
+                        "\nСколько евро вы хотите купить ?\n");
+                            countEuroBuy = Convert.ToInt32(Console.ReadLine());
+                            if (ballanceInDollars >= countEuroBuy * euroToDollarRate)
+                            {
+                                ballanceInEuro += countEuroBuy;
+                                ballanceInDollars -= countEuroBuy * euroToDollarRate;
+                                Console.WriteLine($"\nУспешная покупка.\n");
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nНа вашем счете недостаточно средств.\n");
+                            }
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("\nНеравильная команда\n");
+                        break;
                 }
-                else
-                {
-                    Console.WriteLine("\nНеравильная команда.\nПовторите ввод.\n");
-                    userInput = Convert.ToInt32(Console.ReadLine());
-                }
-
             }
         }
     }
