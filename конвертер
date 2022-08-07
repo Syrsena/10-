@@ -41,7 +41,8 @@ namespace ConsoleApp18
                 userInput = (Console.ReadLine());
                 switch (userInput)
                 {
-                    case "1":
+
+                    case CommandRubForUsd:
                         {
                             Console.WriteLine("\nПокупка рублей за доллары:\nКурс составляет: " + rubToUSDRate + ". Ваш баланс - " + ballanceInDollars + " долларов" +
                              "\nСколько рублей вы хотите купить ?\n");
@@ -58,7 +59,7 @@ namespace ConsoleApp18
                             }
                         }
                         break;
-                    case "2":
+                    case CommandRubForEur:
                         {
                             Console.WriteLine("\nПокупка рублей за евро:\nКурс составляет: " + rubToEurRate + ". Ваш баланс - " + ballanceInEuro + " евро" +
                         "\nСколько рублей вы хотите купить ?\n");
@@ -75,7 +76,7 @@ namespace ConsoleApp18
                             }
                         }
                         break;
-                    case "3":
+                    case CommandUsdForRub:
                         {
                             Console.WriteLine("\nПокупка долларов за рубли:\nКурс составляет: " + usdToRubRate + ". Ваш баланс - " + ballanceInRubles + " рублей" +
                         "\nСколько долларов вы хотите купить ?\n");
@@ -92,7 +93,7 @@ namespace ConsoleApp18
                             }
                         }
                         break;
-                    case "4":
+                    case CommandUsdForEur:
                         {
                             Console.WriteLine("\nПокупка долларов за евро:\nКурс составляет: " + usdToEurRate + ". Ваш баланс - " + ballanceInEuro + " евро" +
                         "\nСколько долларов вы хотите купить ?\n");
@@ -109,7 +110,7 @@ namespace ConsoleApp18
                             }
                         }
                         break;
-                    case "5":
+                    case CommandEurForRub:
                         {
                             Console.WriteLine("\nПокупка евро за рубли:\nКурс составляет: " + eurToRubRate + ". Ваш баланс - " + ballanceInRubles + " рублей" +
                         "\nСколько евро вы хотите купить ?\n");
@@ -126,7 +127,7 @@ namespace ConsoleApp18
                             }
                         }
                         break;
-                    case "6":
+                    case CommandEurForUsd:
                         {
                             Console.WriteLine("\nПокупка евро за доллары:\nКурс составляет: " + euroToUsdRate + ". Ваш баланс - " + ballanceInDollars + " долларов" +
                         "\nСколько евро вы хотите купить ?\n");
