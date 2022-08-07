@@ -47,6 +47,7 @@ namespace ConsoleApp18
                             Console.WriteLine("\nПокупка рублей за доллары:\nКурс составляет: " + rubToUSDRate + ". Ваш баланс - " + ballanceInDollars + " долларов" +
                              "\nСколько рублей вы хотите купить ?\n");
                             currencyCount = Convert.ToSingle(Console.ReadLine());
+                            
                             if (ballanceInDollars >= currencyCount * rubToUSDRate)
                             {
                                 ballanceInRubles += currencyCount;
@@ -64,6 +65,7 @@ namespace ConsoleApp18
                             Console.WriteLine("\nПокупка рублей за евро:\nКурс составляет: " + rubToEurRate + ". Ваш баланс - " + ballanceInEuro + " евро" +
                         "\nСколько рублей вы хотите купить ?\n");
                             currencyCount = Convert.ToInt32(Console.ReadLine());
+                            
                             if (ballanceInEuro >= currencyCount * rubToEurRate)
                             {
                                 ballanceInRubles += currencyCount;
@@ -81,6 +83,7 @@ namespace ConsoleApp18
                             Console.WriteLine("\nПокупка долларов за рубли:\nКурс составляет: " + usdToRubRate + ". Ваш баланс - " + ballanceInRubles + " рублей" +
                         "\nСколько долларов вы хотите купить ?\n");
                             currencyCount = Convert.ToInt32(Console.ReadLine());
+                            
                             if (ballanceInRubles >= currencyCount * usdToRubRate)
                             {
                                 ballanceInDollars += currencyCount;
@@ -98,6 +101,7 @@ namespace ConsoleApp18
                             Console.WriteLine("\nПокупка долларов за евро:\nКурс составляет: " + usdToEurRate + ". Ваш баланс - " + ballanceInEuro + " евро" +
                         "\nСколько долларов вы хотите купить ?\n");
                             currencyCount = Convert.ToInt32(Console.ReadLine());
+                            
                             if (ballanceInEuro >= currencyCount * usdToEurRate)
                             {
                                 ballanceInDollars += currencyCount;
@@ -115,6 +119,7 @@ namespace ConsoleApp18
                             Console.WriteLine("\nПокупка евро за рубли:\nКурс составляет: " + eurToRubRate + ". Ваш баланс - " + ballanceInRubles + " рублей" +
                         "\nСколько евро вы хотите купить ?\n");
                             currencyCount = Convert.ToInt32(Console.ReadLine());
+                            
                             if (ballanceInRubles >= currencyCount * eurToRubRate)
                             {
                                 ballanceInEuro += currencyCount;
@@ -132,6 +137,7 @@ namespace ConsoleApp18
                             Console.WriteLine("\nПокупка евро за доллары:\nКурс составляет: " + euroToUsdRate + ". Ваш баланс - " + ballanceInDollars + " долларов" +
                         "\nСколько евро вы хотите купить ?\n");
                             currencyCount = Convert.ToInt32(Console.ReadLine());
+                            
                             if (ballanceInDollars >= currencyCount * euroToUsdRate)
                             {
                                 ballanceInEuro += currencyCount;
