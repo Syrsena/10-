@@ -39,9 +39,9 @@ namespace ConsoleApp18
                     $"Купить евро за рубли - введите {CommandEurForRub} \nКупить евро за доллары - введите {CommandEurForUsd} \n \n" +
                     $"Для выхода - введите {commandExit} \n");
                 userInput = (Console.ReadLine());
+                
                 switch (userInput)
                 {
-
                     case CommandRubForUsd:
                         {
                             Console.WriteLine("\nПокупка рублей за доллары:\nКурс составляет: " + rubToUSDRate + ". Ваш баланс - " + ballanceInDollars + " долларов" +
