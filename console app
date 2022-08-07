@@ -10,15 +10,162 @@ namespace ConsoleApp18
     {
         static void Main(string[] args)
         {
+            const string CommandSetFontColor = "1";
+            const string CommandSetBackgroundColor = "2";
+            const string CommandWriteName = "3";
+            const string CommandChangePassword = "4";
+            const string CommandChangeUserName = "5";
+            const string CommandExit = "00";
+            const string FontColorGreen = "1";
+            const string FontColorBlue = "2";
+            const string FontColorRed = "3";
+            const string FontColorBlack = "4";
+            const string BackgroundColorGreen = "1";
+            const string BackgroundColorBlue = "2";
+            const string BackgroundColorRed = "3";
+            const string BackgroundColorBlack = "4";
 
-            const string CommandSetName = 1;
-            const string CommandSetPassword = 2;
-            const string CommandSetConsoleColor = 3;
-            const string CommandWriteName = 4;
-            const string CommandChangePassword = 5;
-            const string CommandExit = 6;
+            string userName = "";
+            string userPassword = "";
+            string userBufferPassword = "";
+            string userInput = "";
 
+            while (userInput != CommandExit)
+            {
+                while (userPassword == userBufferPassword)
+                {
+                    Console.WriteLine($"Добро пожаловать! Чтобы продолжить, придумайте имя пользователя:");
+                    userName = Console.ReadLine();
+                    Console.WriteLine($"\nПридумайте пароль:");
+                    userPassword = Console.ReadLine();
+                }
+                Console.WriteLine($"\nДобро пожаловать в главное меню.\n" +
+                    $"Для смены цвета текста введите - {CommandSetFontColor}\n" +
+                    $"Для смены цвета фона введите - {CommandSetBackgroundColor}\n" +
+                    $"Для вывода имени пользователя введите - {CommandWriteName}\n" +
+                    $"Для смены пароля введите - {CommandChangePassword}\n" +
+                    $"Для смены имени пользователя введите - {CommandChangeUserName}\n" +
+                    $"Для выхода введите - {CommandExit}\n");
+                userInput = Console.ReadLine();
+                switch (userInput)
+                {
+                    case "00":
+                        {
 
+                        }
+                        break;
+                    case "1":
+                        {
+                            Console.WriteLine($"Выберите цвет:\n" +
+                                $"{FontColorGreen} - Зеленый\n" +
+                                $"{FontColorBlue} - Синий\n" +
+                                $"{FontColorRed} - Красный\n" +
+                                $"{FontColorBlack} - Черный\n");
+                            userInput = Console.ReadLine();
+                            switch (userInput)
+                            {
+                                case FontColorGreen:
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.Green;
+                                        Console.WriteLine("Цвет был изменен\n");
+                                    }
+                                    break;
+                                case FontColorBlue:
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.Blue;
+                                        Console.WriteLine("Цвет был изменен\n");
+                                    }
+                                    break;
+                                case FontColorRed:
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.Red;
+                                        Console.WriteLine("Цвет был изменен\n");
+                                    }
+                                    break;
+                                case FontColorBlack:
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.Black;
+                                        Console.WriteLine("Цвет был изменен\n");
+                                    }
+                                    break;
+                                    default:
+                                    Console.WriteLine("Неправильная команда\n");
+                                    break;
+                            }
+                        }
+                        break;
+                    case "2":
+                        {
+                            Console.WriteLine($"Выберите цвет:\n" +
+                                $"{BackgroundColorGreen} - Зеленый\n" +
+                                $"{BackgroundColorBlue} - Синий\n" +
+                                $"{BackgroundColorRed} - Красный\n" +
+                                $"{BackgroundColorBlack} - Черный\n");
+                            userInput = Console.ReadLine();
+                            switch (userInput)
+                            {
+                                case BackgroundColorGreen:
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.Green;
+                                        Console.WriteLine("Цвет был изменен\n");
+                                    }
+                                    break;
+                                case BackgroundColorBlue:
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.Blue;
+                                        Console.WriteLine("Цвет был изменен\n");
+                                    }
+                                    break;
+                                case BackgroundColorRed:
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.Red;
+                                        Console.WriteLine("Цвет был изменен\n");
+                                    }
+                                    break;
+                                case BackgroundColorBlack:
+                                    {
+                                        Console.BackgroundColor = ConsoleColor.Black;
+                                        Console.WriteLine("Цвет был изменен\n");
+                                    }
+                                    break;
+                                default:
+                                    Console.WriteLine("Неправильная команда\n");
+                                    break;
+                            }
+                        }
+                        break;
+                    case "3":
+                        {
+                            Console.WriteLine((userName)+"\n");
+                        }
+                        break;
+                    case "4":
+                        {
+                            Console.WriteLine("Введите старый пароль\n");
+                            userInput = Console.ReadLine();
+                            if (userInput == userPassword)
+                            {
+                                Console.WriteLine("Введите новый пароль:\n");
+                                userPassword = Console.ReadLine();
+                            }
+                            else
+                            {
+                                Console.WriteLine("Неверный пароль\n");
+                            }
+                        }
+                        break;
+                    case "5":
+                        {
+                            Console.WriteLine("Введите новое имя:\n");
+                            userName = Console.ReadLine();
+                            Console.WriteLine("Имя было изменено.");
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("Неравильная команда\n");
+                        break;
+                }
+            }
         }
     }
 }
