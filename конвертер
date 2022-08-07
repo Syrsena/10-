@@ -10,12 +10,12 @@ namespace ConsoleApp18
     {
         static void Main(string[] args)
         {
-            const int CommandRubForUsd = 1;
-            const int CommandRubForEur = 2;
-            const int CommandUsdForRub = 3;
-            const int CommandUsdForEur = 4;
-            const int CommandEurForRub = 5;
-            const int CommandEurForUsd = 6;
+            const string CommandRubForUsd = "1";
+            const string CommandRubForEur = "2";
+            const string CommandUsdForRub = "3";
+            const string CommandUsdForEur = "4";
+            const string CommandEurForRub = "5";
+            const string CommandEurForUsd = "6";
 
             float rubToUSDRate = 0.017f;
             float rubToEurRate = 0.016f;
@@ -23,13 +23,10 @@ namespace ConsoleApp18
             float usdToEurRate = 0.98f;
             float eurToRubRate = 61.62f;
             float euroToUsdRate = 1.02f;
-
             float currencyCount;
-
             float ballanceInRubles = 15000.15f;
             float ballanceInDollars = 755.66f;
             float ballanceInEuro = 543.13f;
-
             string userInput = "00";
             string commandExit = "0";
 
@@ -42,7 +39,6 @@ namespace ConsoleApp18
                     $"Купить евро за рубли - введите {CommandEurForRub} \nКупить евро за доллары - введите {CommandEurForUsd} \n \n" +
                     $"Для выхода - введите {commandExit} \n");
                 userInput = (Console.ReadLine());
-
                 switch (userInput)
                 {
                     case "1":
