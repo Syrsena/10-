@@ -49,12 +49,12 @@ namespace ConsoleApp18
                 userInput = Console.ReadLine();
                 switch (userInput)
                 {
-                    case "00":
+                    case CommandExit:
                         {
 
                         }
                         break;
-                    case "1":
+                    case CommandSetFontColor:
                         {
                             Console.WriteLine($"Выберите цвет:\n" +
                                 $"{FontColorGreen} - Зеленый\n" +
@@ -88,13 +88,13 @@ namespace ConsoleApp18
                                         Console.WriteLine("Цвет был изменен\n");
                                     }
                                     break;
-                                    default:
+                                default:
                                     Console.WriteLine("Неправильная команда\n");
                                     break;
                             }
                         }
                         break;
-                    case "2":
+                    case CommandSetBackgroundColor:
                         {
                             Console.WriteLine($"Выберите цвет:\n" +
                                 $"{BackgroundColorGreen} - Зеленый\n" +
@@ -134,9 +134,9 @@ namespace ConsoleApp18
                             }
                         }
                         break;
-                    case "3":
+                    case CommandWriteName:
                         {
-                            Console.WriteLine((userName)+"\n");
+                            Console.WriteLine((userName) + "\n");
                         }
                         break;
                     case "4":
@@ -154,7 +154,7 @@ namespace ConsoleApp18
                             }
                         }
                         break;
-                    case "5":
+                    case CommandChangeUserName:
                         {
                             Console.WriteLine("Введите новое имя:\n");
                             userName = Console.ReadLine();
