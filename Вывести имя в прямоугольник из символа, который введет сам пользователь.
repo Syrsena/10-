@@ -1,0 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp18
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string bufferString = "";
+            string name;
+            char symbol;
+            int symbolCount = 0;
+
+            Console.WriteLine("Введите слово");
+            name = Console.ReadLine();
+            Console.WriteLine("Введите символ");
+            symbol = Convert.ToChar(Console.ReadLine());
+            symbolCount = name.Length +2;
+
+            for (int i = 0; i < symbolCount; i++)
+            {
+                bufferString += symbol;
+            }
+            Console.WriteLine(bufferString);
+            Console.WriteLine(symbol + name + symbol);
+            Console.WriteLine(bufferString);
+        }
+    }
+}
