@@ -1,0 +1,24 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp18
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+
+            const string CommandSetName = 1;
+            const string CommandSetPassword = 2;
+            const string CommandSetConsoleColor = 3;
+            const string CommandWriteName = 4;
+            const string CommandChangePassword = 5;
+            const string CommandExit = 6;
+
+
+        }
+    }
+}
