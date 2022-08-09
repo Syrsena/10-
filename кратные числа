@@ -23,7 +23,6 @@ namespace ConsoleApp20
                 if (i > 100)
                 {
                     countOfnumbers++;
-                    Console.WriteLine(i);
                 }
             }
             Console.WriteLine(countOfnumbers);
