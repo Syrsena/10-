@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp19
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string secretMessage = "Покупай NFT";
+            string password = "qwerty";
+            string userInut;
+            int counOfAttempts = 3;
+
+            for (int i = 1; i <= counOfAttempts; i++)
+            {
+                Console.WriteLine("Введите пароль:");
+                userInut = Console.ReadLine();
+
+                if (userInut == password)
+                {
+                    Console.WriteLine(secretMessage);
+                    break;
+                }
+                else
+                {
+                    if ((counOfAttempts - i ) == 0)
+                    {
+                        Console.WriteLine("Неверный пароль. Соболезную.");
+                        break;
+                    }
+                    Console.WriteLine($"У вас осталось - {counOfAttempts - i } попыток");
+                }
+            }
+        }
+    }
+}
