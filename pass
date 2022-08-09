@@ -13,9 +13,9 @@ namespace ConsoleApp19
             string secretMessage = "Покупай NFT";
             string password = "qwerty";
             string userInut;
-            int counOfAttempts = 3;
+            int countOfAttempts = 3;
 
-            for (int i = 1; i <= counOfAttempts; i++)
+            for (int i = 1; i <= countOfAttempts; i++)
             {
                 Console.WriteLine("Введите пароль:");
                 userInut = Console.ReadLine();
@@ -27,12 +27,12 @@ namespace ConsoleApp19
                 }
                 else
                 {
-                    if ((counOfAttempts - i ) == 0)
+                    if ((countOfAttempts - i ) == 0)
                     {
                         Console.WriteLine("Неверный пароль. Соболезную.");
                         break;
                     }
-                    Console.WriteLine($"У вас осталось - {counOfAttempts - i } попыток");
+                    Console.WriteLine($"У вас осталось - {countOfAttempts - i } попыток");
                 }
             }
         }
