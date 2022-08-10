@@ -20,7 +20,7 @@ namespace ConsoleApp20
                 countDegrees++;
             }
 
-            Console.WriteLine((randomNumber) + " - случайное число. " + (countDegrees) + "- минимальная степень.");
+            Console.WriteLine((randomNumber) + " - случайное число. " + (countDegrees) + " - минимальная степень.");
         }
     }
 }
