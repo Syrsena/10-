@@ -15,15 +15,17 @@ namespace ConsoleApp20
             // Число N всего одно, его надо получить в нужном диапазоне.
 
             Random random = new Random();
-            int number = random.Next(1, 28);
+            int minRandomValue = 1;
+            int maxRandomValue = 28;
+            int number = random.Next(minRandomValue, maxRandomValue);
             int countOfnumbers = 0;
-            int maxThreeDigitNumber = 999;
-            int minThreeDigitNumber = 100;
+            int maxValue = 999;
+            int minValue = 100;
             Console.WriteLine(number);
 
-            for (int i = number; i <= maxThreeDigitNumber; i += number)
+            for (int i = number; i <= maxValue; i += number)
             {
-                if (i > minThreeDigitNumber)
+                if (i > minValue)
                 {
                     countOfnumbers++;
                 }
