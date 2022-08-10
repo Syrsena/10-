@@ -14,16 +14,16 @@ namespace ConsoleApp20
             // Дано N (1 ≤ N ≤ 27). Найти количество трехзначных натуральных чисел, которые кратны N. Операции деления (/, %) не использовать. А умножение не требуется.
             // Число N всего одно, его надо получить в нужном диапазоне.
 
-            Random randomNumber = new Random();
-            int number = randomNumber.Next(1, 28);
+            Random random = new Random();
+            int number = random.Next(1, 28);
             int countOfnumbers = 0;
             int maxThreeDigitNumber = 999;
-            int minThreeDigitNumber = 100;
+            int initialNumber = 100;
             Console.WriteLine(number);
 
             for (int i = number; i <= maxThreeDigitNumber; i += number)
             {
-                if (i > minThreeDigitNumber)
+                if (i > initialNumber)
                 {
                     countOfnumbers++;
                 }
