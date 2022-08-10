@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,14 +12,15 @@ namespace ConsoleApp20
         static void Main(string[] args)
         {
             Random random = new Random();
-            int randomNumber = random.Next(0, 100);
-            int countdegrees = 0;
+            int randomNumber = random.Next();
+            int countDegrees = 0;
             int multipliedNumber = 2;
+
             for (int i = 1; i < randomNumber; i *= multipliedNumber)
             {
-                countdegrees++;
+                countDegrees++;
             }
-            Console.WriteLine((randomNumber)+" - случайное число. "+ (countdegrees)+ "- минимальная степень." );
+            Console.WriteLine((randomNumber) + " - случайное число. " + (countDegrees) + "- минимальная степень.");
         }
     }
 }
