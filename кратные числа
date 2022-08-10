@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,15 +15,15 @@ namespace ConsoleApp20
             // Число N всего одно, его надо получить в нужном диапазоне.
 
             Random randomNumber = new Random();
-            int Number = randomNumber.Next(1, 28);
+            int number = randomNumber.Next(1, 28);
             int countOfnumbers = 0;
-            int biggestNumber = 999;
-            int initialNumber = 100;
-            Console.WriteLine(Number);
+            int maxThreeDigitNumber = 999;
+            int minThreeDigitNumber = 100;
+            Console.WriteLine(number);
 
-            for (int i = Number; i <= biggestNumber; i += Number)
+            for (int i = number; i <= maxThreeDigitNumber; i += number)
             {
-                if (i > initialNumber)
+                if (i > minThreeDigitNumber)
                 {
                     countOfnumbers++;
                 }
