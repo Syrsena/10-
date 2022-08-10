@@ -18,7 +18,7 @@ namespace ConsoleApp20
             int number = random.Next(1, 28);
             int countOfnumbers = 0;
             int maxThreeDigitNumber = 999;
-            int initialNumber = 100;
+            int minThreeDigitNumber = 100;
             Console.WriteLine(number);
 
             for (int i = number; i <= maxThreeDigitNumber; i += number)
