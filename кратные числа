@@ -23,7 +23,7 @@ namespace ConsoleApp20
 
             for (int i = number; i <= maxThreeDigitNumber; i += number)
             {
-                if (i > initialNumber)
+                if (i > minThreeDigitNumber)
                 {
                     countOfnumbers++;
                 }
