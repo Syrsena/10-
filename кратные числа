@@ -12,15 +12,17 @@ namespace ConsoleApp20
         {
             // Дано N (1 ≤ N ≤ 27). Найти количество трехзначных натуральных чисел, которые кратны N. Операции деления (/, %) не использовать. А умножение не требуется.
             // Число N всего одно, его надо получить в нужном диапазоне.
-           
-            Random rand = new Random();
-            int n = rand.Next(1, 28);
-            int countOfnumbers = 0;
-            Console.WriteLine(n);
 
-            for (int i = n; i <= 999; i += n)
+            Random randomNumber = new Random();
+            int Number = randomNumber.Next(1, 28);
+            int countOfnumbers = 0;
+            int biggestNumber = 999;
+            int initialNumber = 100;
+            Console.WriteLine(Number);
+
+            for (int i = Number; i <= biggestNumber; i += Number)
             {
-                if (i > 100)
+                if (i > initialNumber)
                 {
                     countOfnumbers++;
                 }
