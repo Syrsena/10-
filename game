@@ -1,0 +1,293 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp15
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            float hpHero = 1000;
+            float maxHpHero = 1000;
+            int mannaHero = 2000;
+            int maxMannaHero = 2000;
+            float hpBoss = 2500;
+            float maxHpBoss = 2500;
+            int regenerationHpHero = 50;
+            int regenerationMannaHero = 100;
+            int regenerationHpBoss = 100;
+            float blockingDamageHero = 1;
+            float blockingDamageBoss = 1;
+
+            //hero
+            const string UserSpellFireboll = "1";
+            const string UserSpellFireWall = "2";
+            const string UserSpellMelee = "3";
+            const string UserSpellFireFury = "4";
+            const string UserSpellMeteor = "5";
+
+            float firebollDamage;
+            int minFirebollDamage = 150;
+            int maxFirebollDamage = 351;
+            int consumptionMannaSpellFireboll = 500;
+
+            float damageHero;
+            int minDamageHero = 100;
+            int maxDamageHero = 200;
+            float boostDamageHeroFromFireWall = 2.1f;
+            float blockDamageHeroFromFireWall = 0.5f;
+            int countStepsFireWallAction =4;
+            bool fireWallIsActive = false;
+            int consumptionMannaSpellFireWall = 400;
+
+            float boostDamageFirebollFromFireFure = 1.8f;
+            float blockDamageHeroFromFireFury = 1.8f;
+            int countStepsFireFuryAction = 3;
+            int consumptionMannaSpellFireFury = 300;
+            bool fireFuryIsActive = false;
+
+            int consumptionMannaSpellMeteor = 900;
+
+            //boss
+            const int bossSpellMelee = 1;
+            const int bossSpellCallSkeletons = 2;
+            const int bossSpellStun = 3;
+            const int bossSpellCurse = 4;
+            const int bossSpellGolem = 5;
+
+            float damageBoss;
+            int minDamageBoss = 100;
+            int maxDamageBoss = 254;
+            float SleketonsCallDamage;
+            int minSkeletonsDamage = 88;
+            int maxSkeletonsDamage = 280;
+            bool CallSkeletonsIsActive = false;
+            int minBossInput = 1;
+            int maxBossInput = 6;
+            int countStepsCallSkeletonsAction = 3;
+            int countStepsStepsBossStunAction = 2;
+            int countStepsCurseAction = 3;
+
+
+
+            string userInput;
+            int bossInput;
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write($"Перед вами великий и ужасный -");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write(" Вальдемар Пи - Тун.\n");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine($"Коварный злодей и страшнейший некромант. Он на столько преисполнился, что овладел техникой колдовства без манны. " +
+                $"\nВам предстоит победить его, используя свой арсенал заклинаний.\n" +
+                $"Каждое заклинание требует определенное количество манны, которая восстанавливается после каждого хода.\n" +
+                $"Не забывайте, что промедление равняется смерти, а противник не прощает ошибок." +
+                $"\nКаждый ход Вы и Ваш противник регенирируетесь пополняя манну и здоровье." +
+                $"\nКак и Вы, противник будет пытаться улониться от атак, поэтому не все будет зависеть только от вас... \n\n");
+
+            while (hpHero > 0 || hpBoss > 0)
+            {
+                Console.WriteLine("\nУ вас " + hpHero + " очков здоровья и " + mannaHero + " манны");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("Вальдемар Пи - Тун");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine(" имеет - " + hpBoss + " очков здоровья");
+                Console.ForegroundColor = ConsoleColor.Blue;
+                Console.WriteLine("\nСписок заклинаний:");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine(UserSpellFireboll + " - Вы стреляете огненным шаром, расходующим - " + consumptionMannaSpellFireboll + " манны.\n" +
+                    "Наносит от " + minFirebollDamage + " до " + maxFirebollDamage + " урона\n" +
+                     UserSpellFireWall + " - Вас окружает стена огня, усиливаяющая ваши атаки в ближнем бою и снижающая вражеский урон на " + countStepsFireWallAction + " хода.\n" +
+                     "Расходует - " + consumptionMannaSpellFireWall + " манны.\n" +
+                     UserSpellMelee + " - Ближний бой, не требующий манны.\n" +
+                     UserSpellFireFury + " - Вы впадаете в огненную ярость, от чего увеличивается Ваш урона от огненного шара и метеорита.\nНо так же Ваша защита на "
+                     + countStepsFireFuryAction + " хода. Расходует - " + consumptionMannaSpellFireFury + " манны\n" +
+                     UserSpellMeteor + " - Разрушающий метерорит, обрушивающий мощь космоса.\nРасходует - " + consumptionMannaSpellMeteor + " манны.");
+                Console.WriteLine("\nКаков будет Ваш ход ? ");
+                userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                    case UserSpellFireboll:
+                        {
+                            if (mannaHero >= consumptionMannaSpellFireboll)
+                            {
+                                if (fireFuryIsActive == true)
+                                {
+                                    Random randomDamage = new Random();
+                                    firebollDamage = randomDamage.Next(minFirebollDamage, maxFirebollDamage);
+                                    mannaHero -= consumptionMannaSpellFireboll;
+                                    firebollDamage *= blockingDamageBoss;
+                                    firebollDamage *= boostDamageFirebollFromFireFure;
+                                    hpBoss -= firebollDamage;
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    Console.WriteLine("\nОгненная ярость усиливает ваше заклинание. Огненный шар разрывается и наносит " + firebollDamage + " урона.\n");
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                }
+                                else
+                                {
+                                    Random randomDamage = new Random();
+                                    firebollDamage = randomDamage.Next(minFirebollDamage, maxFirebollDamage);
+                                    mannaHero -= consumptionMannaSpellFireboll;
+                                    firebollDamage *= blockingDamageBoss;
+                                    hpBoss -= firebollDamage;
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    Console.WriteLine("\nОгненный шар взрывается, нанося " + firebollDamage + " урона.\n");
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                }
+
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nВы кастуете заклинание, но вдруг понимаете, что просчитались. Вам не хватает манны и Вы пропускаете ход...");
+                            }
+
+                        }
+                        break;
+                    case UserSpellFireWall:
+                        {
+                            if(mannaHero >= consumptionMannaSpellFireWall)
+                            {
+                                fireWallIsActive = true;
+                                countStepsFireWallAction = 4;
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine("\nОгненная стена окружает Вас. Вальдемар в шоке...\n");
+                                Console.ForegroundColor = ConsoleColor.White;
+                                mannaHero -= consumptionMannaSpellFireWall;
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nВы кастуете заклинание, но вдруг понимаете, что просчитались. Вам не хватает манны и Вы пропускаете ход...");
+                            }
+                        }
+                        break;
+                    case UserSpellMelee:
+                        {
+                            if(fireWallIsActive == true)
+                            {
+                                Random randomDamage = new Random();
+                                damageHero = randomDamage.Next(minDamageHero, maxDamageHero);
+                                damageHero *= boostDamageHeroFromFireWall;
+                                damageHero *= blockingDamageBoss;
+                                hpBoss -= damageHero; ;
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine("\nВы бросаетесь на Вальдемара, сжимая огненные кулаки и нанося " + damageHero +" урона\n");
+                                Console.ForegroundColor = ConsoleColor.White;
+                            }
+                            else
+                            {
+                                Random randomDamage = new Random();
+                                damageHero = randomDamage.Next(minDamageHero, maxDamageHero);
+                                damageHero *= blockingDamageBoss;
+                                hpBoss -= damageHero;
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine("\nВы бросаетесь на Вальдемара в рукопашную схватку, нанеся " + damageHero + " урона\n");
+                                Console.ForegroundColor = ConsoleColor.White;
+                            }
+                        }
+                        break;
+                    case UserSpellFireFury:
+                        {
+                            if (mannaHero >= consumptionMannaSpellFireFury)
+                            {
+                                fireFuryIsActive = true;
+                                countStepsFireFuryAction = 3;
+                                Console.ForegroundColor = ConsoleColor.Green;
+                                Console.WriteLine("\nВы впадаете в огненное безумие и хотите сжечь абсолютено все...\n" +
+                                    "Ваши заклинания теперь мощнее, но урон по вам тоже стал больше\n");
+                                Console.ForegroundColor = ConsoleColor.White;
+                                mannaHero -= consumptionMannaSpellFireFury;
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nВы кастуете заклинание, но вдруг понимаете, что просчитались. Вам не хватает манны и Вы пропускаете ход...");
+                            }
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("\nВы так сильно разволновались, что забыли все свои заклинания и пропустили ход...");
+                        break;
+                }
+
+                if (fireWallIsActive == true)
+                {
+                    blockingDamageHero = blockDamageHeroFromFireWall;
+                    countStepsFireWallAction --;
+                    if (countStepsFireWallAction == 0)
+                    {
+                        fireWallIsActive = false;
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("Огненная стена исчезает...");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                }
+
+
+                Random randomBossInput = new Random();
+                bossInput = randomBossInput.Next(minBossInput, maxBossInput);
+
+                switch (bossInput)
+                {
+                    case bossSpellMelee:
+                        {
+                            Random random = new Random();
+                            damageBoss = Convert.ToSingle(random.Next(minDamageBoss, maxDamageBoss));
+                            damageBoss *= blockingDamageHero;
+                            hpHero -= damageBoss;
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine("\nВальдемар бросается на Вас и бьет, нанеся " + damageBoss + " урона.\n");
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
+                        break;
+                    case bossSpellCallSkeletons:
+                        {
+                            CallSkeletonsIsActive = true;
+                            countStepsCallSkeletonsAction = 3;
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine("\nВальдемар начинает шептать какие-то строки, а вы замечаете, что вокруг Вас поднимаются мертвецы...\n");
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
+                        break;
+                }
+                if (CallSkeletonsIsActive == true)
+                {
+                    Random random = new Random();
+                    SleketonsCallDamage = Convert.ToSingle(random.Next(minSkeletonsDamage, maxSkeletonsDamage));
+                    SleketonsCallDamage *= blockingDamageHero;
+                    hpHero -= SleketonsCallDamage;
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("Скелеты Вальдемара атакуют Вас и наносят " + SleketonsCallDamage + " урона");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    countStepsCallSkeletonsAction--;
+                    if (countStepsCallSkeletonsAction == 0)
+                    {
+                        CallSkeletonsIsActive = false;
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("Скелеты Вальдемара рассыпаются");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                }
+                if(hpHero < maxHpHero)
+                {
+                    hpHero += regenerationHpHero;
+                }
+                if(mannaHero < maxMannaHero)
+                {
+                    mannaHero += regenerationMannaHero;
+                }
+                if(hpBoss < maxHpBoss)
+                {
+                    hpBoss += regenerationHpBoss;
+                }
+            }
+
+            if (hpBoss <= 0)
+            {
+
+            }
+        }
+    }
+}
