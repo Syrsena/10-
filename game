@@ -10,8 +10,18 @@ namespace ConsoleApp15
     {
         static void Main(string[] args)
         {
-            float hpHero = 1000;
-            float maxHpHero = 1000;
+            const string UserSpellFireboll = "1";
+            const string UserSpellFireWall = "2";
+            const string UserSpellMelee = "3";
+            const string UserSpellFireFury = "4";
+            const string UserSpellMeteor = "5";
+            const int bossSpellMelee = 1;
+            const int bossSpellCallSkeletons = 2;
+            const int bossSpellFaceOfDead = 3;
+            const int bossSpellCurse = 4;
+
+            float hpHero = 1700;
+            float maxHpHero = 1700;
             int mannaHero = 2000;
             int maxMannaHero = 2000;
             float hpBoss = 2500;
@@ -21,61 +31,48 @@ namespace ConsoleApp15
             int regenerationHpBoss = 100;
             float blockingDamageHero = 1;
             float blockingDamageBoss = 1;
-
-            //hero
-            const string UserSpellFireboll = "1";
-            const string UserSpellFireWall = "2";
-            const string UserSpellMelee = "3";
-            const string UserSpellFireFury = "4";
-            const string UserSpellMeteor = "5";
-
             float firebollDamage;
-            int minFirebollDamage = 150;
+            int minFirebollDamage = 250;
             int maxFirebollDamage = 351;
-            int consumptionMannaSpellFireboll = 500;
-
+            int consumptionMannaSpellFireboll = 400;
             float damageHero;
-            int minDamageHero = 100;
-            int maxDamageHero = 200;
-            float boostDamageHeroFromFireWall = 2.1f;
-            float blockDamageHeroFromFireWall = 0.5f;
-            int countStepsFireWallAction =4;
+            int minDamageHero = 150;
+            int maxDamageHero = 280;
+            float boostDamageHeroFromFireWall = 2.3f;
+            float blockDamageHeroFromFireWall = 0.6f;
+            int countStepsFireWallAction = 4;
             bool fireWallIsActive = false;
-            int consumptionMannaSpellFireWall = 400;
-
-            float boostDamageFirebollFromFireFure = 1.8f;
-            float blockDamageHeroFromFireFury = 1.8f;
+            int consumptionMannaSpellFireWall = 250;
+            float boostDamageFromFireFure = 1.5f;
+            float deboostBlockHeroFromFireFury = 1.3f;
             int countStepsFireFuryAction = 3;
             int consumptionMannaSpellFireFury = 300;
             bool fireFuryIsActive = false;
-
+            float meteorDamage;
+            int minMeteorDamage = 445;
+            int maxMeteorDamage = 850;
             int consumptionMannaSpellMeteor = 900;
-
-            //boss
-            const int bossSpellMelee = 1;
-            const int bossSpellCallSkeletons = 2;
-            const int bossSpellStun = 3;
-            const int bossSpellCurse = 4;
-            const int bossSpellGolem = 5;
-
-            float damageBoss;
-            int minDamageBoss = 100;
-            int maxDamageBoss = 254;
+            float bossDamage;
+            int minBossDamage = 120;
+            int maxBossDamage = 289;
             float SleketonsCallDamage;
-            int minSkeletonsDamage = 88;
-            int maxSkeletonsDamage = 280;
+            int minSkeletonsDamage = 100;
+            int maxSkeletonsDamage = 240;
             bool CallSkeletonsIsActive = false;
+            float faceOfDeadDamage;
+            int minfaceOfDeadDamage = 125;
+            int maxfaceOfDeadDamage = 250;
+            float curseDamage;
+            int minCurseDanage = 55;
+            int maxCurseDamage = 140;
+            float declineDamageHeroFromCurse = 0.5f;
+            bool curseIsActive = false;
             int minBossInput = 1;
-            int maxBossInput = 6;
+            int maxBossInput = 5;
             int countStepsCallSkeletonsAction = 3;
-            int countStepsStepsBossStunAction = 2;
-            int countStepsCurseAction = 3;
-
-
-
+            int countStepsCurseAction = 4;
             string userInput;
             int bossInput;
-
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write($"Перед вами великий и ужасный -");
             Console.ForegroundColor = ConsoleColor.Red;
@@ -88,7 +85,7 @@ namespace ConsoleApp15
                 $"\nКаждый ход Вы и Ваш противник регенирируетесь пополняя манну и здоровье." +
                 $"\nКак и Вы, противник будет пытаться улониться от атак, поэтому не все будет зависеть только от вас... \n\n");
 
-            while (hpHero > 0 || hpBoss > 0)
+            while (hpHero > 0 && hpBoss > 0)
             {
                 Console.WriteLine("\nУ вас " + hpHero + " очков здоровья и " + mannaHero + " манны");
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -103,9 +100,9 @@ namespace ConsoleApp15
                      UserSpellFireWall + " - Вас окружает стена огня, усиливаяющая ваши атаки в ближнем бою и снижающая вражеский урон на " + countStepsFireWallAction + " хода.\n" +
                      "Расходует - " + consumptionMannaSpellFireWall + " манны.\n" +
                      UserSpellMelee + " - Ближний бой, не требующий манны.\n" +
-                     UserSpellFireFury + " - Вы впадаете в огненную ярость, от чего увеличивается Ваш урона от огненного шара и метеорита.\nНо так же Ваша защита на "
+                     UserSpellFireFury + " - Вы впадаете в огненную ярость, от чего увеличивается Ваш урона от огненного шара и метеорита.\nНо так же уменьшается Ваша защита на "
                      + countStepsFireFuryAction + " хода. Расходует - " + consumptionMannaSpellFireFury + " манны\n" +
-                     UserSpellMeteor + " - Разрушающий метерорит, обрушивающий мощь космоса.\nРасходует - " + consumptionMannaSpellMeteor + " манны.");
+                     UserSpellMeteor + " - Разрушительный метерорит, обрушивающий мощь космоса.\nРасходует - " + consumptionMannaSpellMeteor + " манны.");
                 Console.WriteLine("\nКаков будет Ваш ход ? ");
                 userInput = Console.ReadLine();
 
@@ -121,7 +118,7 @@ namespace ConsoleApp15
                                     firebollDamage = randomDamage.Next(minFirebollDamage, maxFirebollDamage);
                                     mannaHero -= consumptionMannaSpellFireboll;
                                     firebollDamage *= blockingDamageBoss;
-                                    firebollDamage *= boostDamageFirebollFromFireFure;
+                                    firebollDamage *= boostDamageFromFireFure;
                                     hpBoss -= firebollDamage;
                                     Console.ForegroundColor = ConsoleColor.Green;
                                     Console.WriteLine("\nОгненная ярость усиливает ваше заклинание. Огненный шар разрывается и наносит " + firebollDamage + " урона.\n");
@@ -149,7 +146,7 @@ namespace ConsoleApp15
                         break;
                     case UserSpellFireWall:
                         {
-                            if(mannaHero >= consumptionMannaSpellFireWall)
+                            if (mannaHero >= consumptionMannaSpellFireWall)
                             {
                                 fireWallIsActive = true;
                                 countStepsFireWallAction = 4;
@@ -166,26 +163,56 @@ namespace ConsoleApp15
                         break;
                     case UserSpellMelee:
                         {
-                            if(fireWallIsActive == true)
+                            if (fireWallIsActive == true)
                             {
-                                Random randomDamage = new Random();
-                                damageHero = randomDamage.Next(minDamageHero, maxDamageHero);
-                                damageHero *= boostDamageHeroFromFireWall;
-                                damageHero *= blockingDamageBoss;
-                                hpBoss -= damageHero; ;
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine("\nВы бросаетесь на Вальдемара, сжимая огненные кулаки и нанося " + damageHero +" урона\n");
-                                Console.ForegroundColor = ConsoleColor.White;
+                                if (curseIsActive == true)
+                                {
+                                    Random randomDamage = new Random();
+                                    damageHero = randomDamage.Next(minDamageHero, maxDamageHero);
+                                    damageHero *= boostDamageHeroFromFireWall;
+                                    damageHero *= blockingDamageBoss;
+                                    damageHero *= declineDamageHeroFromCurse;
+                                    hpBoss -= damageHero; ;
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    Console.WriteLine("\nВы бросаетесь на Вальдемара, сжимая огненные кулаки, но проклятие Вальдемара дает о себе знать...\n" +
+                                        "Вы наносите " + damageHero + " урона\n");
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                }
+                                else
+                                {
+                                    Random randomDamage = new Random();
+                                    damageHero = randomDamage.Next(minDamageHero, maxDamageHero);
+                                    damageHero *= boostDamageHeroFromFireWall;
+                                    damageHero *= blockingDamageBoss;
+                                    hpBoss -= damageHero; ;
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    Console.WriteLine("\nВы бросаетесь на Вальдемара, сжимая огненные кулаки и нанося " + damageHero + " урона\n");
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                }
                             }
                             else
                             {
-                                Random randomDamage = new Random();
-                                damageHero = randomDamage.Next(minDamageHero, maxDamageHero);
-                                damageHero *= blockingDamageBoss;
-                                hpBoss -= damageHero;
-                                Console.ForegroundColor = ConsoleColor.Green;
-                                Console.WriteLine("\nВы бросаетесь на Вальдемара в рукопашную схватку, нанеся " + damageHero + " урона\n");
-                                Console.ForegroundColor = ConsoleColor.White;
+                                if (curseIsActive == true)
+                                {
+                                    Random randomDamage = new Random();
+                                    damageHero = randomDamage.Next(minDamageHero, maxDamageHero);
+                                    damageHero *= blockingDamageBoss;
+                                    damageHero *= declineDamageHeroFromCurse;
+                                    hpBoss -= damageHero;
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    Console.WriteLine("\nНе смотря на проклятье, Вы бросаетесь на Вальдемара в рукопашную схватку, нанося " + damageHero + " урона\n");
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                }
+                                else
+                                {
+                                    Random randomDamage = new Random();
+                                    damageHero = randomDamage.Next(minDamageHero, maxDamageHero);
+                                    damageHero *= blockingDamageBoss;
+                                    hpBoss -= damageHero;
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    Console.WriteLine("\nВы бросаетесь на Вальдемара в рукопашную схватку, нанеся " + damageHero + " урона\n");
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                }
                             }
                         }
                         break;
@@ -207,24 +234,74 @@ namespace ConsoleApp15
                             }
                         }
                         break;
+                    case UserSpellMeteor:
+                        {
+                            if (mannaHero >= consumptionMannaSpellMeteor)
+                            {
+                                if (fireFuryIsActive)
+                                {
+                                    Random randomDamage = new Random();
+                                    meteorDamage = randomDamage.Next(minMeteorDamage, maxMeteorDamage);
+                                    mannaHero -= consumptionMannaSpellMeteor;
+                                    meteorDamage *= boostDamageFromFireFure;
+                                    meteorDamage *= blockingDamageBoss;
+                                    hpBoss -= meteorDamage;
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    Console.WriteLine("\nВы поджигаете огромный метеорит, летящий в Вальдемара.\nБлагодаря огненной ярости" +
+                                        ", Вы наносите " + meteorDamage + " урона...\n");
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                }
+                                else
+                                {
+                                    Random randomDamage = new Random();
+                                    meteorDamage = randomDamage.Next(minMeteorDamage, maxMeteorDamage);
+                                    mannaHero -= consumptionMannaSpellMeteor;
+                                    meteorDamage *= blockingDamageBoss;
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    Console.WriteLine("\nОгромный метеорит летит в Вальдемара, нанося ему " + meteorDamage + " урона...\n");
+                                    Console.ForegroundColor = ConsoleColor.White;
+                                }
+                            }
+                            else
+                            {
+                                Console.WriteLine("\nВы кастуете заклинание, но вдруг понимаете, что просчитались. Вам не хватает манны и Вы пропускаете ход...");
+                            }
+                        }
+                        break;
                     default:
                         Console.WriteLine("\nВы так сильно разволновались, что забыли все свои заклинания и пропустили ход...");
                         break;
                 }
-
                 if (fireWallIsActive == true)
                 {
                     blockingDamageHero = blockDamageHeroFromFireWall;
-                    countStepsFireWallAction --;
+                    countStepsFireWallAction--;
                     if (countStepsFireWallAction == 0)
                     {
                         fireWallIsActive = false;
                         Console.ForegroundColor = ConsoleColor.Yellow;
                         Console.WriteLine("Огненная стена исчезает...");
                         Console.ForegroundColor = ConsoleColor.White;
+                        blockingDamageHero = 1;
                     }
                 }
-
+                if (fireFuryIsActive == true)
+                {
+                    blockingDamageHero = deboostBlockHeroFromFireFury;
+                    countStepsFireFuryAction--;
+                    if (countStepsFireFuryAction == 0)
+                    {
+                        fireWallIsActive = false;
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("Ваша ярость стихает...");
+                        Console.ForegroundColor = ConsoleColor.White;
+                        blockingDamageHero = 1;
+                    }
+                }
+                if (hpBoss <= 0)
+                {
+                    break;
+                }
 
                 Random randomBossInput = new Random();
                 bossInput = randomBossInput.Next(minBossInput, maxBossInput);
@@ -233,12 +310,12 @@ namespace ConsoleApp15
                 {
                     case bossSpellMelee:
                         {
-                            Random random = new Random();
-                            damageBoss = Convert.ToSingle(random.Next(minDamageBoss, maxDamageBoss));
-                            damageBoss *= blockingDamageHero;
-                            hpHero -= damageBoss;
+                            Random randomDamage = new Random();
+                            bossDamage = Convert.ToSingle(randomDamage.Next(minBossDamage, maxBossDamage));
+                            bossDamage *= blockingDamageHero;
+                            hpHero -= bossDamage;
                             Console.ForegroundColor = ConsoleColor.DarkRed;
-                            Console.WriteLine("\nВальдемар бросается на Вас и бьет, нанеся " + damageBoss + " урона.\n");
+                            Console.WriteLine("\nВальдемар бросается на Вас и бьет, нанеся " + bossDamage + " урона.\n");
                             Console.ForegroundColor = ConsoleColor.White;
                         }
                         break;
@@ -251,11 +328,33 @@ namespace ConsoleApp15
                             Console.ForegroundColor = ConsoleColor.White;
                         }
                         break;
+                    case bossSpellFaceOfDead:
+                        {
+                            Random randomDamage = new Random();
+                            faceOfDeadDamage = Convert.ToSingle(randomDamage.Next(minfaceOfDeadDamage, maxfaceOfDeadDamage));
+                            faceOfDeadDamage *= blockingDamageHero;
+                            hpHero -= faceOfDeadDamage;
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine("\nВальдемар показывает Вам свое истинное лицо. \n" +
+                                "Лик смерти несется, а Вы замираете в ужасе и получаете " + faceOfDeadDamage + " урона.\n");
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
+                        break;
+                    case bossSpellCurse:
+                        {
+                            curseIsActive = true;
+                            countStepsCurseAction = 4;
+                            Console.ForegroundColor = ConsoleColor.DarkRed;
+                            Console.WriteLine("\nВальдемар смеется, а Вас вдруг окружает ядовитое облако. Вам тяжело дышать...\n" +
+                                "Ваш урон в ближнем бою слабеет и Вы начинаете терять здоровье...\n");
+                            Console.ForegroundColor = ConsoleColor.White;
+                        }
+                        break;
                 }
                 if (CallSkeletonsIsActive == true)
                 {
-                    Random random = new Random();
-                    SleketonsCallDamage = Convert.ToSingle(random.Next(minSkeletonsDamage, maxSkeletonsDamage));
+                    Random randomDamage = new Random();
+                    SleketonsCallDamage = Convert.ToSingle(randomDamage.Next(minSkeletonsDamage, maxSkeletonsDamage));
                     SleketonsCallDamage *= blockingDamageHero;
                     hpHero -= SleketonsCallDamage;
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -270,23 +369,51 @@ namespace ConsoleApp15
                         Console.ForegroundColor = ConsoleColor.White;
                     }
                 }
-                if(hpHero < maxHpHero)
+                if (curseIsActive == true)
+                {
+                    Random randomDamage = new Random();
+                    curseDamage = Convert.ToSingle(randomDamage.Next(minCurseDanage, maxCurseDamage));
+                    curseDamage *= blockingDamageHero;
+                    hpHero -= curseDamage;
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("Жуткое облако яда наносит " + curseDamage + " урона");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    countStepsCurseAction--;
+                    if (countStepsCurseAction == 0)
+                    {
+                        curseIsActive = false;
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("Ядовитое облако наконец отступает");
+                        Console.ForegroundColor = ConsoleColor.White;
+                    }
+                }
+                if (hpHero <= 0)
+                {
+                    break;
+                }
+                if (hpHero < maxHpHero)
                 {
                     hpHero += regenerationHpHero;
                 }
-                if(mannaHero < maxMannaHero)
+                if (mannaHero < maxMannaHero)
                 {
                     mannaHero += regenerationMannaHero;
                 }
-                if(hpBoss < maxHpBoss)
+                if (hpBoss < maxHpBoss)
                 {
                     hpBoss += regenerationHpBoss;
                 }
             }
 
+            if (hpHero <= 0)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("\n\nБой окончен. Вам не удалось победить Вальдемара. Грядут темные времена...");
+            }
             if (hpBoss <= 0)
             {
-
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("\n\nБой окончен. Вальдемар наконец-то свергнут! Теперь Ваша родина будет свободна!");
             }
         }
     }
