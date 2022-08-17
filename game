@@ -55,7 +55,7 @@ namespace ConsoleApp15
             float bossDamage;
             int minBossDamage = 120;
             int maxBossDamage = 289;
-            float SleketonsCallDamage;
+            float sleketonsCallDamage;
             int minSkeletonsDamage = 100;
             int maxSkeletonsDamage = 240;
             bool isCallSkeletonsActive = false;
@@ -353,11 +353,11 @@ namespace ConsoleApp15
                 if (isCallSkeletonsActive == true)
                 {
                     settingRandomDamage = new Random();
-                    SleketonsCallDamage = Convert.ToSingle(settingRandomDamage.Next(minSkeletonsDamage, maxSkeletonsDamage));
-                    SleketonsCallDamage *= blockingDamageHero;
-                    healthHero -= SleketonsCallDamage;
+                    sleketonsCallDamage = Convert.ToSingle(settingRandomDamage.Next(minSkeletonsDamage, maxSkeletonsDamage));
+                    sleketonsCallDamage *= blockingDamageHero;
+                    healthHero -= sleketonsCallDamage;
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.WriteLine("Скелеты Вальдемара атакуют Вас и наносят " + SleketonsCallDamage + " урона");
+                    Console.WriteLine("Скелеты Вальдемара атакуют Вас и наносят " + sleketonsCallDamage + " урона");
                     Console.ForegroundColor = ConsoleColor.White;
                     countStepsCallSkeletonsAction--;
                     if (countStepsCallSkeletonsAction == 0)
