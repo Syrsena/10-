@@ -13,12 +13,31 @@ namespace ConsoleApp15
             string userInput;
             char leftHook = '(';
             char rightHook = ')';
+            int leftHookCount = 0;
+            int rightHookCount = 0;
             Console.WriteLine("Введите скобки");
             userInput = Console.ReadLine();
 
             foreach (var symbol in userInput)
             {
+                if (symbol == leftHook)
+                {
+                    leftHookCount++;
+                }
+                else if (symbol == rightHook)
+                {
+                    rightHookCount++;
+                    if (rightHookCount > leftHookCount)
+                    {
+                        break;
+                    }
 
+                }
+
+            }
+            if (leftHookCount == rightHookCount)
+            {
+                Console.WriteLine("Все четко");
             }
         }
     }
