@@ -30,6 +30,7 @@ namespace ConsoleApp15
                     if (rightHookCount > leftHookCount)
                     {
                         break;
+                        Console.WriteLine("Неверное выражение");
                     }
 
                 }
@@ -37,7 +38,12 @@ namespace ConsoleApp15
             }
             if (leftHookCount == rightHookCount)
             {
-                Console.WriteLine("Все четко");
+                Console.WriteLine("Верное выражение");
+                Console.WriteLine(rightHookCount + " - максимальная глубина"); //Я не совсем понял, что подразумевается под максимальной глубиной вложенности скобок
+            }
+            else if (leftHookCount != rightHookCount)
+            {
+                Console.WriteLine("Неверное выражение");
             }
         }
     }
