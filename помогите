@@ -16,8 +16,8 @@ namespace ConsoleApp15
             char rightHook = ')';
             int leftHookCount = 0;
             int rightHookCount = 0;
-            int depthCounter = 0;
-            int maxDeapth = 0;
+            int glubina = 0;
+            int maxGlubina = 0;
             Console.WriteLine("Введите скобки");     // ()((())()())
             userInput = Console.ReadLine();
 
@@ -26,36 +26,27 @@ namespace ConsoleApp15
                 if (symbol == leftHook)
                 {
                     leftHookCount++;
-                    if (leftHookCount > rightHookCount)
-                    {
-                        depthCounter++;
-                        Console.WriteLine(depthCounter + " точка");
-                    }
+                    glubina++;
                 }
                 else if (symbol == rightHook)
                 {
+                    glubina--;
                     rightHookCount++;
-                    if (leftHookCount > rightHookCount)
-                    {
-                        Console.WriteLine(depthCounter + " точка");
-                    }
                     if (rightHookCount > leftHookCount)
                     {
                         break;
                         Console.WriteLine("Неверное выражение");
                     }
                 }
-                if (leftHookCount == rightHookCount)
+                if (glubina > rightHookCount)
                 {
-                    maxDeapth = depthCounter;
-                    depthCounter = 0;
-                    Console.WriteLine(maxDeapth + " макс");
+                    maxGlubina = glubina;
                 }
             }
             if (leftHookCount == rightHookCount)
             {
                 Console.WriteLine("Верное выражение");
-                Console.WriteLine(maxDeapth + " - максимальная глубина");
+                Console.WriteLine(maxGlubina + " - максимальная глубина");
             }
             else if (leftHookCount != rightHookCount)
             {
