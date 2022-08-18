@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace ConsoleApp15
             char rightHook = ')';
             int leftHookCount = 0;
             int rightHookCount = 0;
+            int depthCounter = 0;
             Console.WriteLine("Введите скобки");
             userInput = Console.ReadLine();
 
@@ -23,6 +25,14 @@ namespace ConsoleApp15
                 if (symbol == leftHook)
                 {
                     leftHookCount++;
+                    if (leftHookCount > rightHookCount)
+                    {
+                        depthCounter++;
+                        if (rightHookCount > 0)
+                        {
+                            depthCounter--;
+                        }
+                    }
                 }
                 else if (symbol == rightHook)
                 {
@@ -32,14 +42,12 @@ namespace ConsoleApp15
                         break;
                         Console.WriteLine("Неверное выражение");
                     }
-
                 }
-
             }
             if (leftHookCount == rightHookCount)
             {
                 Console.WriteLine("Верное выражение");
-                Console.WriteLine(rightHookCount + " - максимальная глубина"); //Я не совсем понял, что подразумевается под максимальной глубиной вложенности скобок
+                Console.WriteLine(depthCounter + " - максимальная глубина");
             }
             else if (leftHookCount != rightHookCount)
             {
