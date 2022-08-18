@@ -1,0 +1,66 @@
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp15
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string userInput;
+            char leftHook = '(';
+            char rightHook = ')';
+            int leftHookCount = 0;
+            int rightHookCount = 0;
+            int depthCounter = 0;
+            int maxDeapth = 0;
+            Console.WriteLine("Введите скобки");     // ()((())()())
+            userInput = Console.ReadLine();
+
+            foreach (var symbol in userInput)
+            {
+                if (symbol == leftHook)
+                {
+                    leftHookCount++;
+                    if (leftHookCount > rightHookCount)
+                    {
+                        depthCounter++;
+                        Console.WriteLine(depthCounter + " точка");
+                    }
+                }
+                else if (symbol == rightHook)
+                {
+                    rightHookCount++;
+                    if (leftHookCount > rightHookCount)
+                    {
+                        Console.WriteLine(depthCounter + " точка");
+                    }
+                    if (rightHookCount > leftHookCount)
+                    {
+                        break;
+                        Console.WriteLine("Неверное выражение");
+                    }
+                }
+                if (leftHookCount == rightHookCount)
+                {
+                    maxDeapth = depthCounter;
+                    depthCounter = 0;
+                    Console.WriteLine(maxDeapth + " макс");
+                }
+            }
+            if (leftHookCount == rightHookCount)
+            {
+                Console.WriteLine("Верное выражение");
+                Console.WriteLine(maxDeapth + " - максимальная глубина");
+            }
+            else if (leftHookCount != rightHookCount)
+            {
+                Console.WriteLine("Неверное выражение");
+            }
+        }
+    }
+}
