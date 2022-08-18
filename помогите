@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +15,8 @@ namespace ConsoleApp15
             char rightHook = ')';
             int leftHookCount = 0;
             int rightHookCount = 0;
-            int glubina = 0;
-            int maxGlubina = 0;
+            int depthPoint = 0;
+            int maxDepth = 0;
             Console.WriteLine("Введите скобки");     // ()((())()())
             userInput = Console.ReadLine();
 
@@ -26,11 +25,11 @@ namespace ConsoleApp15
                 if (symbol == leftHook)
                 {
                     leftHookCount++;
-                    glubina++;
+                    depthPoint++;
                 }
                 else if (symbol == rightHook)
                 {
-                    glubina--;
+                    depthPoint--;
                     rightHookCount++;
                     if (rightHookCount > leftHookCount)
                     {
@@ -38,15 +37,15 @@ namespace ConsoleApp15
                         Console.WriteLine("Неверное выражение");
                     }
                 }
-                if (glubina > rightHookCount)
+                if (depthPoint > rightHookCount)
                 {
-                    maxGlubina = glubina;
+                    maxDepth = depthPoint;
                 }
             }
             if (leftHookCount == rightHookCount)
             {
                 Console.WriteLine("Верное выражение");
-                Console.WriteLine(maxGlubina + " - максимальная глубина");
+                Console.WriteLine(maxDepth + " - максимальная глубина");
             }
             else if (leftHookCount != rightHookCount)
             {
