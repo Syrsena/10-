@@ -25,7 +25,9 @@ namespace ConsoleApp15
                         maxValue = arrayA[i, j];
                     }
                 }
+                
                 Console.WriteLine();
+                
             }
 
             Console.WriteLine("\nНаибольший элемент - " + (maxValue) + "\n");
@@ -40,7 +42,9 @@ namespace ConsoleApp15
                     }
                     Console.Write(arrayA[i, j] + " ");
                 }
+                
                 Console.WriteLine();
+                
             }
         }
     }
