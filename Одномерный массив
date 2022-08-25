@@ -13,8 +13,6 @@ namespace ConsoleApp15
         {
             int localMax = int.MinValue;
             int[] array = new int[30];
-            int[] array2 = new int[30];
-
             Random randomNumbers = new Random();
 
             for (int i = 0; i < array.Length; i++)
@@ -22,15 +20,21 @@ namespace ConsoleApp15
                 array[i] = randomNumbers.Next(0, 10);
                 Console.Write(array[i] + " ");
             }
+            Console.WriteLine();
 
-            array2 = array;
+            int firstNumber = array[1];
+            int lastNumber = array[29];
 
-            for (int i = 0; i < array2.Length; i++)
+            for (int i = 0; i < array.Length ; i++)
             {
-                if (array2[i] > array2[i + 1] || array2[i] > array2[i - 1] || array2[i] != array2[0] || array2[i] != array2[30])
+                if (array[i] != array[0] && array[i] != array[29] && array[i] > array[i + 1] && array[i] > array[i - 1])
                 {
-                    localMax = array2[i];
-                    Console.WriteLine("\n" + (localMax));
+                    localMax = array[i];
+                    Console.Write(localMax +(" "));
+                }
+                else
+                {
+                    Console.Write("  ");
                 }
             }
         }
