@@ -21,6 +21,7 @@ namespace ConsoleApp15
                 {
                     array[i, j] = randomNumbers.Next(1, 10);
                     Console.Write(array[i, j] + " ");
+                    
                     if (array[i, j] > maxValue)
                     {
                         maxValue = array[i, j];
