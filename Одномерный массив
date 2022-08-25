@@ -12,45 +12,39 @@ namespace ConsoleApp15
         {
             int localMax = int.MinValue;
             int[] array = new int[30];
-            Random randomNumbers = new Random();
+            int minValue = 0;
+            int maxValue = 10;
+            Random random = new Random();
+
             for (int i = 0; i < array.Length; i++)
             {
-                array[i] = randomNumbers.Next(0, 10);
+                array[i] = random.Next(minValue, maxValue);
                 Console.Write(array[i] + " ");
             }
+
             Console.WriteLine();
             int maxNumber = array.Length - 1;
+
             if (array[0] > array[1])
             {
                 localMax = array[0];
-                Console.Write(localMax + (" "));
+                Console.WriteLine(localMax + (" "));
             }
-            else
-            {
-                Console.Write("  ");
-            }
-            for (int i = 1; i < array.Length -1; i++)
+
+            for (int i = 1; i < array.Length - 1; i++)
             {
                 if (array[i] > array[i + 1] && array[i] > array[i - 1])
                 {
                     localMax = array[i];
-                    Console.Write(localMax + (" "));
-                }
-                else
-                {
-                    Console.Write("  ");
+                    Console.WriteLine(localMax + (" "));
                 }
             }
+
             if (array[maxNumber] > array[maxNumber - 1])
             {
                 localMax = array[maxNumber];
-                Console.Write(localMax + (" "));
+                Console.WriteLine(localMax + (" "));
             }
-            else
-            {
-                Console.Write("  ");
-            }
-            Console.WriteLine();
         }
     }
 }
