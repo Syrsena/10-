@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,29 +13,44 @@ namespace ConsoleApp15
             int localMax = int.MinValue;
             int[] array = new int[30];
             Random randomNumbers = new Random();
-
             for (int i = 0; i < array.Length; i++)
             {
                 array[i] = randomNumbers.Next(0, 10);
                 Console.Write(array[i] + " ");
             }
             Console.WriteLine();
-
-            int firstNumber = array[1];
-            int lastNumber = array[29];
-
-            for (int i = 0; i < array.Length ; i++)
+            int maxNumber = array.Length - 1;
+            if (array[0] > array[1])
             {
-                if (array[i] != array[0] && array[i] != array[29] && array[i] > array[i + 1] && array[i] > array[i - 1])
+                localMax = array[0];
+                Console.Write(localMax + (" "));
+            }
+            else
+            {
+                Console.Write("  ");
+            }
+            for (int i = 1; i < array.Length -1; i++)
+            {
+                if (array[i] > array[i + 1] && array[i] > array[i - 1])
                 {
                     localMax = array[i];
-                    Console.Write(localMax +(" "));
+                    Console.Write(localMax + (" "));
                 }
                 else
                 {
                     Console.Write("  ");
                 }
             }
+            if (array[maxNumber] > array[maxNumber - 1])
+            {
+                localMax = array[maxNumber];
+                Console.Write(localMax + (" "));
+            }
+            else
+            {
+                Console.Write("  ");
+            }
+            Console.WriteLine();
         }
     }
 }
