@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp15
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string userInput;
+            string commandSum = "sum";
+            int sum = 0;
+            string commandExit = "exit";
+            bool programIsWork = true;
+            int arrayLenght = 0;
+            int[] array = new int[arrayLenght];
+            int[] tempArray = new int[arrayLenght + 1];
+            int number;
+
+            while(programIsWork)
+            {
+                Console.WriteLine("Введите числа, необходимые сложить\n" +
+                    "\nЧтобы сложить все введеные числа - " + (commandSum)+
+                    "\nДля выхода - " + (commandExit) + "\n");
+                userInput = Console.ReadLine();
+                if (userInput == "exit")
+                {
+                    programIsWork = false;
+                }
+                if (userInput == commandSum)
+                {
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        sum += array[i];
+                    }
+                    Console.WriteLine((sum) + " - Сумма всех введеных чисел.");
+                    arrayLenght = 0;
+                    sum = 0;
+                }
+                if (userInput != commandExit && userInput != commandSum)
+                {
+                    number = Convert.ToInt32(userInput);
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        tempArray[i] = array[i];
+                    }
+                    tempArray[tempArray.Length - 1] = number;
+                    array = tempArray;
+                    Console.WriteLine(arrayLenght);
+                }
+            }
+        }
+    }
+}
