@@ -15,9 +15,7 @@ namespace ConsoleApp15
             int sum = 0;
             string commandExit = "exit";
             bool programIsWork = true;
-            int arrayLenght = 0;
-            int[] array = new int[arrayLenght];
-            int[] tempArray = new int[arrayLenght + 1];
+            int[] array = new int[0];
             int number;
 
             while(programIsWork)
@@ -37,19 +35,17 @@ namespace ConsoleApp15
                         sum += array[i];
                     }
                     Console.WriteLine((sum) + " - Сумма всех введеных чисел.");
-                    arrayLenght = 0;
-                    sum = 0;
                 }
                 if (userInput != commandExit && userInput != commandSum)
                 {
                     number = Convert.ToInt32(userInput);
+                    int[] tempArray = new int[array.Length + 1];
                     for (int i = 0; i < array.Length; i++)
                     {
                         tempArray[i] = array[i];
                     }
                     tempArray[tempArray.Length - 1] = number;
                     array = tempArray;
-                    Console.WriteLine(arrayLenght);
                 }
             }
         }
