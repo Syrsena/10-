@@ -1,0 +1,66 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp15
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] array = { 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1 };
+            int number;
+            int firstValue = 1;
+            int secondValue = 0;
+            int point = 0;
+            int maxRepeats = 0;
+            int countOfFirstNumbers = 0;
+            int countOfSecondNumbers = 0;
+
+            foreach (int i in array)
+            {
+                Console.Write((i) + " ");
+                if (i == (i + 1))
+                {
+                    point++;
+                    if (array[i] == 1)
+                    {
+                        countOfFirstNumbers++;
+                    }
+                    else if (array[i] == 0)
+                    {
+                        countOfSecondNumbers++;
+                    }
+                }
+                else if (i != (i + 1))
+                {
+                    point --;
+                    if (array[i] == 1)
+                    {
+                        countOfFirstNumbers--;
+                    }
+                    else if (array[i] == 0)
+                    {
+                        countOfSecondNumbers--;
+                    }
+                }
+                if (point > maxRepeats)
+                {
+                    maxRepeats = point;
+                }
+            }
+            Console.WriteLine();
+            if (countOfFirstNumbers > countOfSecondNumbers)
+            {
+                Console.WriteLine(countOfFirstNumbers + " - Число");
+            }
+            if (countOfSecondNumbers > countOfFirstNumbers)
+            {
+                Console.WriteLine(countOfSecondNumbers + " - Число");
+            }
+            Console.WriteLine(maxRepeats + " - Количество повторений");
+        }
+    }
+}
