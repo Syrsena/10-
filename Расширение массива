@@ -14,20 +14,16 @@ namespace ConsoleApp15
             string commandSum = "sum";
             int sum = 0;
             string commandExit = "exit";
-            bool programIsWork = true;
+            bool isProgramWork = true;
             int[] array = new int[0];
             int number;
 
-            while(programIsWork)
+            while (isProgramWork)
             {
                 Console.WriteLine("Введите числа, необходимые сложить\n" +
-                    "\nЧтобы сложить все введеные числа - " + (commandSum)+
+                    "\nЧтобы сложить все введеные числа - " + (commandSum) +
                     "\nДля выхода - " + (commandExit) + "\n");
                 userInput = Console.ReadLine();
-                if (userInput == "exit")
-                {
-                    programIsWork = false;
-                }
                 if (userInput == commandSum)
                 {
                     for (int i = 0; i < array.Length; i++)
@@ -46,6 +42,10 @@ namespace ConsoleApp15
                     }
                     tempArray[tempArray.Length - 1] = number;
                     array = tempArray;
+                }
+                else if (userInput == "exit")
+                {
+                    isProgramWork = false;
                 }
             }
         }
