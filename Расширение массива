@@ -24,6 +24,7 @@ namespace ConsoleApp15
                     "\nЧтобы сложить все введеные числа - " + (commandSum) +
                     "\nДля выхода - " + (commandExit) + "\n");
                 userInput = Console.ReadLine();
+
                 if (userInput == commandSum)
                 {
                     for (int i = 0; i < array.Length; i++)
@@ -32,6 +33,7 @@ namespace ConsoleApp15
                     }
                     Console.WriteLine((sum) + " - Сумма всех введеных чисел.");
                 }
+
                 if (userInput != commandExit && userInput != commandSum)
                 {
                     number = Convert.ToInt32(userInput);
@@ -43,6 +45,7 @@ namespace ConsoleApp15
                     tempArray[tempArray.Length - 1] = number;
                     array = tempArray;
                 }
+
                 else if (userInput == "exit")
                 {
                     isProgramWork = false;
