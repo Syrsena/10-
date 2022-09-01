@@ -31,6 +31,7 @@ namespace ConsoleApp15
                     {
                         sum += array[i];
                     }
+
                     Console.WriteLine((sum) + " - Сумма всех введеных чисел.");
                 }
 
@@ -38,10 +39,12 @@ namespace ConsoleApp15
                 {
                     number = Convert.ToInt32(userInput);
                     int[] tempArray = new int[array.Length + 1];
+
                     for (int i = 0; i < array.Length; i++)
                     {
                         tempArray[i] = array[i];
                     }
+
                     tempArray[tempArray.Length - 1] = number;
                     array = tempArray;
                 }
