@@ -1,0 +1,79 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp15
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] arraySurname = { "Скобников", "Кравченко", "Куприев", "Полянский", "Акхтырскй" };
+            string[] arrayJob = { "Дэб", "Дэб", "Директор", "Тим Дэб", "Старший Дэб" };
+            bool isActive = true;
+            int userInput = 0;
+            Menu(ref userInput);
+
+            while (isActive)
+            {
+                switch (userInput)
+                {
+                    case 1:
+
+                        break;
+                    case 2:
+                        DossierOutput(arraySurname, arrayJob);
+                        Console.WriteLine("\nДля выхода в главное меню нажмите любую клавишу.\n");
+                        Console.ReadKey();
+                        Menu(ref userInput);
+                        break;
+                    case 3:
+
+                        break;
+                    case 4:
+
+                        break;
+                    case 5:
+
+                        break;
+                    default:
+
+                        break;
+                }
+            }
+        }
+
+        static int Menu(ref int userInput)
+        {
+            int commandAddDossier = 1;
+            int commandDossierOutput = 2;
+            int commandRemoveDossier = 3;
+            int commandSearchForSurname = 4;
+            int commandExit = 5;
+            Console.WriteLine(commandAddDossier + " - Добавить досье\n" +
+                commandDossierOutput + " - Вывести все досье\n" +
+                commandRemoveDossier + " - Удалить досье\n" +
+                commandSearchForSurname + " - Поиск по фамилии\n" +
+                commandExit + " - Выход");
+            userInput = Convert.ToInt32(Console.ReadLine());
+            return userInput;
+        }
+
+        static void DossierOutput(ref string array[])
+        {
+            Console.Clear();
+
+            for (int i = 0; i < arraySurname.Length; i++)
+            {
+                Console.SetCursorPosition(0, i);
+                Console.WriteLine((i + 1) + " - ");
+                Console.SetCursorPosition(5, i);
+                Console.WriteLine(arraySurname[i]);
+                Console.SetCursorPosition(22, i);
+                Console.WriteLine(arrayJob[i]);
+            }
+        }
+    }
+}
