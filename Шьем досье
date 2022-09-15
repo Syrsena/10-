@@ -14,10 +14,11 @@ namespace ConsoleApp15
             string[] arrayJob = { "Дэб", "Дэб", "Директор", "Тим Дэб", "Старший Дэб" };
             bool isActive = true;
             int userInput = 0;
-            Menu(ref userInput);
 
             while (isActive)
             {
+                Menu(ref userInput);
+                
                 switch (userInput)
                 {
                     case 1:
@@ -27,7 +28,6 @@ namespace ConsoleApp15
                         DossierOutput(arraySurname, arrayJob);
                         Console.WriteLine("\nДля выхода в главное меню нажмите любую клавишу.\n");
                         Console.ReadKey();
-                        Menu(ref userInput);
                         break;
                     case 3:
 
@@ -45,7 +45,7 @@ namespace ConsoleApp15
             }
         }
 
-        static int Menu(ref int userInput)
+        static void Menu(ref int userInput)
         {
             int commandAddDossier = 1;
             int commandDossierOutput = 2;
@@ -58,22 +58,35 @@ namespace ConsoleApp15
                 commandSearchForSurname + " - Поиск по фамилии\n" +
                 commandExit + " - Выход");
             userInput = Convert.ToInt32(Console.ReadLine());
-            return userInput;
         }
 
-        static void DossierOutput(ref string array[])
+        static void DossierOutput(string[] arraySurname, string[] arrayJob)
         {
             Console.Clear();
-
+                
             for (int i = 0; i < arraySurname.Length; i++)
             {
                 Console.SetCursorPosition(0, i);
                 Console.WriteLine((i + 1) + " - ");
                 Console.SetCursorPosition(5, i);
-                Console.WriteLine(arraySurname[i]);
+                Console.WriteLine(arraySurname[i]); 
                 Console.SetCursorPosition(22, i);
-                Console.WriteLine(arrayJob[i]);
+                Console.WriteLine(arrayJob[i]); 
             }
         }
+
+        static string[] extendArray(string[] array, string value)
+        {
+            string[] newArray= new string[array.Length+1];
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                newArray[i] = array[i];
+            }
+
+            newArray[newArray.Length-1] = value;
+
+            return newArray;
+        } 
     }
 }
