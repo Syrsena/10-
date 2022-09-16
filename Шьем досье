@@ -10,27 +10,47 @@ namespace ConsoleApp15
     {
         static void Main(string[] args)
         {
-            string[] arraySurname = { "Скобников", "Кравченко", "Куприев", "Полянский", "Акхтырскй" };
+            string[] arraySurname = { "Скобников", "Кравченко", "Шутенко", "Полянский", "Акхтырскй" };
             string[] arrayJob = { "Дэб", "Дэб", "Директор", "Тим Дэб", "Старший Дэб" };
+            string[] array;
             bool isActive = true;
             int userInput = 0;
 
             while (isActive)
             {
                 Menu(ref userInput);
-                
+
                 switch (userInput)
                 {
                     case 1:
-
+                        Console.Clear();
+                        Console.WriteLine("Введите фамилию: ");
+                        string value = Console.ReadLine();
+                        array = arraySurname;
+                        AddDossier(ref array, value);
+                        arraySurname = array;
+                        Console.WriteLine("Введите должность: ");
+                        value = Console.ReadLine();
+                        array = arrayJob;
+                        AddDossier(ref array, value);
+                        arrayJob = array;
+                        Console.WriteLine("Успешно добавлено");
+                        Console.ReadKey();
+                        Console.Clear();
                         break;
                     case 2:
                         DossierOutput(arraySurname, arrayJob);
-                        Console.WriteLine("\nДля выхода в главное меню нажмите любую клавишу.\n");
-                        Console.ReadKey();
                         break;
                     case 3:
-
+                        Console.Clear();
+                        Console.WriteLine("Введите номер досье, которое нужно удалить: ");
+                        int index = Convert.ToInt32(Console.ReadLine());
+                        array = arraySurname;
+                        RemoveDossier(ref index, array);
+                        arraySurname = array;
+                        array = arrayJob;
+                        RemoveDossier(ref index, array);
+                        arrayJob = array;
                         break;
                     case 4:
 
@@ -63,30 +83,48 @@ namespace ConsoleApp15
         static void DossierOutput(string[] arraySurname, string[] arrayJob)
         {
             Console.Clear();
-                
+
             for (int i = 0; i < arraySurname.Length; i++)
             {
                 Console.SetCursorPosition(0, i);
                 Console.WriteLine((i + 1) + " - ");
                 Console.SetCursorPosition(5, i);
-                Console.WriteLine(arraySurname[i]); 
+                Console.WriteLine(arraySurname[i]);
                 Console.SetCursorPosition(22, i);
-                Console.WriteLine(arrayJob[i]); 
+                Console.WriteLine(arrayJob[i]);
             }
+            Console.ReadKey();
+            Console.Clear();
         }
 
-        static string[] extendArray(string[] array, string value)
+        static string[] AddDossier(ref string[] array, string value)
         {
-            string[] newArray= new string[array.Length+1];
+            Console.Clear();
+            string[] tempArray = new string[array.Length + 1];
 
             for (int i = 0; i < array.Length; i++)
             {
-                newArray[i] = array[i];
+                tempArray[i] = array[i];
             }
+            tempArray[array.Length] = value;
+            array = tempArray;
+            return array;
+        }
 
-            newArray[newArray.Length-1] = value;
+        static string[] RemoveDossier(ref int index, string[] array)
+        {
+            string[] tempArray = new string[array.Length - 1];
 
-            return newArray;
-        } 
+            for (int i = 0; i < index; i++)
+            {
+                tempArray[i] = array[i];
+            }
+            for (int i = index + 1; i < array.Length - 1; i++)
+            {
+                tempArray[i] = array[i];
+            }
+            array = tempArray;
+            return array;
+        }
     }
 }
