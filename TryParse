@@ -1,0 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp15
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Введите строку:");
+            string userInput = Console.ReadLine();
+
+            bool isSuccesfully = int.TryParse(userInput, out var number);
+            if (isSuccesfully == true)
+            {
+                Console.WriteLine($"Преобразование прошло успешно. Число: {number}");
+            }
+            else
+            {
+                Console.WriteLine("Преобразование завершилось неудачно");
+            }
+        }
+    }
+}
