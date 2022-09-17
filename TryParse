@@ -10,17 +10,21 @@ namespace ConsoleApp15
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Введите строку:");
-            string userInput = Console.ReadLine();
+            Console.WriteLine("Введите число:");
+            bool isSuccesfully = false;
 
-            bool isSuccesfully = int.TryParse(userInput, out var number);
-            if (isSuccesfully == true)
+            while(isSuccesfully == false)
             {
-                Console.WriteLine($"Преобразование прошло успешно. Число: {number}");
-            }
-            else
-            {
-                Console.WriteLine("Преобразование завершилось неудачно");
+                string userInput = Console.ReadLine();
+                isSuccesfully = int.TryParse(userInput, out int number);
+                if (isSuccesfully == true)
+                {
+                    Console.WriteLine($"Успешно. Число: {number}");
+                }
+                else
+                {
+                    Console.WriteLine("Неудачно");
+                }
             }
         }
     }
