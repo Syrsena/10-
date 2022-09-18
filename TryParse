@@ -12,20 +12,26 @@ namespace ConsoleApp15
         {
             Console.WriteLine("Введите число:");
             bool isSuccesfully = false;
-
-            while(isSuccesfully == false)
+            while (isSuccesfully == false)
             {
-                string userInput = Console.ReadLine();
-                isSuccesfully = int.TryParse(userInput, out int number);
-                if (isSuccesfully == true)
-                {
-                    Console.WriteLine($"Успешно. Число: {number}");
-                }
-                else
-                {
-                    Console.WriteLine("Неудачно");
-                }
+                Convert(ref isSuccesfully);
             }
+        }
+
+        static bool Convert (ref bool isSuccesfully)
+        {
+            string userInput = Console.ReadLine();
+            isSuccesfully = int.TryParse(userInput, out int number);
+
+            if (isSuccesfully == true)
+            {
+                Console.WriteLine($"Успешно. Число: {number}");
+            }
+            else
+            {
+                Console.WriteLine("Неудачно");
+            }
+            return isSuccesfully;
         }
     }
 }
