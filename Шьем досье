@@ -10,57 +10,38 @@ namespace ConsoleApp15
     {
         static void Main(string[] args)
         {
-            string[] arraySurname = { "Скобников", "Кравченко", "Шутенко", "Полянский", "Акхтырскй" };
-            string[] arrayJob = { "Дэб", "Дэб", "Директор", "Тим Дэб", "Старший Дэб" };
-            string[] editArray;
+            const int CommandAddDossier = 1;
+            const int CommandDossierOutput = 2;
+            const int CommandRemoveDossier = 3;
+            const int CommandSearchForSurname = 4;
+            const int CommandExit = 5;
+            string[] arraFullNames = { "Андреев Андрей Андреевич", "Никитин Никита Никитович", "Егоров Егор Егорович", "Михайлов Михаил Михайлович", "Олегов Олег Олегович" };
+            string[] arrayPost = { "чел", "чел", "чел", "чел", "чел" };
             bool isActive = true;
             int userInput = 0;
 
             while (isActive)
             {
-                Menu(ref userInput);
+                Console.WriteLine(CommandAddDossier + " - Добавить досье\n" +
+                    CommandDossierOutput + " - Вывести все досье\n" +
+                    CommandRemoveDossier + " - Удалить досье\n" +
+                    CommandSearchForSurname + " - Поиск по фамилии\n" +
+                    CommandExit + " - Выход");
+                userInput = Convert.ToInt32(Console.ReadLine());
 
                 switch (userInput)
                 {
                     case 1:
-                        Console.Clear();
-                        Console.WriteLine("Введите фамилию: ");
-                        string value = Console.ReadLine();
-                        editArray = arraySurname;
-                        AddDossier(ref editArray, value);
-                        arraySurname = editArray;
-                        Console.WriteLine("Введите должность: ");
-                        value = Console.ReadLine();
-                        editArray = arrayJob;
-                        AddDossier(ref editArray, value);
-                        arrayJob = editArray;
-                        Console.WriteLine("Успешно добавлено");
-                        Console.ReadKey();
-                        Console.Clear();
+                        AddDossier(ref arraFullNames,ref arrayPost);
                         break;
                     case 2:
-                        DossierOutput(arraySurname, arrayJob);
+                        DossierOutput(arraFullNames, arrayPost);
                         break;
                     case 3:
-                        Console.Clear();
-                        Console.WriteLine("Введите номер досье, которое нужно удалить: ");
-                        int index = Convert.ToInt32(Console.ReadLine()) - 1;
-                        editArray = arraySurname;
-                        RemoveDossier(ref editArray, index);
-                        arraySurname = editArray;
-                        editArray = arrayJob;
-                        RemoveDossier(ref editArray, index);
-                        arrayJob = editArray;
-                        Console.WriteLine("Успешно удалено");
-                        Console.ReadKey();
-                        Console.Clear();
+                        RemoveDossier(ref arraFullNames, ref arrayPost);
                         break;
                     case 4:
-                        Console.Clear();
-                        Console.WriteLine("Введите фамилию: ");
-                        string inputSurname = Console.ReadLine();
-                        editArray = arraySurname;
-                        Search(ref editArray, inputSurname, arraySurname, arrayJob);
+                        SearchForSurname(ref arraFullNames,ref arrayPost);
                         break;
                     case 5:
                         isActive = false;
@@ -71,83 +52,105 @@ namespace ConsoleApp15
                 }
             }
         }
-
-        static void Menu(ref int userInput)
+        static void AddDossier(ref string[] arraFullNames,ref string[] arrayPost)
         {
-            int commandAddDossier = 1;
-            int commandDossierOutput = 2;
-            int commandRemoveDossier = 3;
-            int commandSearchForSurname = 4;
-            int commandExit = 5;
-            Console.WriteLine(commandAddDossier + " - Добавить досье\n" +
-                commandDossierOutput + " - Вывести все досье\n" +
-                commandRemoveDossier + " - Удалить досье\n" +
-                commandSearchForSurname + " - Поиск по фамилии\n" +
-                commandExit + " - Выход");
-            userInput = Convert.ToInt32(Console.ReadLine());
-        }
+            Console.Clear();
+            Console.WriteLine("Введите ФИО: ");
+            string value = Console.ReadLine();
+            string[] tempArray = new string[arraFullNames.Length + 1];
 
-        static void DossierOutput(string[] arraySurname, string[] arrayJob)
+            for (int i = 0; i < arraFullNames.Length; i++)
+            {
+                tempArray[i] = arraFullNames[i];
+            }
+            tempArray[arraFullNames.Length] = value;
+            arraFullNames = tempArray;
+            Console.Clear();
+            Console.WriteLine("Введите должность: ");
+            value = Console.ReadLine();
+            tempArray = new string[arrayPost.Length + 1];
+
+            for (int i = 0; i < arrayPost.Length; i++)
+            {
+                tempArray[i] = arrayPost[i];
+            }
+            tempArray[arrayPost.Length] = value;
+            arrayPost = tempArray;
+            Console.WriteLine("Успешно добавлено");
+            Console.ReadKey();
+            Console.Clear();
+
+        }
+        static void DossierOutput(string[] arraFullNames, string[] arrayPost)
         {
             Console.Clear();
 
-            for (int i = 0; i < arraySurname.Length; i++)
+            for (int i = 0; i < arraFullNames.Length; i++)
             {
                 Console.SetCursorPosition(0, i);
                 Console.WriteLine((i + 1) + " - ");
                 Console.SetCursorPosition(5, i);
-                Console.WriteLine(arraySurname[i]);
-                Console.SetCursorPosition(22, i);
-                Console.WriteLine(arrayJob[i]);
+                Console.WriteLine(arraFullNames[i]);
+                Console.SetCursorPosition(39, i);
+                Console.WriteLine(arrayPost[i]);
             }
             Console.ReadKey();
             Console.Clear();
         }
-
-        static string[] AddDossier(ref string[] editArray, string value)
+        static void RemoveDossier(ref string[] arraFullNames, ref string[] arrayPost)
         {
             Console.Clear();
-            string[] tempArray = new string[editArray.Length + 1];
-
-            for (int i = 0; i < editArray.Length; i++)
-            {
-                tempArray[i] = editArray[i];
-            }
-            tempArray[editArray.Length] = value;
-            editArray = tempArray;
-            return editArray;
-        }
-
-        static string[] RemoveDossier(ref string[] editArray, int index)
-        {
-            string[] tempArray = new string[editArray.Length - 1];
+            Console.WriteLine("Введите номер досье, которое нужно удалить: ");
+            int index = Convert.ToInt32(Console.ReadLine()) - 1;
+            string[] tempArray = new string[arraFullNames.Length - 1];
 
             for (int i = 0; i < index; i++)
             {
-                tempArray[i] = editArray[i];
+                tempArray[i] = arraFullNames[i];
             }
-            for (int i = index + 1; i < editArray.Length; i++)
+            for (int i = index + 1; i < arraFullNames.Length; i++)
             {
-                tempArray[i - 1] = editArray[i];
+                tempArray[i - 1] = arraFullNames[i];
             }
-            editArray = tempArray;
-            return editArray;
+            arraFullNames = tempArray;
+            tempArray = new string[arrayPost.Length - 1];
+
+            for (int i = 0; i < index; i++)
+            {
+                tempArray[i] = arrayPost[i];
+            }
+            for (int i = index + 1; i < arrayPost.Length; i++)
+            {
+                tempArray[i - 1] = arrayPost[i];
+            }
+            arrayPost = tempArray;
+            Console.WriteLine("Успешно удалено");
+            Console.ReadKey();
+            Console.Clear();
         }
 
-        static void Search (ref string[] editArray, string inputSurname, string[] arraySurname, string[] arrayJob)
+        static void SearchForSurname(ref string[] arraFullNames, ref string[] arrayPost)
         {
             Console.Clear();
+            Console.WriteLine("Введите фамилию: ");
+            string inputSurname = Console.ReadLine();
+            Console.Clear();
 
-            for (int i = 0; i < editArray.Length; i++)
+            for (int i = 0; i < arraFullNames.Length; i++)
             {
-                if (editArray[i] == inputSurname)
+                string[] splitNames = arraFullNames[i].Split(' ');
+
+                foreach (string j in splitNames)
                 {
-                    Console.SetCursorPosition(0, 0);
-                    Console.WriteLine((i + 1) + " - ");
-                    Console.SetCursorPosition(5, 0);
-                    Console.WriteLine(arraySurname[i]);
-                    Console.SetCursorPosition(22, 0);
-                    Console.WriteLine(arrayJob[i]);
+                    if (j == inputSurname)
+                    {
+                        Console.SetCursorPosition(0, i);
+                        Console.WriteLine((i + 1) + " - ");
+                        Console.SetCursorPosition(5, i);
+                        Console.WriteLine(arraFullNames[i]);
+                        Console.SetCursorPosition(39, i);
+                        Console.WriteLine(arrayPost[i]);
+                    }
                 }
             }
             Console.ReadKey();
