@@ -10,30 +10,32 @@ namespace ConsoleApp15
     {
         static void Main(string[] args)
         {
-            bool isSuccesfully = false;
-            Convert(ref isSuccesfully);
-
+            int number = 0;
+            Convert(ref number);
+            Console.WriteLine(number);
         }
 
-        static bool Convert(ref bool isSuccesfully)
+        static int Convert(ref int number)
         {
+            bool isSuccesfully = false;
             Console.WriteLine("Введите число:");
 
             while (isSuccesfully == false)
             {
                 string userInput = Console.ReadLine();
-                isSuccesfully = int.TryParse(userInput, out int number);
+                isSuccesfully = int.TryParse(userInput, out int tempNumber);
 
                 if (isSuccesfully == true)
                 {
-                    Console.WriteLine($"Успешно. Число: {number}");
+                    Console.WriteLine("Успешно");
+                    number = tempNumber;
                 }
                 else
                 {
                     Console.WriteLine("Неудачно");
                 }
             }
-            return isSuccesfully;
+            return number;
         }
     }
 }
