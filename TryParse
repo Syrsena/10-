@@ -11,11 +11,11 @@ namespace ConsoleApp15
         static void Main(string[] args)
         {
             int number = 0;
-            Convert(ref number);
+            FindNumber(ref number);
             Console.WriteLine(number);
         }
 
-        static int Convert(ref int number)
+        static int FindNumber(ref int number)
         {
             bool isSuccesfully = false;
             Console.WriteLine("Введите число:");
