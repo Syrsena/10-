@@ -10,51 +10,39 @@ namespace ConsoleApp15
     {
         static void Main(string[] args)
         {
-            string userInput;
-            string commandSum = "sum";
-            string commandExit = "exit";
-            bool isProgramWork = true;
-            int[] array = new int[0];
-            int number;
+            Console.WriteLine("Введите процент здоровья от 1 до 100: ");
+            int health = Convert.ToInt32(Console.ReadLine());
+            int maxHealth = 100;
+            int percent = health / maxHealth;
+            Console.WriteLine(percent);
+            Console.ReadKey();
+            int maxLenght = 20;
+            int length = percent * maxLenght;
+            Console.Clear();
+            DrawBar(length, maxLenght, ConsoleColor.Magenta);
+        }
 
-            while (isProgramWork)
+        static void DrawBar(int length, int maxLenght, ConsoleColor Color)
+        {
+            ConsoleColor defaultColor = Console.BackgroundColor;
+            string bar = "";
+
+            for (int i = 0; i < length; i++)
             {
-                Console.WriteLine("Введите числа, необходимые сложить\n" +
-                    "\nЧтобы сложить все введеные числа - " + (commandSum) +
-                    "\nДля выхода - " + (commandExit) + "\n");
-                userInput = Console.ReadLine();
-
-                if (userInput == commandSum)
-                {
-                    int sum = 0;
-
-                    for (int i = 0; i < array.Length; i++)
-                    {
-                        sum += array[i];
-                    }
-
-                    Console.WriteLine((sum) + " - Сумма всех введеных чисел.");
-                }
-
-                else if (userInput == "exit")
-                {
-                    isProgramWork = false;
-                }
-
-                else
-                {
-                    number = Convert.ToInt32(userInput);
-                    int[] tempArray = new int[array.Length + 1];
-
-                    for (int i = 0; i < array.Length; i++)
-                    {
-                        tempArray[i] = array[i];
-                    }
-
-                    tempArray[tempArray.Length - 1] = number;
-                    array = tempArray;
-                }
+                bar += '#';
             }
+            Console.SetCursorPosition(0, 0);
+            Console.Write('[');
+            Console.BackgroundColor = Color;
+            Console.Write(bar);
+            Console.BackgroundColor = defaultColor;
+            bar = "";
+
+            for (int i = length; i < maxLenght; i++)
+            {
+                bar += ' ';
+            }
+            Console.Write(bar + ']');
         }
     }
 }
