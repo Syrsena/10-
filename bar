@@ -10,19 +10,21 @@ namespace ConsoleApp15
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Введите здоровье, затем максимальное здоровье.");
-            int health = Convert.ToInt32(Console.ReadLine());
-            int maxHealth = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите здоровье от 100%");
+            int healthInPersent = Convert.ToInt32(Console.ReadLine());
+            int maxHealth = 100;
+            int maxLenghtBar = 30;
+            int healthLenght = healthInPersent * maxLenghtBar / maxHealth;
             Console.Clear();
-            DrawBar(health, maxHealth, ConsoleColor.Magenta);
+            DrawBar(healthLenght, maxLenghtBar, ConsoleColor.Magenta);
         }
 
-        static void DrawBar(int value, int maxValue, ConsoleColor Color)
+        static void DrawBar(int healthLenght, int maxLenghtBar, ConsoleColor Color)
         {
             ConsoleColor defaultColor = Console.BackgroundColor;
             string bar = "";
 
-            for (int i = 0; i < value; i++)
+            for (int i = 0; i < healthLenght; i++)
             {
                 bar += '#';
             }
@@ -33,7 +35,7 @@ namespace ConsoleApp15
             Console.BackgroundColor = defaultColor;
             bar = "";
 
-            for (int i = value; i < maxValue; i++)
+            for (int i = healthLenght; i < maxLenghtBar; i++)
             {
                 bar += ' ';
             }
