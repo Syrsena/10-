@@ -11,11 +11,11 @@ namespace ConsoleApp15
         static void Main(string[] args)
         {
             int number = 0;
-            number = RequestNumber(number);
+            number = GetNumber(number);
             Console.WriteLine(number);
         }
 
-        static int RequestNumber(int number)
+        static int GetNumber(int number)
         {
             bool isSuccesfully = false;
             Console.WriteLine("Введите число:");
