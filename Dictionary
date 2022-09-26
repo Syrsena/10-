@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp15
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Dictionary<string, string> words = new Dictionary<string, string>();
+            string key1 = "1";
+            string key2 = "2";
+            string value1 = "Скобников";
+            string value2 = "Кравченко";
+            string userInput;
+            words.Add(key1, value1);
+            words.Add(key2, value2);
+            Console.WriteLine("Введите номер мобилизованного: ");
+            userInput = Console.ReadLine();
+
+            if (userInput == words.ContainsKey)
+            {
+
+            }
+        }
+    }
+}
