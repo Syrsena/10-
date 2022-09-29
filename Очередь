@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp15
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Queue<int> amountOfPurchases = new Queue<int>();
+            amountOfPurchases.Enqueue(1544);
+            amountOfPurchases.Enqueue(2355);
+            amountOfPurchases.Enqueue(436);
+            amountOfPurchases.Enqueue(898);
+            amountOfPurchases.Enqueue(4100);
+            int sum = 0;
+
+            foreach (var money in amountOfPurchases)
+            {
+                sum += money;
+                Console.WriteLine("Сумма покупок сейчас - " + sum);
+                Console.ReadKey();
+                Console.Clear();
+            }
+        }
+    }
+}
