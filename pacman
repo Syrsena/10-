@@ -13,7 +13,7 @@ namespace ConsoleApp15
         {
             Console.CursorVisible = false;
             bool isPlaying = true;
-            int pacmanPositionX; 
+            int pacmanPositionX;
             int pacmanPositionY;
             int pacmanDirectionX = 0;
             int pacmanDirectionY = 1;
@@ -76,30 +76,29 @@ namespace ConsoleApp15
 
         static void ChangeDirection(ConsoleKeyInfo key, ref int pacmanDirectionX, ref int pacmanDirectionY)
         {
-            ConsoleKey keyMoveUp = ConsoleKey.W;
-            ConsoleKey keyMoveDown = ConsoleKey.S;
-            ConsoleKey keyMoveLeft = ConsoleKey.A;
-            ConsoleKey keyMoveRight = ConsoleKey.D;
+            const ConsoleKey keyMoveUp = ConsoleKey.UpArrow;
+            const ConsoleKey keyMoveDown = ConsoleKey.DownArrow;
+            const ConsoleKey keyMoveLeft = ConsoleKey.LeftArrow;
+            const ConsoleKey keyMoveRight = ConsoleKey.RightArrow;
 
-            if (Console.ReadKey().Key == keyMoveUp)
+            switch (key.Key)
             {
-                pacmanDirectionX = -1;
-                pacmanDirectionY = 0;
-            }
-            if (Console.ReadKey().Key == keyMoveDown)
-            {
-                pacmanDirectionX = 1;
-                pacmanDirectionY = 0;
-            }
-            if (Console.ReadKey().Key == keyMoveLeft)
-            {
-                pacmanDirectionX = 0;
-                pacmanDirectionY = -1;
-            }
-            if (Console.ReadKey().Key == keyMoveRight)
-            {
-                pacmanDirectionX = 0;
-                pacmanDirectionY = 1;
+                case keyMoveUp:
+                    pacmanDirectionX = -1;
+                    pacmanDirectionY = 0;
+                    break;
+                case keyMoveDown:
+                    pacmanDirectionX = 1;
+                    pacmanDirectionY = 0;
+                    break;
+                case keyMoveLeft:
+                    pacmanDirectionX = 0;
+                    pacmanDirectionY = -1;
+                    break;
+                case keyMoveRight:
+                    pacmanDirectionX = 0;
+                    pacmanDirectionY = 1;
+                    break;
             }
         }
 
