@@ -19,19 +19,16 @@ namespace ConsoleApp15
             words.Add(key1, value1);
             words.Add(key2, value2);
 
-            while (true)
-            {
-                Console.WriteLine("Введите номер мобилизованного: ");
-                userInput = Console.ReadLine();
+            Console.WriteLine("Введите номер мобилизованного: ");
+            userInput = Console.ReadLine();
 
-                if (words.ContainsKey(userInput))
-                {
-                    Console.WriteLine(words[userInput]);
-                }
-                else
-                {
-                    Console.WriteLine("Такого нет");
-                }
+            if (words.ContainsKey(userInput))
+            {
+                Console.WriteLine(words[userInput]);
+            }
+            else
+            {
+                Console.WriteLine("Такого нет");
             }
         }
     }
