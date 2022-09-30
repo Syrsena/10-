@@ -13,6 +13,8 @@ namespace ConsoleApp15
         {
             Console.CursorVisible = false;
             bool isPlaying = true;
+            int collectTextDirectionX = 0;
+            int collectTextDirectionY = 25;
             int pacmanPositionX;
             int pacmanPositionY;
             int pacmanDirectionX = 0;
@@ -24,7 +26,7 @@ namespace ConsoleApp15
 
             while (isPlaying)
             {
-                Console.SetCursorPosition(0, 25);
+                Console.SetCursorPosition(collectTextDirectionX, collectTextDirectionY);
                 Console.WriteLine($"Собрано: {collectDots}/{allDots}");
 
                 if (Console.KeyAvailable)
@@ -47,7 +49,9 @@ namespace ConsoleApp15
                 }
             }
 
-            Console.SetCursorPosition(0, 27);
+            int winsTextDirectionX = 0;
+            int winsTextDirectionY = 27;
+            Console.SetCursorPosition(winsTextDirectionX, winsTextDirectionY);
 
             if (collectDots == allDots)
             {
@@ -106,7 +110,6 @@ namespace ConsoleApp15
         {
             for (int i = 0; i < map.GetLength(0); i++)
             {
-
                 for (int j = 0; j < map.GetLength(1); j++)
                 {
                     Console.Write(map[i, j]);
