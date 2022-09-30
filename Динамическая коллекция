@@ -1,0 +1,58 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp15
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            List<int> numbers = new List<int>();
+            int sum = 0;
+            bool isExit = false;
+            WritingNumbers(numbers, ref isExit);
+
+            if (isExit == false)
+            {
+                for (int i = 0; i < numbers.Count; i++)
+                {
+                    sum += numbers[i];
+                }
+                Console.WriteLine("Сумма всех чисел - " + sum);
+            }
+        }
+
+        static List<int> WritingNumbers(List<int> numbers, ref bool isExit)
+        {
+            string commandExit = "Exit";
+            string commandSum = "Sum";
+            string userInput;
+            bool isWorking = true;
+            Console.WriteLine("Вводите числа, необходимые сложить. Для выхода - " + commandExit + ", Чтобы сложить все числа - " + commandSum);
+
+            while (isWorking)
+            {
+                userInput = Console.ReadLine();
+
+                if (userInput == commandExit || userInput == commandSum)
+                {
+                    isWorking = false;
+
+                    if (userInput == commandExit)
+                    {
+                        isExit = true;
+                    }
+                }
+                else
+                {
+                    numbers.Add(Convert.ToInt32(userInput));
+                }
+            }
+            Console.Clear();
+            return numbers;
+        }
+    }
+}
