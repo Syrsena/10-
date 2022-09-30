@@ -50,7 +50,7 @@ namespace ConsoleApp15
                 {
                     if (int.TryParse(userInput, out int result))
                     {
-                        numbers.Add(Convert.ToInt32(result));
+                        numbers.Add(result);
                     }
                     else
                     {
