@@ -99,7 +99,8 @@ namespace ConsoleApp15
             else
             {
                 Console.WriteLine("Такого досье нет");
-                Console.ReadKey();            }
+                Console.ReadKey();           
+            }
         }
     }
 }
