@@ -12,23 +12,8 @@ namespace ConsoleApp15
         {
             List<int> numbers = new List<int>();
             int sum = 0;
-            bool isExit = false;
-            WritingNumbers(numbers, ref isExit);
-
-            if (isExit == false)
-            {
-                for (int i = 0; i < numbers.Count; i++)
-                {
-                    sum += numbers[i];
-                }
-                Console.WriteLine("Сумма всех чисел - " + sum);
-            }
-        }
-
-        static List<int> WritingNumbers(List<int> numbers, ref bool isExit)
-        {
-            string commandExit = "Exit";
-            string commandSum = "Sum";
+            const string commandExit = "Exit";
+            const string commandSum = "Sum";
             string userInput;
             bool isWorking = true;
             Console.WriteLine("Вводите числа, необходимые сложить. Для выхода - " + commandExit + ", Чтобы сложить все числа - " + commandSum);
@@ -37,29 +22,32 @@ namespace ConsoleApp15
             {
                 userInput = Console.ReadLine();
 
-                if (userInput == commandExit || userInput == commandSum)
+                switch (userInput)
                 {
-                    isWorking = false;
+                    case commandSum:
 
-                    if (userInput == commandExit)
-                    {
-                        isExit = true;
-                    }
-                }
-                else
-                {
-                    if (int.TryParse(userInput, out int result))
-                    {
-                        numbers.Add(result);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Не удалось распознать число.");
-                    }
+                        for (int i = 0; i < numbers.Count; i++)
+                        {
+                            sum += numbers[i];
+                        }
+                        Console.WriteLine("Сумма всех чисел - " + sum);
+                        break;
+                    case commandExit:
+                        isWorking = false;
+                        break;
+                    default:
+
+                        if (int.TryParse(userInput, out int result))
+                        {
+                            numbers.Add(result);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Не удалось распознать число.");
+                        }
+                        break;
                 }
             }
-            Console.Clear();
-            return numbers;
         }
     }
 }
