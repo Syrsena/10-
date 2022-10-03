@@ -1,0 +1,105 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp15
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            const string CommandAddDossier = "1";
+            const string CommandDossierOutput = "2";
+            const string CommandRemoveDossier = "3";
+            const string CommandExit = "4";
+            bool isActive = true;
+            Dictionary<string, string> dossier = new Dictionary<string, string>();
+            string key1 = "Андреев Андрей Андреевич";
+            string key2 = "Никитин Никита Никитович";
+            string key3 = "Егоров Егор Егорович";
+            string value1 = "чел";
+            string value2 = "чел";
+            string value3 = "чел";
+            dossier.Add(key1, value1);
+            dossier.Add(key2, value2);
+            dossier.Add(key3, value3);
+
+            while (isActive)
+            {
+                Console.Clear();
+                Console.WriteLine(CommandAddDossier + " - Добавить досье\n" +
+                    CommandDossierOutput + " - Вывести все досье\n" +
+                    CommandRemoveDossier + " - Удалить досье\n" +
+                    CommandExit + " - Выход");
+                string userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                    case CommandAddDossier:
+                        AddDossier(ref dossier);
+                        break;
+                    case CommandDossierOutput:
+                        DossierOutput(ref dossier);
+                        break;
+                    case CommandRemoveDossier:
+                        RemoveDossier(ref dossier);
+                        break;
+                    case CommandExit:
+                        isActive = false;
+                        break;
+                    default:
+                        Console.Clear();
+                        break;
+                }
+            }
+        }
+
+        static void AddDossier(ref Dictionary<string, string> dossier)
+        {
+            string tempKey;
+            string tempValue;
+            Console.Clear();
+            Console.WriteLine("Введите ФИО: ");
+            tempKey = Console.ReadLine();
+            Console.WriteLine("Введите должность: ");
+            tempValue = Console.ReadLine();
+            dossier.Add(tempKey, tempValue);
+            Console.WriteLine("Успешно добавлено");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        static void DossierOutput(ref Dictionary<string, string> dossier)
+        {
+            Console.Clear();
+
+            foreach (var item in dossier)
+            {
+                Console.WriteLine(item.Key + " " + item.Value);
+            }
+
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        static void RemoveDossier(ref Dictionary<string, string> dossier)
+        {
+            string tempKey;
+            Console.Clear();
+            Console.WriteLine("Введите ФИО досье, которое нужно удалить: ");
+            tempKey = Console.ReadLine();
+
+            if (dossier.ContainsKey(tempKey))
+            {
+                dossier.Remove(tempKey);
+                Console.WriteLine("Успешно удалено");
+            }
+            else
+            {
+                Console.WriteLine("Такого досье нет");
+                Console.ReadKey();            }
+        }
+    }
+}
