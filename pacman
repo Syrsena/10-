@@ -21,6 +21,7 @@ namespace ConsoleApp15
             int pacmanDirectionY = 1;
             int allDots = 0;
             int collectDots = 0;
+            char wall = '#';
             char[,] map = ReadMap("map1", out pacmanPositionX, out pacmanPositionY, ref allDots);
             DrawMap(map);
 
@@ -35,7 +36,7 @@ namespace ConsoleApp15
                     ChangeDirection(key, ref pacmanDirectionX, ref pacmanDirectionY);
                 }
 
-                if (map[pacmanPositionX + pacmanDirectionX, pacmanPositionY + pacmanDirectionY] != '#')
+                if (map[pacmanPositionX + pacmanDirectionX, pacmanPositionY + pacmanDirectionY] != wall)
                 {
                     Move(ref pacmanPositionX, ref pacmanPositionY, pacmanDirectionX, pacmanDirectionY);
                     CollectDots(map, pacmanPositionX, pacmanPositionY, ref collectDots);
@@ -121,6 +122,9 @@ namespace ConsoleApp15
 
         static char[,] ReadMap(string mapName, out int pacmanPositionX, out int pacmanPositionY, ref int allDots)
         {
+            char hero = '@';
+            char dot = '.';
+            char space = ' ';
             pacmanPositionX = 0;
             pacmanPositionY = 0;
             string[] newFile = File.ReadAllLines($"Maps/{mapName}.txt");
@@ -132,14 +136,14 @@ namespace ConsoleApp15
                 {
                     map[i, j] = newFile[i][j];
 
-                    if (map[i, j] == '@')
+                    if (map[i, j] == hero)
                     {
                         pacmanPositionX = i;
                         pacmanPositionY = j;
                     }
-                    else if (map[i, j] == ' ')
+                    else if (map[i, j] == space)
                     {
-                        map[i, j] = '.';
+                        map[i, j] = dot;
                         allDots++;
                     }
                 }
