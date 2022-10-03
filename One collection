@@ -1,0 +1,55 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp15
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            string[] array1 = {"1", "2", "1"};
+            string[] array2 = {"3", "2"};
+            List<string> numbers = new List<string>();
+            
+            MoveToCollection(numbers, array1);
+            MoveToCollection(numbers, array2);
+            ShowCollection(numbers);
+            Console.ReadKey();
+        }
+
+        static void MoveToCollection(List<string> collection, string[] array)
+        {
+            foreach (var item in array)
+            {
+                if (CheckRepeat(collection, item) == false)
+                {
+                    collection.Add(item);   
+                }
+            }
+        }
+
+        static bool CheckRepeat(List<string> collection, string value)
+        {
+            foreach (var item in collection)
+            {
+                if(value == item)
+                {
+                    return true; 
+                }
+            }
+
+            return false;
+        }
+
+        static void ShowCollection(List<string> collection)
+        {
+            foreach (var item in collection)
+            {
+                Console.WriteLine(item);
+            }
+        }
+    }
+}
