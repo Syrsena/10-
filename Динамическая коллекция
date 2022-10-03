@@ -31,6 +31,7 @@ namespace ConsoleApp15
                             sum += numbers[i];
                         }
                         Console.WriteLine("Сумма всех чисел - " + sum);
+                        sum = 0;
                         break;
                     case commandExit:
                         isWorking = false;
