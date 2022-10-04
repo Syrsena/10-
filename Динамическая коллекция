@@ -10,13 +10,12 @@ namespace ConsoleApp15
     {
         static void Main(string[] args)
         {
+            const string CommandExit = "Exit";
+            const string CommandSum = "Sum";
             List<int> numbers = new List<int>();
-            int sum = 0;
-            const string commandExit = "Exit";
-            const string commandSum = "Sum";
             string userInput;
             bool isWorking = true;
-            Console.WriteLine("Вводите числа, необходимые сложить. Для выхода - " + commandExit + ", Чтобы сложить все числа - " + commandSum);
+            Console.WriteLine("Вводите числа, необходимые сложить. Для выхода - " + CommandExit + ", Чтобы сложить все числа - " + CommandSum);
 
             while (isWorking)
             {
@@ -24,30 +23,38 @@ namespace ConsoleApp15
 
                 switch (userInput)
                 {
-                    case commandSum:
-
-                        for (int i = 0; i < numbers.Count; i++)
-                        {
-                            sum += numbers[i];
-                        }
-                        Console.WriteLine("Сумма всех чисел - " + sum);
-                        sum = 0;
+                    case CommandSum:
+                        Summarize(numbers);
                         break;
-                    case commandExit:
+                    case CommandExit:
                         isWorking = false;
                         break;
                     default:
-
-                        if (int.TryParse(userInput, out int result))
-                        {
-                            numbers.Add(result);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Не удалось распознать число.");
-                        }
+                        AddNumber(numbers, ref userInput);
                         break;
                 }
+            }
+        }
+
+        static void Summarize(List<int> numbers)
+        {
+            int sum = 0;
+            for (int i = 0; i < numbers.Count; i++)
+            {
+                sum += numbers[i];
+            }
+            Console.WriteLine("Сумма всех чисел - " + sum);
+        }
+
+        static void AddNumber(List<int> numbers,ref string userInput)
+        {
+            if (int.TryParse(userInput, out int result))
+            {
+                numbers.Add(result);
+            }
+            else
+            {
+                Console.WriteLine("Не удалось распознать число.");
             }
         }
     }
