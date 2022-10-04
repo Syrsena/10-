@@ -33,9 +33,9 @@ namespace ConsoleApp15
 
         static void ShowNumbers(List<string> collection)
         {
-            foreach (var item in collection)
+            foreach (var number in collection)
             {
-                Console.WriteLine(item);
+                Console.WriteLine(number);
             }
         }
     }
