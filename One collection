@@ -10,41 +10,28 @@ namespace ConsoleApp15
     {
         static void Main(string[] args)
         {
-            string[] array1 = {"1", "2", "1"};
-            string[] array2 = {"3", "2"};
+            string[] array1 = { "1", "2", "1" };
+            string[] array2 = { "3", "2" };
             List<string> numbers = new List<string>();
-            
+
             MoveToCollection(numbers, array1);
             MoveToCollection(numbers, array2);
-            ShowCollection(numbers);
+            ShowNumbers(numbers);
             Console.ReadKey();
         }
 
-        static void MoveToCollection(List<string> collection, string[] array)
+        static void MoveToCollection(List<string> collection, string[] numbers)
         {
-            foreach (var item in array)
+            foreach (var number in numbers)
             {
-                if (CheckRepeat(collection, item) == false)
+                if (collection.Contains(number) == false)
                 {
-                    collection.Add(item);   
+                    collection.Add(number);
                 }
             }
         }
 
-        static bool CheckRepeat(List<string> collection, string value)
-        {
-            foreach (var item in collection)
-            {
-                if(value == item)
-                {
-                    return true; 
-                }
-            }
-
-            return false;
-        }
-
-        static void ShowCollection(List<string> collection)
+        static void ShowNumbers(List<string> collection)
         {
             foreach (var item in collection)
             {
