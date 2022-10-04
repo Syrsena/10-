@@ -30,7 +30,7 @@ namespace ConsoleApp15
                         isWorking = false;
                         break;
                     default:
-                        AddNumber(numbers, ref userInput);
+                        AddNumber(numbers, userInput);
                         break;
                 }
             }
@@ -46,7 +46,7 @@ namespace ConsoleApp15
             Console.WriteLine("Сумма всех чисел - " + sum);
         }
 
-        static void AddNumber(List<int> numbers,ref string userInput)
+        static void AddNumber(List<int> numbers, string userInput)
         {
             if (int.TryParse(userInput, out int result))
             {
