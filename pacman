@@ -22,7 +22,8 @@ namespace ConsoleApp15
             int allDots = 0;
             int collectDots = 0;
             char wall = '#';
-            char[,] map = ReadMap("map1", out pacmanPositionX, out pacmanPositionY, ref allDots);
+            char hero = '@';
+            char[,] map = ReadMap("map1", out pacmanPositionX, out pacmanPositionY, ref allDots, hero);
             DrawMap(map);
 
             while (isPlaying)
@@ -38,7 +39,7 @@ namespace ConsoleApp15
 
                 if (map[pacmanPositionX + pacmanDirectionX, pacmanPositionY + pacmanDirectionY] != wall)
                 {
-                    Move(ref pacmanPositionX, ref pacmanPositionY, pacmanDirectionX, pacmanDirectionY);
+                    Move(ref pacmanPositionX, ref pacmanPositionY, pacmanDirectionX, pacmanDirectionY, hero);
                     CollectDots(map, pacmanPositionX, pacmanPositionY, ref collectDots);
                 }
 
@@ -60,14 +61,14 @@ namespace ConsoleApp15
             }
         }
 
-        static void Move(ref int pacmanPositionX, ref int pacmanPositionY, int pacmanDirectionX, int pacmanDirectionY)
+        static void Move(ref int pacmanPositionX, ref int pacmanPositionY, int pacmanDirectionX, int pacmanDirectionY, char hero)
         {
             Console.SetCursorPosition(pacmanPositionY, pacmanPositionX);
             Console.Write(" ");
             pacmanPositionX += pacmanDirectionX;
             pacmanPositionY += pacmanDirectionY;
             Console.SetCursorPosition(pacmanPositionY, pacmanPositionX);
-            Console.Write('@');
+            Console.Write(hero);
         }
 
         static void CollectDots(char[,] map, int pacmanPositionX, int pacmanPositionY, ref int collectDots)
@@ -120,9 +121,8 @@ namespace ConsoleApp15
             }
         }
 
-        static char[,] ReadMap(string mapName, out int pacmanPositionX, out int pacmanPositionY, ref int allDots)
+        static char[,] ReadMap(string mapName, out int pacmanPositionX, out int pacmanPositionY, ref int allDots, char hero)
         {
-            char hero = '@';
             char dot = '.';
             char space = ' ';
             pacmanPositionX = 0;
