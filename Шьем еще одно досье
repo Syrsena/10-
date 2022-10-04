@@ -84,9 +84,9 @@ namespace ConsoleApp15
         {
             Console.Clear();
 
-            foreach (var item in dossiers)
+            foreach (var position in dossiers)
             {
-                Console.WriteLine(item.Key + " " + item.Value);
+                Console.WriteLine(position.Key + " " + position.Value);
             }
 
             Console.ReadKey();
