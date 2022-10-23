@@ -1,0 +1,74 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp15
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Введите положение по оси X:");
+            int userInputX = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Введите положение по оси Y:");
+            int userInputY = Convert.ToInt32(Console.ReadLine());
+            Console.Clear();
+
+            Player player1 = new Player(userInputX, userInputY);
+            Renderer renderer = new Renderer();
+
+            renderer.DrawPlayer(player1.GetPossitionX, player1.GetPossitionY);
+        }
+    }
+
+    class Player
+    {
+        public Player(int playerPossitionX, int playerPossitionY)
+        {
+            GetPossitionX = playerPossitionX;
+            GetPossitionY = playerPossitionY;
+        }
+
+        public int GetPossitionX
+        {
+            get
+            {
+                return GetPossitionX;
+            }
+            private set
+            {
+                if (value > 0 && value < 10)
+                {
+                    GetPossitionX = value;
+                }
+            }
+        }
+
+        public int GetPossitionY
+        {
+            get
+            {
+                return GetPossitionY;
+            }
+            private set
+            {
+                if (value > 0 && value < 10)
+                {
+                    GetPossitionY = value;
+                }
+            }
+        }
+    }
+
+    class Renderer
+    {
+        public void DrawPlayer(int x, int y)
+        {
+            Console.SetCursorPosition(x, y);
+            char player = '@';
+            Console.WriteLine(player);
+        }
+    }
+}
