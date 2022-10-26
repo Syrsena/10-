@@ -10,8 +10,8 @@ namespace ConsoleApp15
     {
         static void Main(string[] args)
         {
-            Player player1 = new Player("Иван", 20);
-            player1.ShowInfo();
+            Player player = new Player("Иван", 20);
+            player.ShowInfo();
         }
     }
 
