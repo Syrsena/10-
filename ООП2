@@ -16,26 +16,28 @@ namespace ConsoleApp15
             int userInputY = Convert.ToInt32(Console.ReadLine());
             Console.Clear();
 
-            Player player1 = new Player(userInputX, userInputY);
+            Player player = new Player(userInputX, userInputY);
             Renderer renderer = new Renderer();
 
-            renderer.DrawPlayer(player1.GetPossitionX, player1.GetPossitionY);
+            renderer.DrawPlayer(player.GetPossitionX, player.GetPossitionY);
         }
     }
 
     class Player
     {
+        private int _possitionX;
+        private int _possitionY;
         public Player(int playerPossitionX, int playerPossitionY)
         {
-            GetPossitionX = playerPossitionX;
-            GetPossitionY = playerPossitionY;
+            _possitionX = playerPossitionX;
+            _possitionY = playerPossitionY;
         }
 
         public int GetPossitionX
         {
             get
             {
-                return GetPossitionX;
+                return _possitionX;
             }
             private set
             {
@@ -50,7 +52,7 @@ namespace ConsoleApp15
         {
             get
             {
-                return GetPossitionY;
+                return _possitionY;
             }
             private set
             {
@@ -68,7 +70,7 @@ namespace ConsoleApp15
         {
             Console.SetCursorPosition(x, y);
             char player = '@';
-            Console.WriteLine(player);
+            Console.Write(player);
         }
     }
 }
