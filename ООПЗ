@@ -1,0 +1,64 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp15
+    //Реализовать базу данных игроков и методы для работы с ней.
+    //У игрока может быть уникальный номер, ник, уровень, флаг – забанен ли он(флаг - bool).
+    //Реализовать возможность добавления игрока, бана игрока по уникальный номеру, разбана игрока по уникальный номеру и удаление игрока.
+    //Создание самой БД не требуется, задание выполняется инструментами, которые вы уже изучили в рамках курса.Но нужен класс, который содержит игроков и её можно назвать
+    //"База данных".
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            DataBase dataBase = new DataBase(new Player[] {new Player(1, "Nagibator2010", 5 , false)});
+
+            const int AddPlayer = 1;
+            const int RemovePlayer = 2;
+            const int BanPlayer = 3;
+            const int UnBanPlayer = 4;
+            const int CommandExit = 0;
+
+            bool isActive = true;
+
+            while (isActive == true)
+            {
+                Console.WriteLine(AddPlayer + " - Добавить игрока\n" +
+                    RemovePlayer + " - Удалить игрока\n" + 
+                    BanPlayer + " - Забанить игрока\n" + 
+                    UnBanPlayer + " - Разбанить игрока\n" + 
+                    CommandExit + " - Выход из программы\n");
+            }
+        }
+    }
+
+    class DataBase
+    {
+        public Player[] Players;
+
+        public DataBase(Player[] players)
+        {
+            Players = players;
+        }
+    }
+
+    class Player
+    {
+        private int _id;
+        private string _name;
+        private int _level;
+        private bool _isbanned;
+
+        public Player (int id, string name, int level, bool isBanned)
+        {
+            _id = id;
+            _name = name;
+            _level = level;
+            _isbanned = isBanned;
+        }
+    }
+}
