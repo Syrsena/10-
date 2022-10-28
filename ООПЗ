@@ -17,7 +17,7 @@ namespace ConsoleApp15
     {
         static void Main(string[] args)
         {
-            DataBase dataBase = new DataBase(new List<Player>());
+            Database database = new Database(new List<Player>());
 
             const int AddPlayer = 1;
             const int RemovePlayer = 2;
@@ -30,7 +30,6 @@ namespace ConsoleApp15
 
             while (isActive == true)
             {
-                DataBase.Set
                 Console.WriteLine(AddPlayer + " - Добавить игрока\n" +
                     RemovePlayer + " - Удалить игрока\n" +
                     BanPlayer + " - Забанить игрока\n" +
@@ -42,7 +41,7 @@ namespace ConsoleApp15
                 switch (userInput)
                 {
                     case AddPlayer:
-                        dataBase.AddPlayer();
+                        database.AddPlayer();
                         break;
                     case RemovePlayer:
 
@@ -54,7 +53,7 @@ namespace ConsoleApp15
 
                         break;
                     case ShowInfo:
-
+                        database.ShowAllPlayers();
                         break;
                     case CommandExit:
 
@@ -67,11 +66,11 @@ namespace ConsoleApp15
         }
     }
 
-    class DataBase
+    class Database
     {
         private List<Player> _players = new List<Player>();
 
-        public DataBase(List<Player> players)
+        public Database(List<Player> players)
         {
             _players = players;
         }
@@ -110,6 +109,22 @@ namespace ConsoleApp15
 
             return number;
         }
+
+        public void Show()
+        {
+            for (int i = 0; i < _players.Count; i++)
+            {
+                _players[i].ShowPlayerInfo();
+            }
+        }
+
+        //public void ShowAllPlayers()
+        //{
+        //    foreach(var player in _players)
+        //    {
+        //        player.ShowPlayerInfo();
+        //    }
+        //}
     }
 
     class Player
