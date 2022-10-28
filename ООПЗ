@@ -1,64 +1,143 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace ConsoleApp15
-    //Реализовать базу данных игроков и методы для работы с ней.
-    //У игрока может быть уникальный номер, ник, уровень, флаг – забанен ли он(флаг - bool).
-    //Реализовать возможность добавления игрока, бана игрока по уникальный номеру, разбана игрока по уникальный номеру и удаление игрока.
-    //Создание самой БД не требуется, задание выполняется инструментами, которые вы уже изучили в рамках курса.Но нужен класс, который содержит игроков и её можно назвать
-    //"База данных".
+//Реализовать базу данных игроков и методы для работы с ней.
+//У игрока может быть уникальный номер, ник, уровень, флаг – забанен ли он(флаг - bool).
+//Реализовать возможность добавления игрока, бана игрока по уникальный номеру, разбана игрока по уникальный номеру и удаление игрока.
+//Создание самой БД не требуется, задание выполняется инструментами, которые вы уже изучили в рамках курса.Но нужен класс, который содержит игроков и её можно назвать
+//"База данных".
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            DataBase dataBase = new DataBase(new Player[] {new Player(1, "Nagibator2010", 5 , false)});
+            DataBase dataBase = new DataBase(new List<Player>());
 
             const int AddPlayer = 1;
             const int RemovePlayer = 2;
             const int BanPlayer = 3;
             const int UnBanPlayer = 4;
+            const int ShowInfo = 5;
             const int CommandExit = 0;
 
             bool isActive = true;
 
             while (isActive == true)
             {
+                DataBase.Set
                 Console.WriteLine(AddPlayer + " - Добавить игрока\n" +
-                    RemovePlayer + " - Удалить игрока\n" + 
-                    BanPlayer + " - Забанить игрока\n" + 
-                    UnBanPlayer + " - Разбанить игрока\n" + 
+                    RemovePlayer + " - Удалить игрока\n" +
+                    BanPlayer + " - Забанить игрока\n" +
+                    UnBanPlayer + " - Разбанить игрока\n" +
+                    ShowInfo + " - Вывод списка игроков\n" +
                     CommandExit + " - Выход из программы\n");
+                int userInput = Convert.ToInt32(Console.ReadLine());
+
+                switch (userInput)
+                {
+                    case AddPlayer:
+                        dataBase.AddPlayer();
+                        break;
+                    case RemovePlayer:
+
+                        break;
+                    case BanPlayer:
+
+                        break;
+                    case UnBanPlayer:
+
+                        break;
+                    case ShowInfo:
+
+                        break;
+                    case CommandExit:
+
+                        break;
+                    default:
+                        Console.WriteLine("Неверная команда\n");
+                        break;
+                }
             }
         }
     }
 
     class DataBase
     {
-        public Player[] Players;
+        private List<Player> _players = new List<Player>();
 
-        public DataBase(Player[] players)
+        public DataBase(List<Player> players)
         {
-            Players = players;
+            _players = players;
+        }
+
+        public void AddPlayer()
+        {
+            Console.WriteLine("Введите имя нового игрока: ");
+            string userInputName = Console.ReadLine();
+            int userInputLevel = 1;
+            userInputLevel = SetLevel(userInputLevel);
+            _players.Add(new Player(userInputName, userInputLevel, false));
+            Console.WriteLine("Игрок с ником - " + userInputName + " добавлен");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        public int SetLevel(int number)
+        {
+            bool isSuccesfully = false;
+            Console.WriteLine("Введите начальный уровень игрока");
+
+            while (isSuccesfully == false)
+            {
+                string userInputLevel = Console.ReadLine();
+                isSuccesfully = int.TryParse(userInputLevel, out int tempNumber);
+
+                if (isSuccesfully == true)
+                {
+                    number = tempNumber;
+                }
+                else
+                {
+                    Console.WriteLine("Укажите число");
+                }
+            }
+
+            return number;
         }
     }
 
     class Player
     {
+        private static int _ids;
         private int _id;
         private string _name;
         private int _level;
         private bool _isbanned;
 
-        public Player (int id, string name, int level, bool isBanned)
+        public Player(string name, int level, bool isBanned)
         {
-            _id = id;
+            _id = ++_ids;
             _name = name;
             _level = level;
             _isbanned = isBanned;
+        }
+
+        public void ShowPlayerInfo()
+        {
+            if (_isbanned == true)
+            {
+                Console.WriteLine(_id + " " + _name + " " + _level + " " + "Забанен");
+            }
+            else
+            {
+                Console.WriteLine(_id + " " + _name + " " + _level + " " + "Не забанен");
+            }
         }
     }
 }
