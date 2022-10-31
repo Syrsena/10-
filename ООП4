@@ -1,0 +1,93 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+namespace ConsoleApp15
+
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Deck deck = new Deck();
+            deck.ShowAllCards();
+        }
+    }
+
+    class Deck
+    {
+        private List<Card> _cards = new List<Card>();
+        //private Card[] _cards;
+
+        public Deck()
+        {
+
+            _cards = new List<Card>();
+            int index = 0;
+
+            foreach (var suit in new[] { "Крести", "Черви", "Пики", "Бубны", })
+            {
+                for (int value = 6; value <= 14; value++)
+                {
+                    if (value <= 10)
+                    {
+                        _cards[index++] = new Card(Convert.ToString(value), suit, index);
+                    }
+                    else if (value == 11)
+                    {
+                        _cards[index++] = new Card("Валет", suit, index);
+                    }
+                    else if (value == 12)
+                    {
+                        _cards[index++] = new Card("Дама", suit, index);
+                    }
+                    else if (value == 13)
+                    {
+                        _cards[index++] = new Card("Король", suit, index);
+                    }
+                    else if (value == 14)
+                    {
+                        _cards[index++] = new Card("Туз", suit, index);
+                    }
+                }
+            }
+        }
+
+        public void ShowAllCards()
+        {
+            foreach (var card in _cards)
+            {
+                card.ShowCardsInfo();
+            }
+        }
+    }
+
+    class Card
+    {
+        private string _value;
+        private string _suit;
+        private int _index;
+
+        public Card (string value, string suit, int index)
+        {
+            _value = value;
+            _suit = suit;
+            _index = index;
+        }   
+
+        public void ShowCardsInfo()
+        {
+            Console.WriteLine(_value + "   " + _suit + "   имеет индекс - " + _index);
+        }
+    }
+
+    class Player
+    {
+
+    }
+}
