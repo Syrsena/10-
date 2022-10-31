@@ -7,11 +7,7 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace ConsoleApp15
-//Реализовать базу данных игроков и методы для работы с ней.
-//У игрока может быть уникальный номер, ник, уровень, флаг – забанен ли он(флаг - bool).
-//Реализовать возможность добавления игрока, бана игрока по уникальный номеру, разбана игрока по уникальный номеру и удаление игрока.
-//Создание самой БД не требуется, задание выполняется инструментами, которые вы уже изучили в рамках курса.Но нужен класс, который содержит игроков и её можно назвать
-//"База данных".
+
 {
     internal class Program
     {
@@ -19,13 +15,12 @@ namespace ConsoleApp15
         {
             Database database = new Database(new List<Player>());
 
-            const int AddPlayer = 1;
-            const int RemovePlayer = 2;
-            const int BanPlayer = 3;
-            const int UnBanPlayer = 4;
-            const int ShowInfo = 5;
-            const int CommandExit = 0;
-
+            const string AddPlayer = "1";
+            const string RemovePlayer = "2";
+            const string BanPlayer = "3";
+            const string UnBanPlayer = "4";
+            const string ShowInfo = "5";
+            const string CommandExit = "6";
             bool isActive = true;
 
             while (isActive == true)
@@ -36,7 +31,7 @@ namespace ConsoleApp15
                     UnBanPlayer + " - Разбанить игрока\n" +
                     ShowInfo + " - Вывод списка игроков\n" +
                     CommandExit + " - Выход из программы\n");
-                int userInput = Convert.ToInt32(Console.ReadLine());
+                string userInput = Console.ReadLine();
 
                 switch (userInput)
                 {
@@ -44,22 +39,22 @@ namespace ConsoleApp15
                         database.AddPlayer();
                         break;
                     case RemovePlayer:
-
+                        database.RemovePlayer();
                         break;
                     case BanPlayer:
-
+                        database.BanPlayerByID();
                         break;
                     case UnBanPlayer:
-
+                        database.UnBanPlayerByID();
                         break;
                     case ShowInfo:
                         database.ShowAllPlayers();
                         break;
                     case CommandExit:
-
+                        isActive = false;
                         break;
                     default:
-                        Console.WriteLine("Неверная команда\n");
+                        Console.Clear();
                         break;
                 }
             }
@@ -77,25 +72,92 @@ namespace ConsoleApp15
 
         public void AddPlayer()
         {
+            Console.Clear();
             Console.WriteLine("Введите имя нового игрока: ");
             string userInputName = Console.ReadLine();
-            int userInputLevel = 1;
-            userInputLevel = SetLevel(userInputLevel);
+            Console.WriteLine("Введите начальный уровень игрока");
+            int userInputLevel = 0;
+            userInputLevel = CheckNumber(userInputLevel);
             _players.Add(new Player(userInputName, userInputLevel, false));
-            Console.WriteLine("Игрок с ником - " + userInputName + " добавлен");
+            Console.WriteLine("Игрок с ником - " + userInputName + " добавлен.");
             Console.ReadKey();
             Console.Clear();
         }
 
-        public int SetLevel(int number)
+        public void RemovePlayer()
+        {
+            Console.Clear();
+            Console.WriteLine("Введите ID игрока: ");
+            int userInputID = 0;
+            userInputID = CheckNumber(userInputID);
+
+            for (int i = 0; i < _players.Count; i++)
+            {
+                if (_players[i].GetID() == userInputID)
+                {
+                    _players.Remove(_players[i]);
+                    Console.WriteLine("Игрок удален.");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+            }
+            Console.Clear();
+        }
+
+        public void ShowAllPlayers()
+        {
+            Console.Clear();
+
+            foreach (var player in _players)
+            {
+                player.ShowPlayerInfo();
+            }
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        public void BanPlayerByID()
+        {
+            Console.Clear();
+            Console.WriteLine("Введите ID игрока: ");
+            int userInputID = 0;
+            userInputID = CheckNumber(userInputID);
+
+            foreach (var player in _players)
+            {
+                if (player.GetID() == userInputID)
+                {
+                    player.BanPlayer();
+                }
+            }
+            Console.Clear();
+        }
+
+        public void UnBanPlayerByID()
+        {
+            Console.Clear();
+            Console.WriteLine("Введите ID игрока: ");
+            int userInputID = 0;
+            userInputID = CheckNumber(userInputID);
+
+            foreach (var player in _players)
+            {
+                if (player.GetID() == userInputID)
+                {
+                    player.UnBanPlayer();
+                }
+            }
+            Console.Clear();
+        }
+
+        public int CheckNumber(int number)
         {
             bool isSuccesfully = false;
-            Console.WriteLine("Введите начальный уровень игрока");
 
             while (isSuccesfully == false)
             {
-                string userInputLevel = Console.ReadLine();
-                isSuccesfully = int.TryParse(userInputLevel, out int tempNumber);
+                string userInput = Console.ReadLine();
+                isSuccesfully = int.TryParse(userInput, out int tempNumber);
 
                 if (isSuccesfully == true)
                 {
@@ -109,22 +171,6 @@ namespace ConsoleApp15
 
             return number;
         }
-
-        public void Show()
-        {
-            for (int i = 0; i < _players.Count; i++)
-            {
-                _players[i].ShowPlayerInfo();
-            }
-        }
-
-        //public void ShowAllPlayers()
-        //{
-        //    foreach(var player in _players)
-        //    {
-        //        player.ShowPlayerInfo();
-        //    }
-        //}
     }
 
     class Player
@@ -153,6 +199,26 @@ namespace ConsoleApp15
             {
                 Console.WriteLine(_id + " " + _name + " " + _level + " " + "Не забанен");
             }
+        }
+
+        public void BanPlayer()
+        {
+            _isbanned = true;
+            Console.WriteLine("Игрок забанен.");
+            Console.ReadKey();
+            Console.Clear();
+        }
+
+        public void UnBanPlayer()
+        {
+            _isbanned = false;
+            Console.WriteLine("Игрок разбанен.");
+            Console.ReadKey();
+            Console.Clear();
+        }
+        public int GetID()
+        {
+            return _id;
         }
     }
 }
