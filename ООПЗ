@@ -1,10 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace ConsoleApp15
 
@@ -43,19 +38,14 @@ namespace ConsoleApp15
         private void RemovePlayer()
         {
             Console.Clear();
-            Console.WriteLine("Введите ID игрока: ");
-            int userInputID = CheckNumber();
 
-            for (int i = 0; i < _players.Count; i++)
+            if (TryGetPlayer(out Player player) == true)
             {
-                if (_players[i].ID == userInputID)
-                {
-                    _players.Remove(_players[i]);
-                    Console.WriteLine("Игрок удален.");
-                    Console.ReadKey();
-                    Console.Clear();
-                }
+                _players.Remove(player);
+                Console.WriteLine("Игрок удален. ");
+                Console.ReadKey();
             }
+
             Console.Clear();
         }
 
@@ -74,57 +64,45 @@ namespace ConsoleApp15
         private void BanPlayerByID()
         {
             Console.Clear();
-            Console.WriteLine("Введите ID игрока: ");
-            int userInputID = CheckNumber();
 
-            foreach (var player in _players)
+            if (TryGetPlayer(out Player player) == true)
             {
-                if (player.ID == userInputID)
-                {
-                    player.Ban();
-                }
+                player.Ban();
             }
+
             Console.Clear();
         }
 
         private void UnBanPlayerByID()
         {
             Console.Clear();
-            Console.WriteLine("Введите ID игрока: ");
-            int userInputID = CheckNumber();
 
-            foreach (var player in _players)
+            if (TryGetPlayer(out Player player) == true)
             {
-                if (player.ID == userInputID)
-                {
-                    player.UnBan();
-                }
+                player.UnBan();
             }
+
             Console.Clear();
         }
 
-        private void SearchPlayer()
+        private bool TryGetPlayer(out Player player)
         {
             Console.Clear();
             Console.WriteLine("Введите ID игрока: ");
             int userInputID = CheckNumber();
 
-            foreach (var player in _players)
+            for (int i = 0; i < _players.Count; i++)
             {
-                if (player.ID == userInputID)
+                if (_players[i].ID == userInputID)
                 {
-                    CheckPlayer(out player);
+                    player = _players[i];
+                    return true;
                 }
             }
-            Console.Clear();
-        }
-
-        private bool CheckPlayer(out Player player)
-        {
-            if (player != null)
-            {
-
-            }
+            player = null;
+            Console.WriteLine("Игрок не найден. ");
+            Console.ReadKey();
+            return false;
         }
 
         private int CheckNumber()
@@ -146,8 +124,7 @@ namespace ConsoleApp15
             const string CommandBanPlayer = "3";
             const string CommandUnBanPlayer = "4";
             const string CommandShowInfo = "5";
-            const string CommandSearchPlayer = "6";
-            const string CommandExit = "7";
+            const string CommandExit = "6";
             bool isActive = true;
 
             while (isActive == true)
@@ -157,7 +134,6 @@ namespace ConsoleApp15
                     CommandBanPlayer + " - Забанить игрока\n" +
                     CommandUnBanPlayer + " - Разбанить игрока\n" +
                     CommandShowInfo + " - Вывод списка игроков\n" +
-                    CommandSearchPlayer + " - Поиск игрока\n" +
                     CommandExit + " - Выход из программы\n");
                 string userInput = Console.ReadLine();
 
@@ -177,9 +153,6 @@ namespace ConsoleApp15
                         break;
                     case CommandShowInfo:
                         ShowAllPlayers();
-                        break;
-                    case CommandSearchPlayer:
-                        SearchPlayer();
                         break;
                     case CommandExit:
                         isActive = false;
