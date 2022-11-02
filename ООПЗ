@@ -22,6 +22,53 @@ namespace ConsoleApp15
             _players = players;
         }
 
+        public void Work()
+        {
+            const string CommandAddPlayer = "1";
+            const string CommandRemovePlayer = "2";
+            const string CommandBanPlayer = "3";
+            const string CommandUnBanPlayer = "4";
+            const string CommandShowInfo = "5";
+            const string CommandExit = "6";
+            bool isActive = true;
+
+            while (isActive == true)
+            {
+                Console.WriteLine(CommandAddPlayer + " - Добавить игрока\n" +
+                    CommandRemovePlayer + " - Удалить игрока\n" +
+                    CommandBanPlayer + " - Забанить игрока\n" +
+                    CommandUnBanPlayer + " - Разбанить игрока\n" +
+                    CommandShowInfo + " - Вывод списка игроков\n" +
+                    CommandExit + " - Выход из программы\n");
+                string userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                    case CommandAddPlayer:
+                        AddPlayer();
+                        break;
+                    case CommandRemovePlayer:
+                        RemovePlayer();
+                        break;
+                    case CommandBanPlayer:
+                        BanPlayerByID();
+                        break;
+                    case CommandUnBanPlayer:
+                        UnBanPlayerByID();
+                        break;
+                    case CommandShowInfo:
+                        ShowAllPlayers();
+                        break;
+                    case CommandExit:
+                        isActive = false;
+                        break;
+                    default:
+                        Console.Clear();
+                        break;
+                }
+            }
+        }
+
         private void AddPlayer()
         {
             Console.Clear();
@@ -115,53 +162,6 @@ namespace ConsoleApp15
             }
             
             return number;
-        }
-
-        public void Work()
-        {
-            const string CommandAddPlayer = "1";
-            const string CommandRemovePlayer = "2";
-            const string CommandBanPlayer = "3";
-            const string CommandUnBanPlayer = "4";
-            const string CommandShowInfo = "5";
-            const string CommandExit = "6";
-            bool isActive = true;
-
-            while (isActive == true)
-            {
-                Console.WriteLine(CommandAddPlayer + " - Добавить игрока\n" +
-                    CommandRemovePlayer + " - Удалить игрока\n" +
-                    CommandBanPlayer + " - Забанить игрока\n" +
-                    CommandUnBanPlayer + " - Разбанить игрока\n" +
-                    CommandShowInfo + " - Вывод списка игроков\n" +
-                    CommandExit + " - Выход из программы\n");
-                string userInput = Console.ReadLine();
-
-                switch (userInput)
-                {
-                    case CommandAddPlayer:
-                        AddPlayer();
-                        break;
-                    case CommandRemovePlayer:
-                        RemovePlayer();
-                        break;
-                    case CommandBanPlayer:
-                        BanPlayerByID();
-                        break;
-                    case CommandUnBanPlayer:
-                        UnBanPlayerByID();
-                        break;
-                    case CommandShowInfo:
-                        ShowAllPlayers();
-                        break;
-                    case CommandExit:
-                        isActive = false;
-                        break;
-                    default:
-                        Console.Clear();
-                        break;
-                }
-            }
         }
     }
 
