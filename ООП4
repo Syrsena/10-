@@ -21,39 +21,37 @@ namespace ConsoleApp15
 
     class Deck
     {
-        private List<Card> _cards = new List<Card>();
+        private List<Card> _cardsInDeck;
+        private List<Card> _cardsInHand;
 
         public Deck()
         {
-
-            _cards = new List<Card>();
-            int index = 0;
+            _cardsInDeck = new List<Card>();
+            _cardsInHand = new List<Card>();
 
             foreach (var suit in new[] { "Крести", "Черви", "Пики", "Бубны", })
             {
                 for (int value = 6; value <= 14; value++)
                 {
-                    index++;
-
                     if (value <= 10)
                     {
-                        _cards.Add(new Card(Convert.ToString(value), suit, index, value));
+                        _cardsInDeck.Add(new Card(Convert.ToString(value), suit));
                     }
                     else if (value == 11)
                     {
-                        _cards.Add(new Card("Валет", suit, index, 2));
+                        _cardsInDeck.Add(new Card("Валет", suit));
                     }
                     else if (value == 12)
                     {
-                        _cards.Add(new Card("Дама", suit, index, 3));
+                        _cardsInDeck.Add(new Card("Дама", suit));
                     }
                     else if (value == 13)
                     {
-                        _cards.Add(new Card("Король", suit, index, 4));
+                        _cardsInDeck.Add(new Card("Король", suit));
                     }
                     else if (value == 14)
                     {
-                        _cards.Add(new Card("Туз", suit, index, 11));
+                        _cardsInDeck.Add(new Card("Туз", suit));
                     }
                 }
             }
@@ -69,7 +67,7 @@ namespace ConsoleApp15
             while (isActive)
             {
                 Console.WriteLine(
-                CommandStartGame + " - Начать игру.\n" +
+                CommandStartGame + " - Начать.\n" +
                 CommandShowInfo + " - Посмотреть информацию о картах.\n" +
                 CommandExit + " - Выход.\n");
                 string userInput = Console.ReadLine();
@@ -81,7 +79,7 @@ namespace ConsoleApp15
                         Game();
                         break;
                     case CommandShowInfo:
-                        ShowAllCards();
+                        ShowAllCards(ref _cardsInDeck);
                         break;
                     case CommandExit:
                         isActive = false;
@@ -95,21 +93,24 @@ namespace ConsoleApp15
 
         private void Game()
         {
-            const string CommandTakeCard = "1";
-            const string CommandBreak = "2";
             bool isActive = true;
-            Console.WriteLine(CommandTakeCard + " - Взять карту.\n" + CommandBreak + " - Достаточно\n");
-            string userInput = Console.ReadLine();
+            _cardsInDeck = ShuffleCard();
 
             while (isActive)
             {
+                Console.SetCursorPosition(0, 0);
+                const string CommandTakeCard = "1";
+                const string CommandBreak = "2";
+                Console.WriteLine(CommandTakeCard + " - Взять карту.\n" + CommandBreak + " - Достаточно\n");
+                string userInput = Console.ReadLine();
+
                 switch (userInput)
                 {
-                    case CommandTakeCard: //берем карты и передаем классу Player. 
-
+                    case CommandTakeCard:
+                        TakeCard();
                         break;
                     case CommandBreak:
-
+                        isActive = Break();
                         break;
                     default:
                         Console.Clear();
@@ -120,26 +121,74 @@ namespace ConsoleApp15
 
         private void TakeCard()
         {
-            Random random = new Random();
-            random.Next(0, 36);
+            Console.Clear();
 
-            foreach (var card in _cards)
+            if (TryGetCard(out Card card) == true)
             {
-
+                _cardsInHand.Add(card);
+                _cardsInDeck.Remove(card);
+                int index = 0;
+                card.ShowCardInfo(ref index);
             }
+
+            Console.ReadKey();
+            Console.Clear();
         }
 
-        private void Break()
+        private bool Break()
         {
+            Console.Clear();
+            ShowAllCards(ref _cardsInHand);
 
-        }
-
-        private void ShowAllCards()
-        {
-            for (int i = 0; i < _cards.Count; i++)
+            foreach (var card in _cardsInHand)
             {
-                var card = _cards[i];
-                card.ShowCardsInfo(ref i);
+                _cardsInDeck.Add(card);
+            }
+
+            _cardsInHand.Clear();
+            return false;
+        }
+
+        private bool TryGetCard(out Card card)
+        {
+            if (_cardsInDeck.Count > 0)
+            {
+                for (int i = 0; i < _cardsInDeck.Count; i++)
+                {
+                    card = _cardsInDeck[i];
+                    return true;
+                }
+            }
+            else
+            {
+                Console.WriteLine("Карты кончились, бро");
+            }
+            card = null;
+            return false;
+        }
+
+        private List<Card> ShuffleCard()
+        {
+            List<Card> shuffledCards;
+            Random random = new Random();
+            shuffledCards = _cardsInDeck;
+
+            for (int i = 0; i < shuffledCards.Count; i++)
+            {
+                var temp = shuffledCards[0];
+                shuffledCards.RemoveAt(0);
+                shuffledCards.Insert(random.Next(shuffledCards.Count), temp);
+            }
+
+            return shuffledCards;
+        }
+
+        private void ShowAllCards(ref List<Card> cards)
+        {
+            for (int i = 0; i < cards.Count; i++)
+            {
+                var card = cards[i];
+                card.ShowCardInfo(ref i);
             }
             Console.ReadKey();
             Console.Clear();
@@ -150,32 +199,24 @@ namespace ConsoleApp15
     {
         private string _value;
         private string _suit;
+        private static int _lastIndex;
         private int _index;
-        private int _power;
 
-        public Card(string value, string suit, int index, int power)
+        public Card(string value, string suit)
         {
             _value = value;
             _suit = suit;
-            _index = index;
-            _power = power;
+            _index = ++_lastIndex;
         }
 
-        public void ShowCardsInfo(ref int i)
+        public void ShowCardInfo(ref int axisY)
         {
-            Console.SetCursorPosition(0, i);
+            Console.SetCursorPosition(0, axisY);
             Console.Write(_value);
-            Console.SetCursorPosition(8, i);
+            Console.SetCursorPosition(8, axisY);
             Console.Write(_suit);
-            Console.SetCursorPosition(35, i);
+            Console.SetCursorPosition(35, axisY);
             Console.Write(_index);
-            Console.SetCursorPosition(40, i);
-            Console.WriteLine(_power);
         }
-    }
-
-    class Player
-    {
-
     }
 }
