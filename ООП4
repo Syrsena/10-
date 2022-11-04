@@ -94,7 +94,7 @@ namespace ConsoleApp15
         private void Game()
         {
             bool isActive = true;
-            _cardsInDeck = ShuffleCard();
+            _cardsInDeck = ShuffleCards();
 
             while (isActive)
             {
@@ -127,8 +127,8 @@ namespace ConsoleApp15
             {
                 _cardsInHand.Add(card);
                 _cardsInDeck.Remove(card);
-                int index = 0;
-                card.ShowCardInfo(ref index);
+                int onY = 0;
+                card.ShowCardInfo(ref onY);
             }
 
             Console.ReadKey();
@@ -167,7 +167,7 @@ namespace ConsoleApp15
             return false;
         }
 
-        private List<Card> ShuffleCard()
+        private List<Card> ShuffleCards()
         {
             List<Card> shuffledCards;
             Random random = new Random();
@@ -199,24 +199,19 @@ namespace ConsoleApp15
     {
         private string _value;
         private string _suit;
-        private static int _lastIndex;
-        private int _index;
 
         public Card(string value, string suit)
         {
             _value = value;
             _suit = suit;
-            _index = ++_lastIndex;
         }
 
-        public void ShowCardInfo(ref int axisY)
+        public void ShowCardInfo(ref int onY)
         {
-            Console.SetCursorPosition(0, axisY);
+            Console.SetCursorPosition(0, onY);
             Console.Write(_value);
-            Console.SetCursorPosition(8, axisY);
+            Console.SetCursorPosition(8, onY);
             Console.Write(_suit);
-            Console.SetCursorPosition(35, axisY);
-            Console.Write(_index);
         }
     }
 }
