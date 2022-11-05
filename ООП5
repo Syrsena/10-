@@ -1,0 +1,159 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
+
+namespace ConsoleApp15
+
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Storage storage = new Storage();
+            storage.Work();
+        }
+    }
+
+    class Storage
+    {
+        private List<Book> _books;
+        
+        public Storage()
+        {
+            _books = new List<Book>();
+            _books.Add(new Book("Война и мир", "Лев Толстой", "1869"));
+            _books.Add(new Book("Мастер и Маргарита", "Михаил Булгаков", "1940"));
+            _books.Add(new Book("Собачье сердце", "Михаил Булгаков", "1925"));
+            _books.Add(new Book("Мертвые души", "Николай Гоголь", "1842"));
+            _books.Add(new Book("Преступление и наказание", "Федор Достоевский", "1866"));
+            _books.Add(new Book("Евгений Онегин", "Александр Пушкин", "1837"));
+            _books.Add(new Book("Отцы и дети", "Иван Тургенев", "1861"));
+            _books.Add(new Book("Повести Белкина", "Александр Пушкин", "1831"));
+            _books.Add(new Book("Идиот", "Федор Достоевский", "1869"));
+            _books.Add(new Book("Анна Каренина", "Лев Толстой", "1877"));
+        }
+
+        public void Work()
+        {
+            const string CommandAddBook = "1";
+            const string CommandRemoveBook = "2";
+            const string CommandShowAllBooks = "3";
+            const string CommandSearchByParameter = "4";
+            const string CommandExit = "0";
+
+            bool isActive = true;
+
+            while(isActive == true)
+            {
+                Console.Clear();
+                Console.WriteLine(
+                    CommandAddBook + " - Добавить новую книгу\n" +
+                    CommandRemoveBook + " - Удалить книгу\n" +
+                    CommandShowAllBooks + " - Показать все книги\n" +
+                    CommandSearchByParameter + " - Поиск по названию/автору/году выпуска\n" +
+                    CommandExit + " - Выход из программы\n");
+                string userInput = Console.ReadLine();
+
+                switch (userInput)
+                {
+                    case CommandAddBook:
+                        AddBook();
+                        break;
+                    case CommandRemoveBook:
+
+                        break;
+                    case CommandShowAllBooks:
+                        ShowAllBooksInfo();
+                        break;
+                    case CommandSearchByParameter:
+
+                        break;
+                    case CommandExit:
+                        isActive = false;
+                        break;
+                        default:
+                        Console.Clear();
+                        break;
+                }
+            }
+        }
+
+        private void AddBook()
+        {
+            if (CheckBook(out Book book) == true)
+            {
+                _books.Add(book);
+                Console.WriteLine("Успешно добавлено.");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("Такая книга уже есть в списке! ");
+            }
+        }
+
+        private bool CheckBook(out Book book)
+        {
+            Console.Clear();
+            Console.WriteLine("Введите название книги: ");
+            string userInputName = Console.ReadLine();
+            Console.WriteLine("Введите автора книни: ");
+            string userInputAuthor = Console.ReadLine();
+            Console.WriteLine("Введите дату издания книги: ");
+            string userInputReleaseYear = Console.ReadLine();
+
+            for (int i = 0; i < _books.Count; i++)
+            {
+                if (_books[i] == new Book(userInputName, userInputAuthor, userInputReleaseYear))
+                {
+                    book = null;
+                    return false;
+                }
+            }
+
+            book = new Book (userInputName, userInputAuthor, userInputReleaseYear);
+            return true;
+        }
+
+        private void ShowAllBooksInfo()
+        {
+            Console.Clear();
+
+            for (int i = 0; i < _books.Count; i++)
+            {
+                var book = _books[i];
+                book.ShowBookInfo(ref i);
+            }
+            Console.ReadKey();
+        }
+    }
+
+    class Book
+    {
+        private string _name;
+        private string _author;
+        private string _releaseYear;
+
+        public Book (string name, string author, string releaseYear)
+        {
+            _name = name;
+            _author = author;
+            _releaseYear = releaseYear;
+        }
+
+        public void ShowBookInfo(ref int onY)
+        {
+            Console.SetCursorPosition(0, onY);
+            Console.Write(_name);
+            Console.SetCursorPosition(30, onY);
+            Console.Write(_author);
+            Console.SetCursorPosition(50, onY);
+            Console.Write(_releaseYear);
+        }
+    }
+}
