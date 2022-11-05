@@ -145,13 +145,14 @@ namespace ConsoleApp15
             Console.WriteLine("Введите название книги: ");
             string userInputTitle = Console.ReadLine();
             Console.Clear();
+            int onY = 0;
 
             foreach (var book in _books)
             {
                 if (book.Title == userInputTitle)
                 {
-                    int onY = 0;
                     book.ShowBookInfo(ref onY);
+                    onY++;
                 }
             }
             Console.ReadKey();
@@ -163,13 +164,14 @@ namespace ConsoleApp15
             Console.WriteLine("Введите имя автора: ");
             string userInputAuthor = Console.ReadLine();
             Console.Clear();
+            int onY = 0;
 
             foreach (var book in _books)
             {
                 if (book.Author == userInputAuthor)
                 {
-                    int onY = 0;
                     book.ShowBookInfo(ref onY);
+                    onY++;
                 }
             }
             Console.ReadKey();
@@ -181,13 +183,14 @@ namespace ConsoleApp15
             Console.WriteLine("Введите год издания: ");
             string userInputReleaseYear = Console.ReadLine();
             Console.Clear();
+            int onY = 0;
 
             foreach (var book in _books)
             {
                 if (book.ReleaseYear == userInputReleaseYear)
                 {
-                    int onY = 0;
                     book.ShowBookInfo(ref onY);
+                    onY++;
                 }
             }
             Console.ReadKey();
