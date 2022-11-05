@@ -70,7 +70,7 @@ namespace ConsoleApp15
                         ShowAllBooksInfo();
                         break;
                     case CommandSearchByParameter:
-
+                        SearchByParametr();
                         break;
                     case CommandExit:
                         isActive = false;
@@ -112,22 +112,104 @@ namespace ConsoleApp15
             }
         }
 
+        private void SearchByParametr()
+        {
+            Console.Clear();
+            const string CommandSearchByTitle = "1";
+            const string CommandSearchByAuthor = "2";
+            const string CommandSearchByReleaseYear = "3";
+
+            Console.WriteLine(
+                    CommandSearchByTitle + " - Поиск по названию книги\n" +
+                    CommandSearchByAuthor + " - Поиск по автору\n" +
+                    CommandSearchByReleaseYear + " - Поиск по году издания\n");
+            string userInput = Console.ReadLine();
+
+            switch (userInput)
+            {
+                case CommandSearchByTitle:
+                    SearchByTitle();
+                    break;
+                case CommandSearchByAuthor:
+                    SearchByAuthor();
+                    break;
+                case CommandSearchByReleaseYear:
+                    SearchByReleaseYear();
+                    break;
+            }
+        }
+
+        private void SearchByTitle()
+        {
+            Console.Clear();
+            Console.WriteLine("Введите название книги: ");
+            string userInputTitle = Console.ReadLine();
+            Console.Clear();
+
+            foreach (var book in _books)
+            {
+                if (book.Title == userInputTitle)
+                {
+                    int onY = 0;
+                    book.ShowBookInfo(ref onY);
+                }
+            }
+            Console.ReadKey();
+        }
+
+        private void SearchByAuthor()
+        {
+            Console.Clear();
+            Console.WriteLine("Введите имя автора: ");
+            string userInputAuthor = Console.ReadLine();
+            Console.Clear();
+
+            foreach (var book in _books)
+            {
+                if (book.Author == userInputAuthor)
+                {
+                    int onY = 0;
+                    book.ShowBookInfo(ref onY);
+                }
+            }
+            Console.ReadKey();
+        }
+
+        private void SearchByReleaseYear()
+        {
+            Console.Clear();
+            Console.WriteLine("Введите год издания: ");
+            string userInputReleaseYear = Console.ReadLine();
+            Console.Clear();
+
+            foreach (var book in _books)
+            {
+                if (book.ReleaseYear == userInputReleaseYear)
+                {
+                    int onY = 0;
+                    book.ShowBookInfo(ref onY);
+                }
+            }
+            Console.ReadKey();
+        }
+
         private bool IsHasABook(out Book book)
         {
             Console.Clear();
             Console.WriteLine("Введите название книги: ");
-            string userInputName = Console.ReadLine();
+            string userInputTitle = Console.ReadLine();
             Console.WriteLine("Введите автора книни: ");
             string userInputAuthor = Console.ReadLine();
             Console.WriteLine("Введите дату издания книги: ");
             string userInputReleaseYear = Console.ReadLine();
 
-            book = new Book(userInputName, userInputAuthor, userInputReleaseYear);
+            book = new Book(userInputTitle, userInputAuthor, userInputReleaseYear);
 
             for (int i = 0; i < _books.Count; i++)
             {
-                if (_books[i].Name == book.Name && _books[i].Author == book.Author && _books[i].ReleaseYear == book.ReleaseYear)
+                if (_books[i].Title == book.Title && _books[i].Author == book.Author && _books[i].ReleaseYear == book.ReleaseYear)
                 {
+                    book = _books[i];
                     return true;
                 }
             }
@@ -150,18 +232,18 @@ namespace ConsoleApp15
 
     class Book
     {
-        private string _name;
+        private string _title;
         private string _author;
         private string _releaseYear;
 
-        public Book (string name, string author, string releaseYear)
+        public Book (string title, string author, string releaseYear)
         {
-            _name = name;
+            _title = title;
             _author = author;
             _releaseYear = releaseYear;
         }
 
-        public string Name { get { return _name; } }
+        public string Title { get { return _title; } }
 
         public string Author { get { return _author; } }
 
@@ -170,7 +252,7 @@ namespace ConsoleApp15
         public void ShowBookInfo(ref int onY)
         {
             Console.SetCursorPosition(0, onY);
-            Console.Write(_name);
+            Console.Write(_title);
             Console.SetCursorPosition(30, onY);
             Console.Write(_author);
             Console.SetCursorPosition(50, onY);
