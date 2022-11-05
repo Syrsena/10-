@@ -65,7 +65,7 @@ namespace ConsoleApp15
                         AddBook();
                         break;
                     case CommandRemoveBook:
-
+                        RemoveBook();
                         break;
                     case CommandShowAllBooks:
                         ShowAllBooksInfo();
@@ -93,7 +93,21 @@ namespace ConsoleApp15
             }
             else
             {
-                Console.WriteLine("Такая книга уже есть в списке! ");
+                Console.WriteLine("Такая книга уже есть в списке! "); //НЕ РАБОТАЕТ
+            }
+        }
+
+        private void RemoveBook()
+        {
+            if (CheckBook(out Book book) == true)
+            {
+                _books.Remove(book);
+                Console.WriteLine("Успешно удалено.");
+                Console.ReadKey();
+            }
+            else
+            {
+                Console.WriteLine("Такой книги нет в списке! "); //НЕ РАБОТАЕТ
             }
         }
 
@@ -109,7 +123,7 @@ namespace ConsoleApp15
 
             for (int i = 0; i < _books.Count; i++)
             {
-                if (_books[i] == new Book(userInputName, userInputAuthor, userInputReleaseYear))
+                if (_books[i] == new Book(userInputName, userInputAuthor, userInputReleaseYear)) //НЕ РАБОТАЕТ
                 {
                     book = null;
                     return false;
