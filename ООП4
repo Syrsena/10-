@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -14,49 +15,13 @@ namespace ConsoleApp15
     {
         static void Main(string[] args)
         {
-            Deck deck = new Deck();
-            deck.Menu();
+            Game croupier = new Game();
+            croupier.Menu();
         }
     }
 
-    class Deck
+    class Game
     {
-        private List<Card> _cardsInDeck;
-        private List<Card> _cardsInHand;
-
-        public Deck()
-        {
-            _cardsInDeck = new List<Card>();
-            _cardsInHand = new List<Card>();
-
-            foreach (var suit in new[] { "Крести", "Черви", "Пики", "Бубны", })
-            {
-                for (int value = 6; value <= 14; value++)
-                {
-                    if (value <= 10)
-                    {
-                        _cardsInDeck.Add(new Card(Convert.ToString(value), suit));
-                    }
-                    else if (value == 11)
-                    {
-                        _cardsInDeck.Add(new Card("Валет", suit));
-                    }
-                    else if (value == 12)
-                    {
-                        _cardsInDeck.Add(new Card("Дама", suit));
-                    }
-                    else if (value == 13)
-                    {
-                        _cardsInDeck.Add(new Card("Король", suit));
-                    }
-                    else if (value == 14)
-                    {
-                        _cardsInDeck.Add(new Card("Туз", suit));
-                    }
-                }
-            }
-        }
-
         public void Menu()
         {
             const string CommandStartGame = "1";
@@ -73,13 +38,16 @@ namespace ConsoleApp15
                 string userInput = Console.ReadLine();
                 Console.Clear();
 
+                Deck deck = new Deck();
+                Player player = new Player();
+
                 switch (userInput)
                 {
                     case CommandStartGame:
-                        Game();
+                        Work(ref deck, ref player);
                         break;
                     case CommandShowInfo:
-                        ShowAllCards(ref _cardsInDeck);
+                        deck.ShowAllCards();
                         break;
                     case CommandExit:
                         isActive = false;
@@ -91,10 +59,10 @@ namespace ConsoleApp15
             }
         }
 
-        private void Game()
+        private void Work(ref Deck deck, ref Player player)
         {
+            deck.ShuffleCards();
             bool isActive = true;
-            _cardsInDeck = ShuffleCards();
 
             while (isActive)
             {
@@ -107,10 +75,10 @@ namespace ConsoleApp15
                 switch (userInput)
                 {
                     case CommandTakeCard:
-                        TakeCard();
+                        player.TakeCard(ref deck);
                         break;
                     case CommandBreak:
-                        isActive = Break();
+                        isActive = player.Break();
                         break;
                     default:
                         Console.Clear();
@@ -118,44 +86,94 @@ namespace ConsoleApp15
                 }
             }
         }
+    }
 
-        private void TakeCard()
+    class Player
+    {
+        private List<Card> _cardsInHand = new List<Card>();
+
+
+        public void TakeCard(ref Deck deck)
+        {
+            _cardsInHand.Add(deck.GiveCard());
+        }
+
+        public bool Break()
+        {
+            Console.Clear();
+
+            if (_cardsInHand.Count > 0)
+            {
+                for (int i = 0; i < _cardsInHand.Count; i++)
+                {
+                    var card = _cardsInHand[i];
+                    card.ShowCardInfo(ref i);
+                }
+                Console.ReadKey();
+                Console.Clear();
+            }
+            else
+            {
+                Console.WriteLine("В руке нет карт.");
+                Console.ReadKey();
+                Console.Clear();
+            }
+
+
+
+            return false;
+        }
+    }
+
+    class Deck
+    {
+        private List<Card> _cardsInDeck;
+
+        public Deck()
+        {
+            string[] suit = { "Крести", "Черви", "Пики", "Бубны" };
+            string[] value = { "6", "7", "8", "9", "10", "Валет", "Дама", "Король", "Туз" };
+            List<Card> allCards = new List<Card>();
+
+            for (int i = 0; i < suit.Length; i++)
+            {
+                for (int j = 0; j < value.Length; j++)
+                {
+                    allCards.Add(new Card(suit[i], value[j]));
+                }
+            }
+
+            _cardsInDeck = allCards;
+        }
+
+
+
+        public Card GiveCard() 
         {
             Console.Clear();
 
             if (TryGetCard(out Card card) == true)
             {
-                _cardsInHand.Add(card);
                 _cardsInDeck.Remove(card);
                 int onY = 0;
                 card.ShowCardInfo(ref onY);
+                Console.ReadKey();
+                Console.Clear();
+                return card;
             }
-
-            Console.ReadKey();
-            Console.Clear();
-        }
-
-        private bool Break()
-        {
-            Console.Clear();
-            ShowAllCards(ref _cardsInHand);
-
-            foreach (var card in _cardsInHand)
+            else
             {
-                _cardsInDeck.Add(card);
+                return null;
             }
-
-            _cardsInHand.Clear();
-            return false;
         }
 
         private bool TryGetCard(out Card card)
         {
             if (_cardsInDeck.Count > 0)
             {
-                for (int i = 0; i < _cardsInDeck.Count; i++)
+                foreach (Card tempCard in _cardsInDeck)
                 {
-                    card = _cardsInDeck[i];
+                    card = tempCard;
                     return true;
                 }
             }
@@ -167,27 +185,26 @@ namespace ConsoleApp15
             return false;
         }
 
-        private List<Card> ShuffleCards()
+        public List<Card> ShuffleCards()
         {
-            List<Card> shuffledCards;
             Random random = new Random();
-            shuffledCards = _cardsInDeck;
+            int count = _cardsInDeck.Count;
 
-            for (int i = 0; i < shuffledCards.Count; i++)
+            for (int i = 0; i < count; i++)
             {
-                var temp = shuffledCards[0];
-                shuffledCards.RemoveAt(0);
-                shuffledCards.Insert(random.Next(shuffledCards.Count), temp);
+                Card tempCard = _cardsInDeck[i];
+                _cardsInDeck.RemoveAt(i);
+                _cardsInDeck.Insert(random.Next(0, count), tempCard);
             }
 
-            return shuffledCards;
+            return _cardsInDeck;
         }
 
-        private void ShowAllCards(ref List<Card> cards)
+        public void ShowAllCards()
         {
-            for (int i = 0; i < cards.Count; i++)
+            for (int i = 0; i < _cardsInDeck.Count; i++)
             {
-                var card = cards[i];
+                var card = _cardsInDeck[i];
                 card.ShowCardInfo(ref i);
             }
             Console.ReadKey();
@@ -197,21 +214,21 @@ namespace ConsoleApp15
 
     class Card
     {
-        private string _value;
-        private string _suit;
+        public string Value { get; private set; }
+        public string Suit { get; private set; }
 
         public Card(string value, string suit)
         {
-            _value = value;
-            _suit = suit;
+            Value = value;
+            Suit = suit;
         }
 
         public void ShowCardInfo(ref int onY)
         {
             Console.SetCursorPosition(0, onY);
-            Console.Write(_value);
+            Console.Write(Value);
             Console.SetCursorPosition(8, onY);
-            Console.Write(_suit);
+            Console.Write(Suit);
         }
     }
 }
