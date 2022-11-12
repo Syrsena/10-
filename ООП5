@@ -145,14 +145,14 @@ namespace ConsoleApp15
             Console.WriteLine("Введите название книги: ");
             string userInputTitle = Console.ReadLine();
             Console.Clear();
-            int onY = 0;
+            int axisY = 0;
 
             foreach (var book in _books)
             {
                 if (book.Title == userInputTitle)
                 {
-                    book.ShowBookInfo(ref onY);
-                    onY++;
+                    book.ShowBookInfo(ref axisY);
+                    axisY++;
                 }
             }
             Console.ReadKey();
@@ -164,14 +164,14 @@ namespace ConsoleApp15
             Console.WriteLine("Введите имя автора: ");
             string userInputAuthor = Console.ReadLine();
             Console.Clear();
-            int onY = 0;
+            int axisY = 0;
 
             foreach (var book in _books)
             {
                 if (book.Author == userInputAuthor)
                 {
-                    book.ShowBookInfo(ref onY);
-                    onY++;
+                    book.ShowBookInfo(ref axisY);
+                    axisY++;
                 }
             }
             Console.ReadKey();
@@ -183,14 +183,14 @@ namespace ConsoleApp15
             Console.WriteLine("Введите год издания: ");
             string userInputReleaseYear = Console.ReadLine();
             Console.Clear();
-            int onY = 0;
+            int axisY = 0;
 
             foreach (var book in _books)
             {
                 if (book.ReleaseYear == userInputReleaseYear)
                 {
-                    book.ShowBookInfo(ref onY);
-                    onY++;
+                    book.ShowBookInfo(ref axisY);
+                    axisY++;
                 }
             }
             Console.ReadKey();
@@ -235,31 +235,27 @@ namespace ConsoleApp15
 
     class Book
     {
-        private string _title;
-        private string _author;
-        private string _releaseYear;
+        public string Title { get; private set; }
 
-        public Book (string title, string author, string releaseYear)
+        public string Author { get; private set; }
+
+        public string ReleaseYear { get; private set; }
+
+        public Book(string title, string author, string releaseYear)
         {
-            _title = title;
-            _author = author;
-            _releaseYear = releaseYear;
+            Title = title;
+            Author = author;
+            ReleaseYear = releaseYear;
         }
 
-        public string Title { get { return _title; } }
-
-        public string Author { get { return _author; } }
-
-        public string ReleaseYear { get { return _releaseYear; } }
-
-        public void ShowBookInfo(ref int onY)
+        public void ShowBookInfo(ref int axisY)
         {
-            Console.SetCursorPosition(0, onY);
-            Console.Write(_title);
-            Console.SetCursorPosition(30, onY);
-            Console.Write(_author);
-            Console.SetCursorPosition(50, onY);
-            Console.Write(_releaseYear);
+            Console.SetCursorPosition(0, axisY);
+            Console.Write(Title);
+            Console.SetCursorPosition(30, axisY);
+            Console.Write(Author);
+            Console.SetCursorPosition(50, axisY);
+            Console.Write(ReleaseYear);
         }
     }
 }
