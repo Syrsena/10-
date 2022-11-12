@@ -1,0 +1,158 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp25
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Game game = new Game();
+            game.Menu();
+        }
+    }
+
+    class Game
+    {
+        public void Menu()
+        {
+            Player player = new Player();
+            Seller seller = new Seller();
+
+            const string CommandShowProducts = "1";
+            const string CommandBuyProduct = "2";
+            const string CommandHeroShowInventory = "3";
+            const string CommandExit = "4";
+
+            bool isActive = true;
+
+            while (isActive)
+            {
+                Console.Clear();
+                Console.WriteLine(
+                    CommandShowProducts + " - Показать товары.\n" +
+                    CommandBuyProduct + " - Купить товары.\n" +
+                    CommandHeroShowInventory + " - Показать Ваш ивнентарь.\n" +
+                    CommandExit + " - Уйти.\n");
+                string UserInput = Console.ReadLine();
+
+                switch (UserInput)
+                {
+                    case CommandShowProducts:
+                        ShowSellerProducts(ref seller);
+                        break;
+                    case CommandBuyProduct:
+
+                        break;
+                    case CommandHeroShowInventory:
+                        ShowHeroInventory(ref player);
+                        break;
+                    case CommandExit:
+                        isActive = false;
+                        break;
+                    default:
+                        Console.Clear();
+                        break;
+                }
+            }
+        }
+
+        private void ShowSellerProducts(ref Seller seller)
+        {
+            Console.Clear();
+
+            if(seller.Products != null)
+            {
+                for (int i = 0; i < seller.Products.Count; i++)
+                {
+                    seller.Products[i].ShowInfo();
+                }
+            }
+            else
+            {
+                Console.WriteLine("У торговца не осталось товара");
+            }
+            Console.ReadKey();
+        }
+
+        private void ShowHeroInventory(ref Player player)
+        {
+            Console.Clear();
+
+            if (player.Inventory != null)
+            {
+                for (int i = 0; i < player.Inventory.Count; i++)
+                {
+                    player.Inventory[i].ShowInfo();
+                }
+            }
+            else
+            {
+                Console.WriteLine("В вашем инвентаре пусто");
+            }
+            Console.ReadKey();
+        }
+    }
+
+    class Player
+    {
+        public int Money { get; private set; }
+        public List<Product> Inventory { get; protected set; }
+
+        public Player()
+        {
+            Money = 40000;
+        }
+    }
+
+    class Seller
+    {
+        public int Money { get; private set; }
+        public List<Product> Products { get; private set; }
+
+        public Seller()
+        {
+            Money = 100000;
+            List<Product> products = new List<Product>() { new Sword(), new Armor(), new Horse() };
+            Products = products;
+
+        }
+    }
+
+    abstract class Product
+    {
+        protected string _title;
+        protected int _price;
+
+        public Product(string title, int price)
+        {
+            _title = title;
+            _price = price;
+        }   
+
+        public virtual void ShowInfo()
+        {
+            Console.WriteLine(_title + " по цене - " + _price);
+        }
+    }
+
+    class Sword : Product
+    {
+        public Sword() : base("Меч", 9000) { }
+    }
+
+    class Armor : Product
+    {
+        public Armor() : base("Доспех", 25000) { }
+    }
+
+    class Horse : Product
+    {
+        public Horse() : base("Конь", 12000) { }
+    }
+
+
+}
