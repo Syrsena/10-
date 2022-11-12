@@ -22,7 +22,7 @@ namespace ConsoleApp15
     class Storage
     {
         private List<Book> _books = new List<Book>();
-        
+
         public Storage()
         {
             _books.Add(new Book("Война и мир", "Лев Толстой", "1869"));
@@ -47,7 +47,7 @@ namespace ConsoleApp15
 
             bool isActive = true;
 
-            while(isActive == true)
+            while (isActive == true)
             {
                 Console.Clear();
                 Console.WriteLine(
@@ -75,7 +75,7 @@ namespace ConsoleApp15
                     case CommandExit:
                         isActive = false;
                         break;
-                        default:
+                    default:
                         Console.Clear();
                         break;
                 }
@@ -84,7 +84,7 @@ namespace ConsoleApp15
 
         private void AddBook()
         {
-            if (IsHasABook(out Book book) == false)
+            if (IsHasBook(out Book book) == false)
             {
                 _books.Add(book);
                 Console.WriteLine("Успешно добавлено.");
@@ -99,7 +99,7 @@ namespace ConsoleApp15
 
         private void RemoveBook()
         {
-            if (IsHasABook(out Book book) == true)
+            if (IsHasBook(out Book book) == true)
             {
                 _books.Remove(book);
                 Console.WriteLine("Успешно удалено.");
@@ -196,7 +196,7 @@ namespace ConsoleApp15
             Console.ReadKey();
         }
 
-        private bool IsHasABook(out Book book)
+        private bool IsHasBook(out Book book)
         {
             Console.Clear();
             Console.WriteLine("Введите название книги: ");
