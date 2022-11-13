@@ -16,13 +16,13 @@ namespace ConsoleApp15
         static void Main(string[] args)
         {
             Game croupier = new Game();
-            croupier.Menu();
+            croupier.ShowMenu();
         }
     }
 
     class Game
     {
-        public void Menu()
+        public void ShowMenu()
         {
             const string CommandStartGame = "1";
             const string CommandShowInfo = "2";
@@ -44,7 +44,7 @@ namespace ConsoleApp15
                 switch (userInput)
                 {
                     case CommandStartGame:
-                        Work(ref deck, ref player);
+                        Work(deck, player);
                         break;
                     case CommandShowInfo:
                         deck.ShowAllCards();
@@ -59,7 +59,7 @@ namespace ConsoleApp15
             }
         }
 
-        private void Work(ref Deck deck, ref Player player)
+        private void Work(Deck deck, Player player)
         {
             deck.ShuffleCards();
             bool isActive = true;
@@ -78,7 +78,7 @@ namespace ConsoleApp15
                         player.TakeCard(ref deck);
                         break;
                     case CommandBreak:
-                        isActive = player.Break();
+                        isActive = player.FinalityGame();
                         break;
                     default:
                         Console.Clear();
@@ -92,13 +92,12 @@ namespace ConsoleApp15
     {
         private List<Card> _cardsInHand = new List<Card>();
 
-
         public void TakeCard(ref Deck deck)
         {
             _cardsInHand.Add(deck.GiveCard());
         }
 
-        public bool Break()
+        public bool FinalityGame()
         {
             Console.Clear();
 
@@ -107,7 +106,7 @@ namespace ConsoleApp15
                 for (int i = 0; i < _cardsInHand.Count; i++)
                 {
                     var card = _cardsInHand[i];
-                    card.ShowCardInfo(ref i);
+                    card.ShowCardInfo(i);
                 }
                 Console.ReadKey();
                 Console.Clear();
@@ -118,9 +117,6 @@ namespace ConsoleApp15
                 Console.ReadKey();
                 Console.Clear();
             }
-
-
-
             return false;
         }
     }
@@ -133,30 +129,26 @@ namespace ConsoleApp15
         {
             string[] suit = { "Крести", "Черви", "Пики", "Бубны" };
             string[] value = { "6", "7", "8", "9", "10", "Валет", "Дама", "Король", "Туз" };
-            List<Card> allCards = new List<Card>();
+            _cardsInDeck = new List<Card>();
 
             for (int i = 0; i < suit.Length; i++)
             {
                 for (int j = 0; j < value.Length; j++)
                 {
-                    allCards.Add(new Card(suit[i], value[j]));
+                    _cardsInDeck.Add(new Card(suit[i], value[j]));
                 }
             }
-
-            _cardsInDeck = allCards;
         }
 
-
-
-        public Card GiveCard() 
+        public Card GiveCard()
         {
             Console.Clear();
 
             if (TryGetCard(out Card card) == true)
             {
                 _cardsInDeck.Remove(card);
-                int onY = 0;
-                card.ShowCardInfo(ref onY);
+                int axisY = 0;
+                card.ShowCardInfo(axisY);
                 Console.ReadKey();
                 Console.Clear();
                 return card;
@@ -188,13 +180,15 @@ namespace ConsoleApp15
         public List<Card> ShuffleCards()
         {
             Random random = new Random();
-            int count = _cardsInDeck.Count;
+            int index;
+            Card value;
 
-            for (int i = 0; i < count; i++)
+            for (int i = _cardsInDeck.Count - 1; i >=0; i--)
             {
-                Card tempCard = _cardsInDeck[i];
-                _cardsInDeck.RemoveAt(i);
-                _cardsInDeck.Insert(random.Next(0, count), tempCard);
+                index = random.Next(i);
+                value = _cardsInDeck[index];
+                _cardsInDeck[index] = _cardsInDeck[i];
+                _cardsInDeck[i] = value;
             }
 
             return _cardsInDeck;
@@ -205,7 +199,7 @@ namespace ConsoleApp15
             for (int i = 0; i < _cardsInDeck.Count; i++)
             {
                 var card = _cardsInDeck[i];
-                card.ShowCardInfo(ref i);
+                card.ShowCardInfo(i);
             }
             Console.ReadKey();
             Console.Clear();
@@ -223,11 +217,11 @@ namespace ConsoleApp15
             Suit = suit;
         }
 
-        public void ShowCardInfo(ref int onY)
+        public void ShowCardInfo(int axisY)
         {
-            Console.SetCursorPosition(0, onY);
+            Console.SetCursorPosition(0, axisY);
             Console.Write(Value);
-            Console.SetCursorPosition(8, onY);
+            Console.SetCursorPosition(8, axisY);
             Console.Write(Suit);
         }
     }
