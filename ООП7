@@ -1,0 +1,71 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConsoleApp26
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            Work work = new Work();
+            work.Menu();
+        }
+    }
+
+    class Work
+    {
+        public void Menu()
+        {
+            const string CommandCreateRoute = "1";
+            const string CommandSellTickets = "2";
+            const string CommandFormTrain = "4";
+            const string CommandSendTrain = "5";
+            const string CommandExit = "0";
+
+            bool isActive = true;
+            string userInput = Console.ReadLine();
+
+            while (isActive)
+            {
+                Console.WriteLine(
+                    CommandCreateRoute + " - Создать направление поезда\n" +
+                    CommandSellTickets + " - Продать билеты\n" +
+                    CommandFormTrain + " - Сформировать поезд\n" +
+                    CommandSendTrain + " - Отправить поезд\n" +
+                    CommandExit + " - Выход\n");
+
+                switch (userInput)
+                {
+                    case CommandCreateRoute:
+
+                        break;
+                    case CommandSellTickets:
+
+                        break;
+                    case CommandFormTrain:
+
+                        break;
+                    case CommandSendTrain:
+
+                        break;
+                    case CommandExit:
+
+                        break;
+                    default:
+                        Console.Clear();
+                        break;
+                }
+            }
+        }
+    }
+
+    abstract class RailwayCarriage
+    {
+
+    }
+
+    class 
+}
