@@ -36,16 +36,17 @@ namespace ConsoleApp25
                     CommandShowProducts + " - Показать товары.\n" +
                     CommandBuyProduct + " - Купить товары.\n" +
                     CommandHeroShowInventory + " - Показать Ваш ивнентарь.\n" +
-                    CommandExit + " - Уйти.\n");
+                    CommandExit + " - Уйти.\n\n\n\n\n\n\n\n\n" +
+                    "Ваш баланс - " + player.Money);
                 string UserInput = Console.ReadLine();
 
                 switch (UserInput)
                 {
                     case CommandShowProducts:
-                        ShowSellerProducts(ref seller);
+                        ShowSellerProducts(seller);
                         break;
                     case CommandBuyProduct:
-
+                        BuyProduct(seller, player);
                         break;
                     case CommandHeroShowInventory:
                         ShowHeroInventory(ref player);
@@ -60,7 +61,7 @@ namespace ConsoleApp25
             }
         }
 
-        private void ShowSellerProducts(ref Seller seller)
+        private void ShowSellerProducts(Seller seller)
         {
             Console.Clear();
 
@@ -95,6 +96,65 @@ namespace ConsoleApp25
             }
             Console.ReadKey();
         }
+
+        private void BuyProduct(Seller seller, Player player)
+        {
+            if (seller.Products != null)
+            {
+                ShowSellerProducts(seller);
+                Console.WriteLine("Ввидите название желаемого предмета: ");
+                string userInput = Console.ReadLine();
+
+                if (GetProduct(seller, userInput, out Product product, player) == true)
+                {
+                    if (IsEnoughMoney(product, player) == true)
+                    {
+                        player.SpendMoney(product.Price);
+                        seller.GiveMoney(product.Price);
+                        player.Inventory.Add(product);
+                        seller.Products.Remove(product);
+                        Console.WriteLine("Успешная покупка !");
+                        Console.ReadKey();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Недостаточно золота");
+                        Console.ReadKey();
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("У торговца не осталось товара");
+                Console.ReadKey();
+            }
+        }
+
+        private bool GetProduct(Seller seller, string userInput, out Product produt, Player player)
+        {
+            foreach (var item in seller.Products)
+            {
+                if (userInput == item.Title)
+                {
+                    produt = item;
+                    return true;
+                }
+            }
+            produt = null;
+            return false;
+        }
+
+        private bool IsEnoughMoney(Product product, Player player)
+        {
+            if(player.Money >= product.Price)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 
     class Player
@@ -105,6 +165,12 @@ namespace ConsoleApp25
         public Player()
         {
             Money = 40000;
+            Inventory = new List<Product>();
+        }
+
+        public void SpendMoney(int sum)
+        {
+            Money -= sum;
         }
     }
 
@@ -118,24 +184,28 @@ namespace ConsoleApp25
             Money = 100000;
             List<Product> products = new List<Product>() { new Sword(), new Armor(), new Horse() };
             Products = products;
+        }
 
+        public void GiveMoney(int sum)
+        {
+            Money += sum;
         }
     }
 
     abstract class Product
     {
-        protected string _title;
-        protected int _price;
+        public string Title { get; private set; }
+        public int Price { get; private set; }
 
         public Product(string title, int price)
         {
-            _title = title;
-            _price = price;
+            Title = title;
+            Price = price;
         }   
 
         public virtual void ShowInfo()
         {
-            Console.WriteLine(_title + " по цене - " + _price);
+            Console.WriteLine(Title + " по цене - " + Price);
         }
     }
 
@@ -153,6 +223,4 @@ namespace ConsoleApp25
     {
         public Horse() : base("Конь", 12000) { }
     }
-
-
 }
