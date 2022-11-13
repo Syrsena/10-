@@ -151,7 +151,7 @@ namespace ConsoleApp15
             {
                 if (book.Title == userInputTitle)
                 {
-                    book.ShowBookInfo(ref axisY);
+                    book.ShowBookInfo(axisY);
                     axisY++;
                 }
             }
@@ -170,7 +170,7 @@ namespace ConsoleApp15
             {
                 if (book.Author == userInputAuthor)
                 {
-                    book.ShowBookInfo(ref axisY);
+                    book.ShowBookInfo(axisY);
                     axisY++;
                 }
             }
@@ -189,7 +189,7 @@ namespace ConsoleApp15
             {
                 if (book.ReleaseYear == userInputReleaseYear)
                 {
-                    book.ShowBookInfo(ref axisY);
+                    book.ShowBookInfo(axisY);
                     axisY++;
                 }
             }
@@ -227,7 +227,7 @@ namespace ConsoleApp15
             for (int i = 0; i < _books.Count; i++)
             {
                 var book = _books[i];
-                book.ShowBookInfo(ref i);
+                book.ShowBookInfo(i);
             }
             Console.ReadKey();
         }
@@ -248,7 +248,7 @@ namespace ConsoleApp15
             ReleaseYear = releaseYear;
         }
 
-        public void ShowBookInfo(ref int axisY)
+        public void ShowBookInfo(int axisY)
         {
             Console.SetCursorPosition(0, axisY);
             Console.Write(Title);
