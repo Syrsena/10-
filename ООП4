@@ -177,21 +177,19 @@ namespace ConsoleApp15
             return false;
         }
 
-        public List<Card> ShuffleCards()
+        public void ShuffleCards()
         {
             Random random = new Random();
             int index;
             Card value;
 
-            for (int i = _cardsInDeck.Count - 1; i >=0; i--)
+            for (int i = _cardsInDeck.Count - 1; i >= 0; i--)
             {
                 index = random.Next(i);
                 value = _cardsInDeck[index];
                 _cardsInDeck[index] = _cardsInDeck[i];
                 _cardsInDeck[i] = value;
             }
-
-            return _cardsInDeck;
         }
 
         public void ShowAllCards()
