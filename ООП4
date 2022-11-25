@@ -163,11 +163,8 @@ namespace ConsoleApp15
         {
             if (_cardsInDeck.Count > 0)
             {
-                foreach (Card tempCard in _cardsInDeck)
-                {
-                    card = tempCard;
-                    return true;
-                }
+                card = _cardsInDeck[0];
+                return true;
             }
             else
             {
