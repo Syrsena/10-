@@ -17,6 +17,8 @@ namespace ConsoleApp26
 
     class Work
     {
+        private List<Flight> _flights = new List<Flight>();
+
         public void Menu()
         {
             const string CommandCreateRoute = "1";
@@ -25,25 +27,28 @@ namespace ConsoleApp26
             const string CommandSendTrain = "5";
             const string CommandExit = "0";
 
+            string startingPoint;
+            string endingPoint;
             bool isActive = true;
-            string userInput = Console.ReadLine();
 
             while (isActive)
             {
+                Console.Clear();
                 Console.WriteLine(
                     CommandCreateRoute + " - Создать направление поезда\n" +
                     CommandSellTickets + " - Продать билеты\n" +
                     CommandFormTrain + " - Сформировать поезд\n" +
                     CommandSendTrain + " - Отправить поезд\n" +
                     CommandExit + " - Выход\n");
+                string userInput = Console.ReadLine();
 
                 switch (userInput)
                 {
                     case CommandCreateRoute:
-                        CreateRoute();
+                        CreateRoute(out startingPoint,out endingPoint);
                         break;
                     case CommandSellTickets:
-                        SellTickets();
+                        SellTickets(startingPoint, endingPoint);
                         break;
                     case CommandFormTrain:
 
@@ -61,21 +66,48 @@ namespace ConsoleApp26
             }
         }
 
-        private void CreateRoute()
+        private void CreateRoute(out string userInputStartingPoint,out string userInputEndingPoint)
         {
+            if(_flights.Count > 0)
             Console.Clear();
             Console.WriteLine("Введите начальную точку маршрута: ");
-            string userInputStartingPoint = Console.ReadLine();
+            userInputStartingPoint = Console.ReadLine();
             Console.WriteLine("Введите конечную точку маршрута: ");
-            string userInputEndingPoint = Console.ReadLine();
+            userInputEndingPoint = Console.ReadLine();
+            Console.WriteLine("Успешно!");
+            Console.ReadKey();
         }
 
-        private void SellTickets()
+        private void SellTickets(string startingPoint, string endingPoint)
         {
             Console.Clear();
             Random random = new Random();
-            int  random.Next(0,1000);
+            int selledTicketsCount = random.Next(0, 1000);
+            Flight flight = new Flight(startingPoint, endingPoint, selledTicketsCount); //null
+            _flights.Add(flight);
 
+            Console.WriteLine("Продано - " + selledTicketsCount + " билетов");
+            Console.ReadKey();
         }
+    }
+
+    class Flight // переводится как рейс. звучит как перелет конечно, но...
+    {
+        public string StartingPoint { get; private set; }
+        public string EndingPoint { get; private set; }
+        public int SelledTicketsCount { get; private set; }
+
+        public Flight(string startingPoint, string endingPoint, int selledTicketsCount)
+        {
+            StartingPoint = startingPoint;
+            EndingPoint = endingPoint;
+            SelledTicketsCount = selledTicketsCount;
+        }
+
+        //public void SetRoute(string startingPoint, string endingPoint)
+        //{
+        //    StartingPoint = startingPoint;
+        //    EndingPoint= endingPoint;
+        //}
     }
 }
