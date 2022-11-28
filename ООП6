@@ -99,7 +99,7 @@ namespace ConsoleApp25
 
         private void BuyProduct(Seller seller, Player player)
         {
-            if (seller.Inventory != null)
+            if (seller.Inventory.Count > 0)
             {
                 ShowSellerProducts(seller);
                 Console.WriteLine("Ввидите название желаемого предмета: ");
@@ -171,7 +171,7 @@ namespace ConsoleApp25
 
     class Player : Person
     {
-        public Player() : base(40000, new List<Product>()) { }
+        public Player() : base(70000, new List<Product>()) { }
 
         public void SpendMoney(int sum)
         {
