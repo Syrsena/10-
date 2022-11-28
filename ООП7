@@ -40,10 +40,10 @@ namespace ConsoleApp26
                 switch (userInput)
                 {
                     case CommandCreateRoute:
-
+                        CreateRoute();
                         break;
                     case CommandSellTickets:
-
+                        SellTickets();
                         break;
                     case CommandFormTrain:
 
@@ -60,12 +60,22 @@ namespace ConsoleApp26
                 }
             }
         }
+
+        private void CreateRoute()
+        {
+            Console.Clear();
+            Console.WriteLine("Введите начальную точку маршрута: ");
+            string userInputStartingPoint = Console.ReadLine();
+            Console.WriteLine("Введите конечную точку маршрута: ");
+            string userInputEndingPoint = Console.ReadLine();
+        }
+
+        private void SellTickets()
+        {
+            Console.Clear();
+            Random random = new Random();
+            int  random.Next(0,1000);
+
+        }
     }
-
-    abstract class RailwayCarriage
-    {
-
-    }
-
-    class 
 }
