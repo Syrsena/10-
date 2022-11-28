@@ -159,21 +159,6 @@ namespace ConsoleApp15
             }
         }
 
-        private bool TryGetCard(out Card card)
-        {
-            if (_cardsInDeck.Count > 0)
-            {
-                card = _cardsInDeck[0];
-                return true;
-            }
-            else
-            {
-                Console.WriteLine("Карты кончились, бро");
-            }
-            card = null;
-            return false;
-        }
-
         public void ShuffleCards()
         {
             Random random = new Random();
@@ -198,6 +183,21 @@ namespace ConsoleApp15
             }
             Console.ReadKey();
             Console.Clear();
+        }
+
+        private bool TryGetCard(out Card card)
+        {
+            if (_cardsInDeck.Count > 0)
+            {
+                card = _cardsInDeck[0];
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("Карты кончились, бро");
+            }
+            card = null;
+            return false;
         }
     }
 
