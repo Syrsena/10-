@@ -65,11 +65,11 @@ namespace ConsoleApp25
         {
             Console.Clear();
 
-            if(seller.Products != null)
+            if (seller.Inventory != null)
             {
-                for (int i = 0; i < seller.Products.Count; i++)
+                for (int i = 0; i < seller.Inventory.Count; i++)
                 {
-                    seller.Products[i].ShowInfo();
+                    seller.Inventory[i].ShowInfo();
                 }
             }
             else
@@ -99,7 +99,7 @@ namespace ConsoleApp25
 
         private void BuyProduct(Seller seller, Player player)
         {
-            if (seller.Products != null)
+            if (seller.Inventory != null)
             {
                 ShowSellerProducts(seller);
                 Console.WriteLine("Ввидите название желаемого предмета: ");
@@ -112,7 +112,7 @@ namespace ConsoleApp25
                         player.SpendMoney(product.Price);
                         seller.GiveMoney(product.Price);
                         player.Inventory.Add(product);
-                        seller.Products.Remove(product);
+                        seller.Inventory.Remove(product);
                         Console.WriteLine("Успешная покупка !");
                         Console.ReadKey();
                     }
@@ -132,7 +132,7 @@ namespace ConsoleApp25
 
         private bool GetProduct(Seller seller, string userInput, out Product produt, Player player)
         {
-            foreach (var item in seller.Products)
+            foreach (var item in seller.Inventory)
             {
                 if (userInput == item.Title)
                 {
@@ -146,7 +146,7 @@ namespace ConsoleApp25
 
         private bool IsEnoughMoney(Product product, Player player)
         {
-            if(player.Money >= product.Price)
+            if (player.Money >= product.Price)
             {
                 return true;
             }
@@ -157,16 +157,21 @@ namespace ConsoleApp25
         }
     }
 
-    class Player
+    abstract class Person
     {
-        public int Money { get; private set; }
+        public int Money { get; protected set; }
         public List<Product> Inventory { get; protected set; }
 
-        public Player()
+        public Person(int money, List<Product> inventory)
         {
-            Money = 40000;
-            Inventory = new List<Product>();
+            Money = money;
+            Inventory = inventory;
         }
+    }
+
+    class Player : Person
+    {
+        public Player() : base(40000, new List<Product>()) { }
 
         public void SpendMoney(int sum)
         {
@@ -174,17 +179,9 @@ namespace ConsoleApp25
         }
     }
 
-    class Seller
+    class Seller : Person
     {
-        public int Money { get; private set; }
-        public List<Product> Products { get; private set; }
-
-        public Seller()
-        {
-            Money = 100000;
-            List<Product> products = new List<Product>() { new Sword(), new Armor(), new Horse() };
-            Products = products;
-        }
+        public Seller() : base(100000, new List<Product>() { new Product("Меч", 15000), new Product("Конь", 20000), new Product("Доспех", 35000) }) { }
 
         public void GiveMoney(int sum)
         {
@@ -192,7 +189,7 @@ namespace ConsoleApp25
         }
     }
 
-    abstract class Product
+    class Product
     {
         public string Title { get; private set; }
         public int Price { get; private set; }
@@ -201,26 +198,11 @@ namespace ConsoleApp25
         {
             Title = title;
             Price = price;
-        }   
+        }
 
         public virtual void ShowInfo()
         {
             Console.WriteLine(Title + " по цене - " + Price);
         }
-    }
-
-    class Sword : Product
-    {
-        public Sword() : base("Меч", 9000) { }
-    }
-
-    class Armor : Product
-    {
-        public Armor() : base("Доспех", 25000) { }
-    }
-
-    class Horse : Product
-    {
-        public Horse() : base("Конь", 12000) { }
     }
 }
