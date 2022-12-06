@@ -37,7 +37,6 @@ namespace ConsoleApp15
                 CommandExit + " - Выход.\n");
                 string userInput = Console.ReadLine();
                 Console.Clear();
-
                 Deck deck = new Deck();
                 Player player = new Player();
 
