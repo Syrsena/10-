@@ -11,22 +11,20 @@ namespace ConsoleApp25
         static void Main(string[] args)
         {
             Game game = new Game();
-            game.Menu();
+            game.ShowMenu();
         }
     }
 
     class Game
     {
-        public void Menu()
+        public void ShowMenu()
         {
-            Player player = new Player();
-            Seller seller = new Seller();
-
             const string CommandShowProducts = "1";
             const string CommandBuyProduct = "2";
             const string CommandHeroShowInventory = "3";
             const string CommandExit = "4";
-
+            Player player = new Player();
+            Seller seller = new Seller();
             bool isActive = true;
 
             while (isActive)
@@ -43,13 +41,13 @@ namespace ConsoleApp25
                 switch (UserInput)
                 {
                     case CommandShowProducts:
-                        ShowSellerProducts(seller);
+                        seller.ShowSellerProducts(seller);
                         break;
                     case CommandBuyProduct:
-                        BuyProduct(seller, player);
+                        player.BuyProduct(seller, player);
                         break;
                     case CommandHeroShowInventory:
-                        ShowHeroInventory(ref player);
+                        player.ShowHeroInventory(player);
                         break;
                     case CommandExit:
                         isActive = false;
@@ -60,52 +58,33 @@ namespace ConsoleApp25
                 }
             }
         }
+    }
 
-        private void ShowSellerProducts(Seller seller)
+    abstract class Person
+    {
+        public int Money { get; protected set; }
+        public List<Product> Inventory { get; protected set; }
+
+        public Person(int money, List<Product> inventory)
         {
-            Console.Clear();
-
-            if (seller.Inventory != null)
-            {
-                for (int i = 0; i < seller.Inventory.Count; i++)
-                {
-                    seller.Inventory[i].ShowInfo();
-                }
-            }
-            else
-            {
-                Console.WriteLine("У торговца не осталось товара");
-            }
-            Console.ReadKey();
+            Money = money;
+            Inventory = inventory;
         }
+    }
 
-        private void ShowHeroInventory(ref Player player)
-        {
-            Console.Clear();
+    class Player : Person
+    {
+        public Player() : base(70000, new List<Product>()) { }
 
-            if (player.Inventory != null)
-            {
-                for (int i = 0; i < player.Inventory.Count; i++)
-                {
-                    player.Inventory[i].ShowInfo();
-                }
-            }
-            else
-            {
-                Console.WriteLine("В вашем инвентаре пусто");
-            }
-            Console.ReadKey();
-        }
-
-        private void BuyProduct(Seller seller, Player player)
+        public void BuyProduct(Seller seller, Player player)
         {
             if (seller.Inventory.Count > 0)
             {
-                ShowSellerProducts(seller);
+                seller.ShowSellerProducts(seller);
                 Console.WriteLine("Ввидите название желаемого предмета: ");
                 string userInput = Console.ReadLine();
 
-                if (GetProduct(seller, userInput, out Product product, player) == true)
+                if (seller.GetProduct(seller, userInput, out Product product, player) == true)
                 {
                     if (IsEnoughMoney(product, player) == true)
                     {
@@ -130,20 +109,6 @@ namespace ConsoleApp25
             }
         }
 
-        private bool GetProduct(Seller seller, string userInput, out Product produt, Player player)
-        {
-            foreach (var item in seller.Inventory)
-            {
-                if (userInput == item.Title)
-                {
-                    produt = item;
-                    return true;
-                }
-            }
-            produt = null;
-            return false;
-        }
-
         private bool IsEnoughMoney(Product product, Player player)
         {
             if (player.Money >= product.Price)
@@ -155,23 +120,24 @@ namespace ConsoleApp25
                 return false;
             }
         }
-    }
 
-    abstract class Person
-    {
-        public int Money { get; protected set; }
-        public List<Product> Inventory { get; protected set; }
-
-        public Person(int money, List<Product> inventory)
+        public void ShowHeroInventory(Player player)
         {
-            Money = money;
-            Inventory = inventory;
-        }
-    }
+            Console.Clear();
 
-    class Player : Person
-    {
-        public Player() : base(70000, new List<Product>()) { }
+            if (player.Inventory != null)
+            {
+                for (int i = 0; i < player.Inventory.Count; i++)
+                {
+                    player.Inventory[i].ShowInfo();
+                }
+            }
+            else
+            {
+                Console.WriteLine("В вашем инвентаре пусто");
+            }
+            Console.ReadKey();
+        }
 
         public void SpendMoney(int sum)
         {
@@ -182,6 +148,38 @@ namespace ConsoleApp25
     class Seller : Person
     {
         public Seller() : base(100000, new List<Product>() { new Product("Меч", 15000), new Product("Конь", 20000), new Product("Доспех", 35000) }) { }
+
+        public bool GetProduct(Seller seller, string userInput, out Product produt, Player player)
+        {
+            foreach (var item in Inventory)
+            {
+                if (userInput == item.Title)
+                {
+                    produt = item;
+                    return true;
+                }
+            }
+            produt = null;
+            return false;
+        }
+
+        public void ShowSellerProducts(Seller seller)
+        {
+            Console.Clear();
+
+            if (seller.Inventory != null)
+            {
+                for (int i = 0; i < seller.Inventory.Count; i++)
+                {
+                    seller.Inventory[i].ShowInfo();
+                }
+            }
+            else
+            {
+                Console.WriteLine("У торговца не осталось товара");
+            }
+            Console.ReadKey();
+        }
 
         public void GiveMoney(int sum)
         {
