@@ -15,8 +15,8 @@ namespace ConsoleApp15
     {
         static void Main(string[] args)
         {
-            Game croupier = new Game();
-            croupier.ShowMenu();
+            Game game = new Game();
+            game.ShowMenu();
         }
     }
 
@@ -74,10 +74,10 @@ namespace ConsoleApp15
                 switch (userInput)
                 {
                     case CommandTakeCard:
-                        player.TakeCard(ref deck);
+                        player.TakeCard(deck);
                         break;
                     case CommandBreak:
-                        isActive = player.FinalityGame();
+                        isActive = player.StopGame();
                         break;
                     default:
                         Console.Clear();
@@ -91,12 +91,12 @@ namespace ConsoleApp15
     {
         private List<Card> _cardsInHand = new List<Card>();
 
-        public void TakeCard(ref Deck deck)
+        public void TakeCard(Deck deck)
         {
-            _cardsInHand.Add(deck.GiveCard());
+            _cardsInHand.Add(deck.GiveCardOrNull());
         }
 
-        public bool FinalityGame()
+        public bool StopGame()
         {
             Console.Clear();
 
@@ -105,7 +105,7 @@ namespace ConsoleApp15
                 for (int i = 0; i < _cardsInHand.Count; i++)
                 {
                     var card = _cardsInHand[i];
-                    card.ShowCardInfo(i);
+                    card.ShowInfo(i);
                 }
                 Console.ReadKey();
                 Console.Clear();
@@ -126,20 +126,25 @@ namespace ConsoleApp15
 
         public Deck()
         {
-            string[] suit = { "Крести", "Черви", "Пики", "Бубны" };
-            string[] value = { "6", "7", "8", "9", "10", "Валет", "Дама", "Король", "Туз" };
+            SetDeck();
+        }
+
+        private void SetDeck()
+        {
+            string[] suits = { "Крести", "Черви", "Пики", "Бубны" };
+            string[] values = { "6", "7", "8", "9", "10", "Валет", "Дама", "Король", "Туз" };
             _cardsInDeck = new List<Card>();
 
-            for (int i = 0; i < suit.Length; i++)
+            for (int i = 0; i < suits.Length; i++)
             {
-                for (int j = 0; j < value.Length; j++)
+                for (int j = 0; j < values.Length; j++)
                 {
-                    _cardsInDeck.Add(new Card(suit[i], value[j]));
+                    _cardsInDeck.Add(new Card(suits[i], values[j]));
                 }
             }
         }
 
-        public Card GiveCard()
+        public Card GiveCardOrNull()
         {
             Console.Clear();
 
@@ -147,7 +152,7 @@ namespace ConsoleApp15
             {
                 _cardsInDeck.Remove(card);
                 int axisY = 0;
-                card.ShowCardInfo(axisY);
+                card.ShowInfo(axisY);
                 Console.ReadKey();
                 Console.Clear();
                 return card;
@@ -178,7 +183,7 @@ namespace ConsoleApp15
             for (int i = 0; i < _cardsInDeck.Count; i++)
             {
                 var card = _cardsInDeck[i];
-                card.ShowCardInfo(i);
+                card.ShowInfo(i);
             }
             Console.ReadKey();
             Console.Clear();
@@ -211,7 +216,7 @@ namespace ConsoleApp15
             Suit = suit;
         }
 
-        public void ShowCardInfo(int axisY)
+        public void ShowInfo(int axisY)
         {
             Console.SetCursorPosition(0, axisY);
             Console.Write(Value);
